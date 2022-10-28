@@ -8,7 +8,6 @@ export default function App() {
   return (
     <NativeBaseProvider>
       <Routes />
-      <Text>Fuck you bro</Text>
     </NativeBaseProvider>
   );
 }
