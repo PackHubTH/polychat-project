@@ -6,11 +6,11 @@ import { returnAuthContext } from "../../auth/AuthContext";
 
 const Profile = ({ navigation, route }) => {
 
-  const { user , logout } = returnAuthContext();
+  const { user, logout } = returnAuthContext();
 
-  const ProfileButton = ({ text, icon, onPress }) => {
+  const ProfileButton = ({ text, icon, onPress, color = "#1f2937" }) => {
     return (
-      <Pressable onPress={() => navigation.navigate(onPress)} >
+      <Pressable onPress={onPress} >
         {({
           isHovered,
           isFocused,
@@ -24,60 +24,69 @@ const Profile = ({ navigation, route }) => {
           >
             <HStack w="300" h="60" p="6" justifyContent="space-between" alignItems="center">
               <HStack alignItems="center" space={4}>
-                <IconFe name={icon} color="#1f2937" size="20px" />
-                <Text color="#1f2937">{text}</Text>
+                <IconFe name={icon} color={color} size="20px" />
+                <Text color={color}>{text}</Text>
               </HStack>
-              <IconFe name="chevron-right" color="#1f2937" size="24px" />
+              {
+                color === "#1f2937" ?
+                  <IconFe name="chevron-right" color="#1f2937" size="24px" /> : null
+              }
             </HStack>
           </Box>;
         }}
       </Pressable>
     )
   }
-  
+
   const handleLogout = async () => {
-   try {
-     await logout();
-     console.log("Logout Successful");
-     navigation.navigate("Login");
-   } catch (error) {
+    try {
+      await logout();
+      console.log("Logout Successful");
+      navigation.navigate("Login");
+    } catch (error) {
       console.log(error);
       console.log("Logout Failed");
-   }
+    }
 
   }
 
   return (
-    <Center safeArea flex={1}>
-      {/* <Text>This is {route.params.name}'s profile</Text> */}
-      <Avatar bg="amber.500" size="xl" source={{
-        uri: "https://bit.ly/broken-link"
-      }}>
+    <Box safeArea flex={1} bg="#fff" justifyContent="flex-end" alignItems="center">
+      <Avatar bg="amber.500" size="xl"
+        source={{
+          uri: "https://bit.ly/broken-link"
+        }}
+        style={{
+          border: "4px solid white",
+          top: "48px",
+          zIndex: 1
+        }}
+      >
         MR
       </Avatar>
-      <Text fontSize="2xl">{user && user.email}</Text>
-      <Text fontSize="md">Hi, I'm John.</Text>
-      {ProfileButton({ text: "Edit Profile", icon: "users", onPress: "EditProfile" })}
-      {ProfileButton({ text: "Emergency Contacts", icon: "user", onPress: "ECContacts" })}
-      {ProfileButton({ text: "Change Password", icon: "user", onPress: "ChangePassword" })}
-      <Button w="300" h="60" margin="10px" onPress={() => handleLogout()}>
-        Sign out
-      </Button>
-      <Text fontSize="sm" color="coolGray.600" _dark={{
-            color: "warmGray.200"
-          }}>
-            For dev: Go to {" "}
-          </Text>
-          <Link _text={{
-            color: "indigo.500",
-            fontWeight: "medium",
-            fontSize: "sm"
-          }} onPress={() => { 
-            navigation.navigate('Login') 
-            }}>
-            Main page
-          </Link>
-    </Center>
+      <Center bg="#d9d9d9" w="100%" h="90%" borderTopLeftRadius="20px" borderTopRightRadius="20px" justifyContent="flex-start">
+        <Text fontSize="md" fontWeight="bold" mt="60px">John Legend</Text>
+        <Text fontSize="sm" mt="8px" mb="40px">Hi, I'm John.</Text>
+        {ProfileButton({ text: "Edit Profile", icon: "users", onPress: () => navigation.navigate("EditProfile") })}
+        {ProfileButton({ text: "Emergency Contacts", icon: "user", onPress: () => navigation.navigate("ECContacts") })}
+        {ProfileButton({ text: "Change Password", icon: "user", onPress: () => navigation.navigate("ChangePassword") })}
+        {ProfileButton({ text: "Sign out", icon: "log-out", onPress: () => handleLogout(), color: "#eb3434" })}
+        <Text fontSize="sm" color="coolGray.600" _dark={{
+          color: "warmGray.200"
+        }}>
+          For dev: Go to {" "}
+        </Text>
+        <Link _text={{
+          color: "indigo.500",
+          fontWeight: "medium",
+          fontSize: "sm"
+        }} onPress={() => {
+          navigation.navigate('Login')
+        }}>
+          Main page
+        </Link>
+      </Center>
+    </Box>
   );
 };
 

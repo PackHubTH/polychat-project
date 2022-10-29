@@ -66,6 +66,9 @@ const ProfileStackScreen = () => {
       initialRouteName="Profile"
       screenOptions={{
         tabBarShowLabel: false,
+        style: {
+          backgroundColor: "#fff",
+        },
       }}
     >
       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
