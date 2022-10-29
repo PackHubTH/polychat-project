@@ -2,67 +2,71 @@ import React from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, Link, MaterialIcons, Pressable, Text, VStack } from "native-base";
 
 import { createUserWithEmailAndPassword }  from 'firebase/auth';
-import { auth } from '../../dbs/firebase-auth';
+import { auth } from '../../auth/firebase-auth';
+import { useAuthContext } from "../../auth/AuthContext";
 
 const Register = ({navigation, route}) => {
 
     const [regEmail, setRegEmail] = React.useState("");
     const [regPassword, setRegPassword] = React.useState("");
     const [confirmPassword, setConfirmPwd] = React.useState("");
-    const [formError, setError] = React.useState({});
+    const [formError, setFormError] = React.useState({});
+    const [error, setError] = React.useState({});
 
-    const register = async () => {
-        try {
-            console.log(regPassword);
-          const user = await createUserWithEmailAndPassword(
-            auth, regEmail, regPassword
-          );
-          console.log(user);
-        } catch(error) {
-          console.log(error.message);
-          throw new Error(`Cannot create account`);
-        }
-      };
+    const Reg = useAuthContext();
+
+    // const register = async () => {
+    //     try {
+    //         console.log(regPassword);
+    //       const user = await createUserWithEmailAndPassword(
+    //         auth, regEmail, regPassword
+    //       );
+    //       console.log(user);
+    //     } catch(error) {
+    //       console.log(error.message);
+    //       throw new Error(`Cannot create account`);
+    //     }
+    //   };
 
     const validate = () => {
         
         if(!/\S+@\S+\.\S+/.test(regEmail)) {
-            setError({
+            setFormError({
                 ...formError, name: "Invalid email address"
             })
             return false;
         }
 
         if(regEmail == "") {
-            setError({
+            setFormError({
                 ...formError, name: "Email is required!"
             })
             return false;
         }
 
         if(regPassword == "") {
-            setError({
+            setFormError({
                 ...formError, name: "Please create your password!"
             })
             return false
         }
 
         if(regPassword.length < 6) {
-            setError({
+            setFormError({
                 ...formError, name: "Password must consist of more than 6 characters!"
             })
             return false;
         }
 
         if(confirmPassword == "") {
-            setError({
+            setFormError({
                 ...formError, name: "Please confirm your password!"
             })
             return false
         }
 
         if(regPassword != confirmPassword) {
-            setError({
+            setFormError({
                 ...formError, name: "Both password field does not match!"
             })
             return false;
@@ -72,12 +76,18 @@ const Register = ({navigation, route}) => {
     }
 
     const submit = () => {
-        if(validate()) {
-            console.log("Submitted");
-            return true;
-        }
-        else {
-            console.log("Invalid Input");
+        try { 
+            if(validate()) {
+                Reg.method(regEmail, regPassword);
+                console.log("Submitted");
+                return true;
+            }
+            else {
+                console.log("Invalid Input");
+                return false;
+            }
+        } catch(error) {
+            console.log(error);
             return false;
         }
     }
@@ -103,9 +113,8 @@ const Register = ({navigation, route}) => {
 
                     <Button w="286" borderRadius="20" mt="2" colorScheme="indigo" 
                             onPress={() => {
-                                if(submit()) { 
-                                    register()
-                                    navigation.navigate('Login') 
+                                if(submit()) {
+                                    navigation.navigate('Login')
                                 }
                             }}>
                         Register

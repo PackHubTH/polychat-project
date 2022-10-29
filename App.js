@@ -3,11 +3,14 @@ import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 
 import Routes from './src/routes';
+import { AuthContextProvider } from './src/auth/AuthContext';
 
 export default function App() {
   return (
-    <NativeBaseProvider>
-      <Routes />
-    </NativeBaseProvider>
+    <AuthContextProvider>
+      <NativeBaseProvider>
+        <Routes />
+      </NativeBaseProvider>
+    </AuthContextProvider>
   );
 }
