@@ -3,9 +3,29 @@ import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, 
 
 import Logo from '../../../assets/logo.png';
 
+import Auth, { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../auth/firebase-auth"
+import { returnAuthContext } from "../../auth/AuthContext"; 
+
 const Login = ({ navigation, route }) => {
 
   const [show, setShow] = React.useState(false);
+  
+  const [loginEmail, setLoginEmail] = React.useState("");
+  const [loginPassword, setLoginPassword] = React.useState("");
+  const [formError, setFormError] = React.useState({});
+  const { login } = returnAuthContext();
+
+  const handleLogin = async () => {
+    try {
+      await login(loginEmail, loginPassword);
+      navigation.navigate('Home');
+      console.log("Login Successful");
+    } catch (error) {
+      setFormError({ ...formError, value: "error"});
+      console.log(error);
+    }
+  };
 
   return (
     <Center safeArea flex={1} bg='#fff'>
@@ -20,10 +40,16 @@ const Login = ({ navigation, route }) => {
 
       <VStack space={3} mt="5" alignItems="center">
         <FormControl isRequired>
+
           <FormControl.Label>Email ID</FormControl.Label>
-          <Input placeholder="Email or Phone number" variant='rounded' w="286" />
+          <Input placeholder="Email" variant='rounded' w="286" 
+                onChangeText={(event) => setLoginEmail(event)}
+          />
+
           <FormControl.Label isRequired>Password</FormControl.Label>
-          <Input placeholder="Password" variant='rounded' type="password" w="286" />
+          <Input placeholder="Password" variant='rounded' type="password" w="286" 
+                onChangeText={(event) => setLoginPassword(event)}
+          />
           <Link _text={{
             fontSize: "xs",
             fontWeight: "500",
@@ -32,9 +58,18 @@ const Login = ({ navigation, route }) => {
             Forget Password?
           </Link>
         </FormControl>
-        <Button w="286" borderRadius="20" mt="2" colorScheme="indigo" onPress={() => navigation.navigate('Home')}>
+        <Button w="286" borderRadius="20" mt="2" colorScheme="indigo" 
+                onPress={() => {
+                  handleLogin()
+                }}>
           Sign in
         </Button>
+        <FormControl>
+        {
+            'value' in formError ? <FormControl.ErrorMessage>Login Failed</FormControl.ErrorMessage> : 
+            <FormControl.HelperText>Please insert your email address and password</FormControl.HelperText>
+        }
+        </FormControl>
         <HStack mt="6" justifyContent="center">
           <Text fontSize="sm" color="coolGray.600" _dark={{
             color: "warmGray.200"
@@ -45,7 +80,9 @@ const Login = ({ navigation, route }) => {
             color: "indigo.500",
             fontWeight: "medium",
             fontSize: "sm"
-          }} href="#">
+          }} onPress={() => { 
+            navigation.navigate('Register') 
+            }}>
             Create Account
           </Link>
         </HStack>

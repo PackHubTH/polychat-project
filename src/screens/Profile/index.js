@@ -2,7 +2,11 @@ import { Avatar, Box, Button, Center, Flex, FormControl, Heading, HStack, Icon, 
 
 import IconFe from 'react-native-vector-icons/Feather';
 
+import { returnAuthContext } from "../../auth/AuthContext";
+
 const Profile = ({ navigation, route }) => {
+
+  const { user , logout } = returnAuthContext();
 
   const ProfileButton = ({ text, icon, onPress }) => {
     return (
@@ -30,6 +34,18 @@ const Profile = ({ navigation, route }) => {
       </Pressable>
     )
   }
+  
+  const handleLogout = async () => {
+   try {
+     await logout();
+     console.log("Logout Successful");
+     navigation.navigate("Login");
+   } catch (error) {
+      console.log(error);
+      console.log("Logout Failed");
+   }
+
+  }
 
   return (
     <Center safeArea flex={1}>
@@ -39,14 +55,28 @@ const Profile = ({ navigation, route }) => {
       }}>
         MR
       </Avatar>
-      <Text fontSize="2xl">John Legend</Text>
+      <Text fontSize="2xl">{user && user.email}</Text>
       <Text fontSize="md">Hi, I'm John.</Text>
       {ProfileButton({ text: "Edit Profile", icon: "users", onPress: "EditProfile" })}
       {ProfileButton({ text: "Emergency Contacts", icon: "user", onPress: "ECContacts" })}
       {ProfileButton({ text: "Change Password", icon: "user", onPress: "ChangePassword" })}
-      <Button w="300" h="60" margin="10px" onPress={() => navigation.navigate("Login")}>
+      <Button w="300" h="60" margin="10px" onPress={() => handleLogout()}>
         Sign out
       </Button>
+      <Text fontSize="sm" color="coolGray.600" _dark={{
+            color: "warmGray.200"
+          }}>
+            For dev: Go to {" "}
+          </Text>
+          <Link _text={{
+            color: "indigo.500",
+            fontWeight: "medium",
+            fontSize: "sm"
+          }} onPress={() => { 
+            navigation.navigate('Login') 
+            }}>
+            Main page
+          </Link>
     </Center>
   );
 };

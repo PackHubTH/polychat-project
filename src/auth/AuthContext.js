@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
@@ -11,12 +11,25 @@ import { auth  } from './firebase-auth';
 const UserContext = React.createContext()
 
 export const AuthContextProvider = ({children}) => {
+    
+    const register = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    };
+
+    const login = (email, password) => {
+        return signInWithEmailAndPassword(auth, email, password);
+    };
+
+    const logout = () => {
+        return signOut(auth);
+    };
 
     const [user, setUser] = React.useState({});
-
-    useEffect( () => {
+    React.useEffect( () => {
         const authState = onAuthStateChanged(auth, (currentUser) => {
-            console.log(currentUser);
+            //console.log(currentUser);
+            if(currentUser != null) console.log(`Current User: ${currentUser.email}`)
+            else console.log("No user");
             setUser(currentUser);
         })
 
@@ -24,16 +37,16 @@ export const AuthContextProvider = ({children}) => {
             authState();
         };
     });
-
-    const register = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
-    }
-
+    
     return(
-        <UserContext.Provider value={{ method: register}}>
+        <UserContext.Provider value={{ method: register, user, logout, login}}>
             {children}
         </UserContext.Provider>
     )
 } 
 
 export const useAuthContext = () => React.useContext(UserContext)
+
+export const returnAuthContext = () => {
+    return React.useContext(UserContext);
+}
