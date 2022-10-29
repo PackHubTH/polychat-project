@@ -4,9 +4,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import { BiDonateHeart } from 'react-icons/bi';
-import { FiUser, FiUsers } from "react-icons/fi";
-import { RiChat3Line } from 'react-icons/ri';
+import IconFe from 'react-native-vector-icons/Feather';
+import IconIo from 'react-native-vector-icons/Ionicons';
+import IconMa from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../screens/Home';
 import ChangePasswordScreen from '../screens/Profile/ChangePassword';
@@ -26,12 +26,13 @@ const HomeTab = createBottomTabNavigator();
 const HomeTabIcon = ({ focused, icon, text }) => {
   return (
     <>
-      <Icon
+      {/* <Icon
         as={icon}
         color={focused ? '#188ffc' : '#1f2937'}
         name={text}
         size={4}
-      />
+      /> */}
+      {icon}
       <Text
         color={focused ? '#188ffc' : '#1f2937'}
         fontSize="10px"
@@ -88,12 +89,20 @@ const HomeTabScreen = () => {
     >
       <HomeTab.Screen name="1" component={HomeScreen}
         options={{
-          tabBarIcon: ({ focused }) => HomeTabIcon({ focused, icon: RiChat3Line, text: 'Chats' }),
+          tabBarIcon: ({ focused }) => HomeTabIcon({
+            focused,
+            icon: <IconIo name="chatbubble-outline" size="16px" color={focused ? '#188ffc' : '#1f2937'} />,
+            text: 'Chats'
+          }),
         }}
       />
       <HomeTab.Screen name="2" component={HomeScreen}
         options={{
-          tabBarIcon: ({ focused }) => HomeTabIcon({ focused, icon: BiDonateHeart, text: 'Assistance' }),
+          tabBarIcon: ({ focused }) => HomeTabIcon({
+            focused,
+            icon: <IconMa name="hand-heart-outline" size="16px" color={focused ? '#188ffc' : '#1f2937'} />,
+            text: 'Assistance'
+          }),
         }}
       />
       <HomeTab.Screen name="3" component={HomeScreen}
@@ -103,12 +112,20 @@ const HomeTabScreen = () => {
       />
       <HomeTab.Screen name="4" component={HomeScreen}
         options={{
-          tabBarIcon: ({ focused }) => HomeTabIcon({ focused, icon: FiUsers, text: 'Friends' }),
+          tabBarIcon: ({ focused }) => HomeTabIcon({
+            focused,
+            icon: <IconFe name="users" size="16px" color={focused ? '#188ffc' : '#1f2937'} />,
+            text: 'Friends'
+          }),
         }}
       />
       <HomeTab.Screen name="5" component={ProfileStackScreen}
         options={{
-          tabBarIcon: ({ focused }) => HomeTabIcon({ focused, icon: FiUser, text: 'Profile' }),
+          tabBarIcon: ({ focused }) => HomeTabIcon({
+            focused,
+            icon: <IconFe name="users" size="16px" color={focused ? '#188ffc' : '#1f2937'} />,
+            text: 'Profile'
+          }),
         }}
       />
     </HomeTab.Navigator>

@@ -1,6 +1,6 @@
 import { Avatar, Box, Button, Center, Flex, FormControl, Heading, HStack, Icon, Input, Link, MaterialIcons, Pressable, Text, VStack } from "native-base";
-import { FaChevronRight } from "react-icons/fa";
-import { FiBook, FiEdit3, FiLock } from "react-icons/fi";
+
+import IconFe from 'react-native-vector-icons/Feather';
 
 const Profile = ({ navigation, route }) => {
 
@@ -18,12 +18,12 @@ const Profile = ({ navigation, route }) => {
             }]
           }} rounded="20" shadow={3} marginTop="10px" marginBottom="10px"
           >
-            <HStack w="300" h="60" p="4" justifyContent="space-between" alignItems="center">
+            <HStack w="300" h="60" p="6" justifyContent="space-between" alignItems="center">
               <HStack alignItems="center" space={4}>
-                <Icon as={icon} color="#1f2937" name={text + "1"} />
+                <IconFe name={icon} color="#1f2937" size="20px" />
                 <Text color="#1f2937">{text}</Text>
               </HStack>
-              <Icon as={FaChevronRight} color="#1f2937" name={text + "2"} />
+              <IconFe name="chevron-right" color="#1f2937" size="24px" />
             </HStack>
           </Box>;
         }}
@@ -41,9 +41,9 @@ const Profile = ({ navigation, route }) => {
       </Avatar>
       <Text fontSize="2xl">John Legend</Text>
       <Text fontSize="md">Hi, I'm John.</Text>
-      {ProfileButton({ text: "Edit Profile", icon: FiEdit3, onPress: "EditProfile" })}
-      {ProfileButton({ text: "Emergency Contacts", icon: FiBook, onPress: "ECContacts" })}
-      {ProfileButton({ text: "Change Password", icon: FiLock, onPress: "ChangePassword" })}
+      {ProfileButton({ text: "Edit Profile", icon: "users", onPress: "EditProfile" })}
+      {ProfileButton({ text: "Emergency Contacts", icon: "user", onPress: "ECContacts" })}
+      {ProfileButton({ text: "Change Password", icon: "user", onPress: "ChangePassword" })}
       <Button w="300" h="60" margin="10px" onPress={() => navigation.navigate("Login")}>
         Sign out
       </Button>
