@@ -1,12 +1,21 @@
 {
   "name": "polychatproject",
-  "version": "1.0.0",
+  "version": "0.2.0",
+  "license" : "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PackHubTH/polychat-project.git"
+  },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
+    "start:tunnel": "expo start --tunnel",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "ios:parallel:test": "chmod ug+x $PWD/simulator/ios-parallel-test & $PWD/simulator/ios-parallel-test",
+    "ios:parallel:prep": "chmod ug+x $PWD/simulator/ios-parallel-prep & $PWD/simulator/ios-parallel-prep",
+    "test": "chmod ug+x $PWD/simulator/test & $PWD/simulator/test"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
