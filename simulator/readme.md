@@ -6,7 +6,7 @@ The following use script files to run parallel emulator at once. Please refer to
 
 ## Running Test Script
 
-- Manually you can run just a file name to run a script, use `cd` into this folder, then run to see if `Hello Test!` is echo out:
+- Manually you can run just a file name to run a script, use `cd` into this folder, then run to see if `Hello Test! If you see this, the script is working!` is echo out:
 
 ```
 $PWD/test
@@ -57,5 +57,3 @@ Then run it with yarn/npm/npx/expo/etc.
 ## Troubleshooting
 - No permission - if the script files doesn't have execute permission, please use chmod, sudo,
 or run following script as administrator.
-
-- No simulator found - Please refer to the requirement, as such. Since you are re

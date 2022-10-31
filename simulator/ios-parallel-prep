@@ -2,7 +2,7 @@
 
 echo  Preparing iOS Parallel Emulator
 echo  Installing Expo
-declare -a simulators()
+declare -a simulators=()
 
 for i in "${simulators[@]}"
 do
