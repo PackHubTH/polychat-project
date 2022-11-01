@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, Center } from "native-base";
 import Friend from "./Friend";
-import { mock_friendsRequest } from "./data";
+import { mock_friendsRequest, mock_friends } from "./data";
 import Icon from "react-native-vector-icons/Feather";
 import { color } from "../../../Style";
 import RemoveItemArray from "../../utils/RemoveItemArray";
@@ -45,8 +45,9 @@ const style = StyleSheet.create({
   },
 });
 
-const FriendRequest = () => {
+const FriendRequest = (props) => {
   const [friendRequests, setFriendRequests] = useState(mock_friendsRequest);
+
   return (
     <View style={style.component}>
       <View style={style.wrap}>
@@ -57,19 +58,26 @@ const FriendRequest = () => {
         <View style={style.content}>
           {friendRequests.map((e, i) => {
             return (
-              <View style={style.friendRequest}>
-                <Friend key={i} friend={e} gap={0} width={"70%"} />
+              <View key={i} style={style.friendRequest}>
+                <Friend friend={e} gap={0} width={"70%"} />
                 <Center style={style.command}>
                   <Icon
+                    //accept friend and update
+                    onPress={() => {
+                      props.setFriends((previous) => [...previous, e]);
+                      const array = RemoveItemArray(friendRequests, e);
+                      setFriendRequests([...array]);
+                    }}
                     name="check-circle"
                     size={18}
                     color={color.green}
                     style={{ paddingRight: 12 }}
                   />
                   <Icon
+                    //reject friend
                     onPress={() => {
                       const array = RemoveItemArray(friendRequests, e);
-                      setFriendRequests(array);
+                      setFriendRequests([...array]);
                     }}
                     name="x-circle"
                     size={18}

@@ -2,6 +2,8 @@ import { StyleSheet, View } from "react-native";
 import FriendList from "./FriendList";
 import { contentLayout } from "../../../Style";
 import FriendRequest from "./FriendRequest";
+import { useState } from "react";
+import { mock_friends } from "./data";
 
 const style = StyleSheet.create({
   page: {
@@ -15,11 +17,12 @@ const style = StyleSheet.create({
 });
 
 const FriendsScreen = () => {
+  const [friends, setFriends] = useState(mock_friends);
   return (
     <View style={style.page}>
       <View style={style.content}>
-        <FriendRequest />
-        <FriendList />
+        <FriendRequest setFriends={setFriends} />
+        <FriendList friends={friends} />
       </View>
     </View>
   );
