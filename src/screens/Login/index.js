@@ -1,11 +1,10 @@
 import React from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, Link, MaterialIcons, Pressable, Text, VStack } from "native-base";
-
+import Auth, { signInWithEmailAndPassword } from "firebase/auth";
 import Logo from '../../../assets/logo.png';
 
-import Auth, { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../auth/firebase-auth"
-import { returnAuthContext } from "../../auth/AuthContext"; 
+import { auth } from "../../utils/auth/FirebaseAuth"
+import { returnAuthContext } from "../../utils/auth/AuthContext"; 
 
 const Login = ({ navigation, route }) => {
 

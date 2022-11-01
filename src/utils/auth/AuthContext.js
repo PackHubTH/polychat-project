@@ -5,15 +5,18 @@ import {
     onAuthStateChanged,
     signOut
 } from 'firebase/auth';
-import { auth  } from './firebase-auth';
 
+import { auth  } from './FirebaseAuth';
+import { createRegisterData } from '../dbs/AuthDb';
 
 const UserContext = React.createContext()
 
 export const AuthContextProvider = ({children}) => {
     
     const register = (email, password) => {
-        return createUserWithEmailAndPassword(auth, email, password);
+        const user = createUserWithEmailAndPassword(auth, email, password);
+        logout();
+        return user;
     };
 
     const login = (email, password) => {
@@ -27,7 +30,7 @@ export const AuthContextProvider = ({children}) => {
     const [user, setUser] = React.useState({});
     React.useEffect( () => {
         const authState = onAuthStateChanged(auth, (currentUser) => {
-            //console.log(currentUser);
+            console.log(currentUser);
             if(currentUser != null) console.log(`Current User: ${currentUser.email}`)
             else console.log("No user");
             setUser(currentUser);

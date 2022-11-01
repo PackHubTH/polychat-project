@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Center, Flex, FormControl, Heading, HStack, Icon, 
 
 import IconFe from 'react-native-vector-icons/Feather';
 
-import { returnAuthContext } from "../../auth/AuthContext";
+import { returnAuthContext } from "../../utils/auth/AuthContext";
 
 const Profile = ({ navigation, route }) => {
 
@@ -65,7 +65,7 @@ const Profile = ({ navigation, route }) => {
         MR
       </Avatar>
       <Center bg="#d9d9d9" w="100%" h="90%" borderTopLeftRadius="20px" borderTopRightRadius="20px" justifyContent="flex-start">
-        <Text fontSize="md" fontWeight="bold" mt="60px">John Legend</Text>
+        <Text fontSize="md" fontWeight="bold" mt="60px">{user && user.email}</Text>
         <Text fontSize="sm" mt="8px" mb="40px">Hi, I'm John.</Text>
         {ProfileButton({ text: "Edit Profile", icon: "users", onPress: () => navigation.navigate("EditProfile") })}
         {ProfileButton({ text: "Emergency Contacts", icon: "user", onPress: () => navigation.navigate("ECContacts") })}

@@ -1,15 +1,13 @@
 import { Box, Button, Center, HStack, Pressable } from 'native-base';
 import React from 'react';
-
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '../../auth/firebase-auth';
 
-import { useAuthContext, returnAuthContext  } from '../../auth/AuthContext';
+import { useAuthContext, returnAuthContext  } from '../../utils/auth/FirebaseAuth';
 
 const Home = ({ navigation }) => {
-
+  
+  const [selected, setSelected] = React.useState(1);
   const {user, logout} = returnAuthContext();
-  // const [selected, setSelected] = React.useState(1);
   // const [user, setUser] = React.useState({});
 
   // onAuthStateChanged(auth, (currentUser) => {

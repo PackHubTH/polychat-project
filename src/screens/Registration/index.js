@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, Link, MaterialIcons, Pressable, Text, VStack } from "native-base";
-
 import { createUserWithEmailAndPassword }  from 'firebase/auth';
-import { auth } from '../../auth/firebase-auth';
-import { useAuthContext } from "../../auth/AuthContext";
+
+import { auth } from '../../utils/auth/FirebaseAuth'
+import { returnAuthContext } from "../../utils/auth/AuthContext";
 
 const Register = ({navigation, route}) => {
 
@@ -13,20 +13,7 @@ const Register = ({navigation, route}) => {
     const [formError, setFormError] = React.useState({});
     const [error, setError] = React.useState({});
 
-    const Reg = useAuthContext();
-
-    // const register = async () => {
-    //     try {
-    //         console.log(regPassword);
-    //       const user = await createUserWithEmailAndPassword(
-    //         auth, regEmail, regPassword
-    //       );
-    //       console.log(user);
-    //     } catch(error) {
-    //       console.log(error.message);
-    //       throw new Error(`Cannot create account`);
-    //     }
-    //   };
+    const { register } = returnAuthContext();
 
     const validate = () => {
         
@@ -78,7 +65,7 @@ const Register = ({navigation, route}) => {
     const submit = () => {
         try { 
             if(validate()) {
-                Reg.method(regEmail, regPassword);
+                register(regEmail, regPassword);
                 console.log("Submitted");
                 return true;
             }
