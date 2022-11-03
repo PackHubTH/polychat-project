@@ -7,7 +7,7 @@ import {
 } from 'firebase/auth';
 
 import { auth  } from './FirebaseAuth';
-import { createRegisterData } from '../dbs/AuthDb';
+import { createRegisterData } from '../dbs/AuthDataOperator';
 
 const UserContext = React.createContext()
 

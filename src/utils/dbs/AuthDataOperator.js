@@ -10,11 +10,11 @@ import { updateProfile } from 'firebase/auth';
 
 import  { firebaseStorage } from './FirebaseStorage';
 import { firestoreDb } from './FireStore';
-
+import { getSticker } from './StorageOperator'
 
 export const createRegisterData = ( user ,email, userId, userName, picture) => {
 
-    const registerStorageRef = ref(firebaseStorage, userId);
+    const registerStorageRef = ref(firebaseStorage, `/profile/picture/${userId}`);
     const uploadTask = uploadBytesResumable(registerStorageRef, picture)
 
     //Upload to Storage
