@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, Center } from "native-base";
-import Friend from "./Friend";
+import Friend from "../../components/Friend";
 import { mock_friendsRequest, mock_friends } from "./data";
 import Icon from "react-native-vector-icons/Feather";
 import { color } from "../../../Style";
@@ -47,50 +47,76 @@ const style = StyleSheet.create({
 
 const FriendRequest = (props) => {
   const [friendRequests, setFriendRequests] = useState(mock_friendsRequest);
+  useEffect(() => {}, [friendRequests]);
 
-  return (
-    <View style={style.component}>
-      <View style={style.wrap}>
-        <Text fontSize="lg" fontWeight={600}>
-          Friend request
-        </Text>
+  //if there is no user in the friend request, setState to null
+  const nullCondition = (array) => {
+    if (array.length === 0) {
+      setFriendRequests(null);
+    } else {
+      setFriendRequests([...array]);
+    }
+  };
+  const acceptFriendHandler = (user) => {
+    console.log("acceptFriendHandler");
+    props.setFriends((previous) => [...previous, user]);
+    const array = RemoveItemArray(friendRequests, user);
+    nullCondition(array);
+  };
+  const rejectFriendHandler = (user) => {
+    console.log("rejectFriendHandler");
+    const array = RemoveItemArray(friendRequests, user);
+    setFriendRequests([...array]);
+    nullCondition(array);
+  };
 
-        <View style={style.content}>
-          {friendRequests.map((e, i) => {
-            return (
-              <View key={i} style={style.friendRequest}>
-                <Friend friend={e} gap={0} width={"70%"} />
-                <Center style={style.command}>
-                  <Icon
-                    //accept friend and update
-                    onPress={() => {
-                      props.setFriends((previous) => [...previous, e]);
-                      const array = RemoveItemArray(friendRequests, e);
-                      setFriendRequests([...array]);
-                    }}
-                    name="check-circle"
-                    size={18}
-                    color={color.green}
-                    style={{ paddingRight: 12 }}
-                  />
-                  <Icon
-                    //reject friend
-                    onPress={() => {
-                      const array = RemoveItemArray(friendRequests, e);
-                      setFriendRequests([...array]);
-                    }}
-                    name="x-circle"
-                    size={18}
-                    color={color.red}
-                  />
-                </Center>
-              </View>
-            );
-          })}
+  // show this component when friend request not null
+  if (friendRequests !== null) {
+    return (
+      <View style={style.component}>
+        <View style={style.wrap}>
+          <Text fontSize="lg" fontWeight={600}>
+            Friend request
+          </Text>
+
+          <View style={style.content}>
+            {friendRequests.map((e, i) => {
+              return (
+                <View key={i} style={style.friendRequest}>
+                  <Friend friend={e} gap={0} width={"70%"} />
+                  <Center style={style.command}>
+                    <Icon
+                      //accept friend and update
+                      onPress={() => {
+                        acceptFriendHandler(e);
+                      }}
+                      name="check-circle"
+                      size={18}
+                      color={color.green}
+                      style={{ paddingRight: 12 }}
+                    />
+                    <Icon
+                      //reject friend
+                      onPress={() => {
+                        rejectFriendHandler(e);
+                      }}
+                      name="x-circle"
+                      size={18}
+                      color={color.red}
+                    />
+                  </Center>
+                </View>
+              );
+            })}
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  }
+  // hide this component when friend request is null
+  else {
+    return null;
+  }
 };
 
 export default FriendRequest;
