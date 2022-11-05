@@ -1,4 +1,7 @@
-import React from 'react';
+import { 
+    useState, useEffect, 
+    useContext, createContext
+} from 'react';
 import { 
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
@@ -9,13 +12,12 @@ import {
 import { auth  } from './FirebaseAuth';
 import { createRegisterData } from '../dbs/AuthDataOperator';
 
-const UserContext = React.createContext()
+const UserContext = createContext()
 
 export const AuthContextProvider = ({children}) => {
     
     const register = (email, password) => {
-        const user = createUserWithEmailAndPassword(auth, email, password);
-        logout();
+        const user = createUserWithEmailAndPassword(auth, email, password).then( () => signOut(auth) )
         return user;
     };
 
@@ -27,8 +29,8 @@ export const AuthContextProvider = ({children}) => {
         return signOut(auth);
     };
 
-    const [user, setUser] = React.useState({});
-    React.useEffect( () => {
+    const [user, setUser] = useState({});
+    useEffect( () => {
         const authState = onAuthStateChanged(auth, (currentUser) => {
             console.log(currentUser);
             if(currentUser != null) console.log(`Current User: ${currentUser.email}`)
@@ -42,14 +44,14 @@ export const AuthContextProvider = ({children}) => {
     });
     
     return(
-        <UserContext.Provider value={{ method: register, user, logout, login}}>
+        <UserContext.Provider value={{ register, user, logout, login }}>
             {children}
         </UserContext.Provider>
     )
 } 
 
-export const useAuthContext = () => React.useContext(UserContext)
+export const useAuthContext = () => useContext(UserContext)
 
 export const returnAuthContext = () => {
-    return React.useContext(UserContext);
+    return useContext(UserContext);
 }
