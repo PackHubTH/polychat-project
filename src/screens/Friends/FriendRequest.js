@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, Center } from "native-base";
-import Friend from "./Friend";
+import Friend from "../../layouts/Friend";
 import { mock_friendsRequest, mock_friends } from "./data";
 import Icon from "react-native-vector-icons/Feather";
 import { color } from "../../../Style";

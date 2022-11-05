@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import FriendsScreen from ".";
-
 const NavFriendStack = createNativeStackNavigator();
 
 const FriendsStackScreen = () => {

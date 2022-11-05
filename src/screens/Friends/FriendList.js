@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import Friend from "./Friend";
+import Friend from "../../layouts/Friend";
 import { Text } from "native-base";
 
 const style = StyleSheet.create({
