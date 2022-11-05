@@ -1,21 +1,43 @@
-import React from "react";
+import { useState } from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, Link, MaterialIcons, Pressable, Text, VStack } from "native-base";
 import { createUserWithEmailAndPassword }  from 'firebase/auth';
 
+import Logo from '../../../assets/logo.png';
 import { auth } from '../../utils/auth/FirebaseAuth'
 import { returnAuthContext } from "../../utils/auth/AuthContext";
 
 const Register = ({navigation, route}) => {
 
-    const [regEmail, setRegEmail] = React.useState("");
-    const [regPassword, setRegPassword] = React.useState("");
-    const [confirmPassword, setConfirmPwd] = React.useState("");
-    const [formError, setFormError] = React.useState({});
-    const [error, setError] = React.useState({});
+    //Form Data
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [displayName, setDisplayName] = useState("");
+    const [phoneNum, setPhoneNum] = useState("");
+    const [regEmail, setRegEmail] = useState("");
+    const [regPassword, setRegPassword] = useState("");
+    const [confirmPassword, setConfirmPwd] = useState("");
+
+    //Error
+    const [formError, setFormError] = useState({});
+    const [error, setError] = useState({});
 
     const { register } = returnAuthContext();
 
     const validate = () => {
+        
+        if(firstname == "" | lastname == "" | displayName == "") {
+            setFormError({
+                ...formError, name: "Please fill in all names in a required fields!"
+            })
+            return false;
+        }
+
+        if(phoneNum == "") {
+            setFormError({
+                ...formError, name: "Please fill in your phone number!"
+            })
+            return false;
+        }
         
         if(!/\S+@\S+\.\S+/.test(regEmail)) {
             setFormError({
@@ -65,8 +87,8 @@ const Register = ({navigation, route}) => {
     const submit = () => {
         try { 
             if(validate()) {
-                register(regEmail, regPassword);
-                console.log("Submitted");
+                register( regEmail, regPassword, phoneNum, displayName, firstname, lastname);
+                console.log("Submitted!");
                 return true;
             }
             else {
@@ -81,8 +103,32 @@ const Register = ({navigation, route}) => {
 
     return(
         <Center safeArea flex={1} bg='#fff'>
+            <Image source={Logo} alt="Alternate Text" w="192" h="160"/>
             <VStack space={3} mt="1" alignItems="center">
                 <FormControl isInvalid={'name' in formError}>
+                    <Text bold fontSize={18}>CREATE ACCOUNT</Text>
+                    
+                    <FormControl.Label isRequired>First Name</FormControl.Label>
+                    <Input placeholder="Email" variant='rounded' w="286" 
+                            onChangeText={(event) => setFirstname(event)}
+                    />
+
+                    <FormControl.Label isRequired>Last Name</FormControl.Label>
+                    <Input placeholder="Email" variant='rounded' w="286" 
+                            onChangeText={(event) => setLastname(event)}
+                    />
+
+                    <FormControl.Label isRequired>Display Name</FormControl.Label>
+                    <Input placeholder="Email" variant='rounded' w="286" 
+                            onChangeText={(event) => setDisplayName(event)}
+                    />
+                    <FormControl.HelperText>** This name will be display as your profile!</FormControl.HelperText>
+
+                    <FormControl.Label isRequired>Phone Number</FormControl.Label>
+                    <Input placeholder="Email" variant='rounded' w="286" 
+                            onChangeText={(event) => setPhoneNum(event)}
+                    />
+
                     <FormControl.Label isRequired>Email Address</FormControl.Label>
                     <Input placeholder="Email" variant='rounded' w="286" 
                             onChangeText={(event) => setRegEmail(event)}
@@ -106,13 +152,10 @@ const Register = ({navigation, route}) => {
                             }}>
                         Register
                     </Button>
-
                     {
                         'name' in formError ? <FormControl.ErrorMessage>{ formError.name }</FormControl.ErrorMessage> :
                         <FormControl.HelperText>Please input your email and password for registration</FormControl.HelperText>
                     }
-
-                    
                 </FormControl>
 
                 <HStack>
