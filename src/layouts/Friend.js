@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Center, Image, Text } from "native-base";
 import { StyleSheet, View } from "react-native";
+import FriendModal from "./FriendModal";
 
 const style = StyleSheet.create({
   container: {
@@ -13,8 +15,22 @@ const style = StyleSheet.create({
 });
 
 const Friend = ({ friend, gap, width }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <View style={[style.container, { marginTop: gap, width: width }]}>
+    <View
+      onStartShouldSetResponder={() => {
+        setModalVisible(true);
+      }}
+      style={[style.container, { marginTop: gap, width: width }]}
+    >
+      {modalVisible ? (
+        <FriendModal
+          friend={friend}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
+        />
+      ) : null}
       <View alignItems="start" style={style.imgBox}>
         <Image
           size={50}
