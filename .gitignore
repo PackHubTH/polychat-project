@@ -1,7 +1,27 @@
+
+# Files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 node_modules/
 .expo/
 dist/
-npm-debug.*
+
+# Debug & Logs
+logs/
+*.log
+npm-debug.log*
+npm-error.log*
+yarn-error.log*
+yarn-debug.log*
+
+# Environment Files
+*.env
+
+# macOS
+.DS_Store
+
+# Extras
 *.jks
 *.p8
 *.p12
@@ -9,9 +29,3 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-
-# env
-*.env
-
-# macOS
-.DS_Store
