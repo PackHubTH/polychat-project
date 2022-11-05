@@ -6,7 +6,7 @@ import {
     createUserWithEmailAndPassword, 
     signInWithEmailAndPassword,
     onAuthStateChanged,
-    signOut
+    signOut,
 } from 'firebase/auth';
 
 import { auth  } from './FirebaseAuth';
@@ -16,8 +16,14 @@ const UserContext = createContext()
 
 export const AuthContextProvider = ({children}) => {
     
-    const register = (email, password) => {
-        const user = createUserWithEmailAndPassword(auth, email, password).then( () => signOut(auth) )
+    const register = ( email, password, phoneNum, displayName, firstname, lastname) => {
+        const user = createUserWithEmailAndPassword(auth, email, password)
+                        .then( () =>  { 
+                            const currentUser = auth.currentUser;
+                            console.log("Register: Created user auth. Updating Profile and Firestore...")
+                            createRegisterData( currentUser ,email, phoneNum, currentUser.uid, displayName, firstname, lastname); 
+                            signOut(auth); 
+                        } );
         return user;
     };
 
@@ -32,9 +38,9 @@ export const AuthContextProvider = ({children}) => {
     const [user, setUser] = useState({});
     useEffect( () => {
         const authState = onAuthStateChanged(auth, (currentUser) => {
-            console.log(currentUser);
-            if(currentUser != null) console.log(`Current User: ${currentUser.email}`)
-            else console.log("No user");
+            //console.log(currentUser);
+            if(currentUser != null) console.log(`AuthState: Current User -> ${currentUser.email}`)
+            else console.log("AuthState: No user");
             setUser(currentUser);
         })
 
