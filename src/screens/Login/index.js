@@ -1,19 +1,29 @@
-import React from "react";
+import { useState } from "react";
 import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, Link, MaterialIcons, Pressable, Text, VStack } from "native-base";
 import Auth, { signInWithEmailAndPassword } from "firebase/auth";
-import Logo from '../../../assets/logo.png';
 
+import Logo from '../../../assets/logo.png';
 import { auth } from "../../utils/auth/FirebaseAuth"
 import { returnAuthContext } from "../../utils/auth/AuthContext"; 
 
 const Login = ({ navigation, route }) => {
 
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   
-  const [loginEmail, setLoginEmail] = React.useState("");
-  const [loginPassword, setLoginPassword] = React.useState("");
-  const [formError, setFormError] = React.useState({});
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [formError, setFormError] = useState({});
   const { login } = returnAuthContext();
+
+  const validate = (errorMessage) => {
+    if(errorMessage.match(/user-not-found/)) {
+      setFormError({ ...formError, name: "Sorry, that email doesn't match any account."});
+    }
+
+    if(errorMessage.match(/wrong-password/)) {
+      setFormError({ ...formError, name: "Invalid email or password. Try again."});
+    }    
+  }
 
   const handleLogin = async () => {
     try {
@@ -21,8 +31,8 @@ const Login = ({ navigation, route }) => {
       navigation.navigate('Home');
       console.log("Login Successful");
     } catch (error) {
-      setFormError({ ...formError, value: "error"});
-      console.log(error);
+      validate(error.message);
+      console.log(error.message);
     }
   };
 
@@ -38,7 +48,7 @@ const Login = ({ navigation, route }) => {
       <Image source={Logo} alt="Alternate Text" w="192" h="160" />
 
       <VStack space={3} mt="5" alignItems="center">
-        <FormControl isRequired>
+        <FormControl isRequired isInvalid={'name' in formError}>
 
           <FormControl.Label>Email ID</FormControl.Label>
           <Input placeholder="Email" variant='rounded' w="286" 
@@ -56,6 +66,10 @@ const Login = ({ navigation, route }) => {
           }} alignSelf="flex-end" mt="1">
             Forget Password?
           </Link>
+        {
+            'name' in formError ? <FormControl.ErrorMessage alignItems="center">{formError.name}</FormControl.ErrorMessage> : 
+            <FormControl.HelperText>Please insert your email address and password</FormControl.HelperText>
+        }
         </FormControl>
         <Button w="286" borderRadius="20" mt="2" colorScheme="indigo" 
                 onPress={() => {
@@ -63,12 +77,7 @@ const Login = ({ navigation, route }) => {
                 }}>
           Sign in
         </Button>
-        <FormControl>
-        {
-            'value' in formError ? <FormControl.ErrorMessage>Login Failed</FormControl.ErrorMessage> : 
-            <FormControl.HelperText>Please insert your email address and password</FormControl.HelperText>
-        }
-        </FormControl>
+
         <HStack mt="6" justifyContent="center">
           <Text fontSize="sm" color="coolGray.600" _dark={{
             color: "warmGray.200"
