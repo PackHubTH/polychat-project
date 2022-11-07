@@ -46,6 +46,31 @@ export const createRegisterData = async (user ,email, phoneNum, userId, displayN
     }
 };
 
+export const getUserData = async (userId) => {
+    try {
+        const user = await getDoc( doc(firestoreDb, "User", userId));
+
+        if(user.exists()) {
+            console.log(`GetUserData: ${userId};
+                displayName: ${user.data().displayName},
+                firstname: ${user.data().firstname},
+                lastname: ${user.data().lastname},
+                email: ${user.data().email},
+                phoneNumber: ${user.data().phoneNumber},
+            `);
+            return user.data();
+        }
+        else {
+            console.log(`GetUserData: ${userId} have no data`);
+        }
+        
+    } catch (error) {
+        console.log(error.message);
+        throw new Error(`GetUserData: Failed to get data for ${userId}`);
+    }
+    
+};
+
 // export const _createRegisterData = ( user ,email, phoneNum, userId, displayName, firstname, lastname, picture) => {
 
 //     const registerStorageRef = ref(firebaseStorage, `/profile/picture/${userId}`);

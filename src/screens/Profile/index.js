@@ -1,17 +1,30 @@
 import { Avatar, Box, Button, Center, Flex, FormControl, Heading, HStack, Icon, Input, Link, MaterialIcons, Pressable, Text, VStack, Container } from "native-base";
+import { useState } from 'react';
 import { Ellipse } from "react-native-svg";
 
 import IconFe from 'react-native-vector-icons/Feather';
 
-import { returnAuthContext } from "../../utils/auth/AuthContext";
+import { getUserData } from '../../utils/dbs/AuthDataOperator';
+import { returnAuthContext } from '../../utils/auth/AuthContext';
 import { getSamplePic } from '../../utils/dbs/StorageOperator'
 
 const Profile = ({ navigation, route }) => {
 
   const { user, logout } = returnAuthContext();
 
-  const avatarUrl = getSamplePic("test-avatar");
-
+  const [profilePic, setProfilePic] = useState("https://firebasestorage.googleapis.com/v0/b/polychat-6523f.appspot.com/o/profile%2Fsamplepicture%2FEllipse%201.png?alt=media&token=0bb937e1-1235-4ad3-8e44-0aee7bf42fdc");
+  const [userData, setUserData] = useState({});
+  if(user != null) { 
+    getUserData(user.uid).then( (userData) => {
+      console.log(`TestUserData1: ${userData.email}`);
+      //setUserData(userData);
+    });
+  }
+  
+  //console.log(`TestUserData2: ${userData.email}`)
+  
+  //const avatarUrl = getSamplePic("test-avatar");
+  
   const ProfileButton = ({ text, icon, onPress, color = "#1f2937" }) => {
     return (
       <Pressable onPress={onPress} >
@@ -58,7 +71,7 @@ const Profile = ({ navigation, route }) => {
     <Box safeArea flex={1} bg="#fff" justifyContent="flex-end" alignItems="center">
         <Avatar bg="amber.500" size="xl" 
           source={
-            {uri: `https://firebasestorage.googleapis.com/v0/b/polychat-6523f.appspot.com/o/profile%2Fsamplepicture%2FEllipse%201.png?alt=media&token=0bb937e1-1235-4ad3-8e44-0aee7bf42fdc`}
+            {uri: profilePic}
           }
           style={{
             border: "4px solid white",
