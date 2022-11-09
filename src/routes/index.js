@@ -16,6 +16,7 @@ import ProfileScreen from "../screens/Profile";
 import LoginScreen from "../screens/Login";
 import RegisterScreen from "../screens/Registration";
 import FriendsStackScreen from "../screens/Friends/FriendsStackScreen";
+import ChatStackScreen from "../screens/Chat/ChatStackScreen";
 
 const Stack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -93,7 +94,7 @@ const HomeTabScreen = () => {
     >
       <HomeTab.Screen
         name="1"
-        component={HomeScreen}
+        component={ChatStackScreen}
         options={{
           tabBarIcon: ({ focused }) =>
             HomeTabIcon({
@@ -105,7 +106,7 @@ const HomeTabScreen = () => {
                   color={focused ? "#188ffc" : "#1f2937"}
                 />
               ),
-              text: "Chats",
+              text: "Chat",
             }),
         }}
       />
