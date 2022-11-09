@@ -82,8 +82,6 @@ export const getUserData = async (userId) => {
 };
 
 export const getUserChat = async (channelId) => {
-  console.log("channelId");
-  console.log(channelId);
   try {
     const chat = await getDoc(
       doc(firestoreDb, "ChatChannel", channelId.toString())
