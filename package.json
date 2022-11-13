@@ -1,7 +1,7 @@
 {
   "name": "polychatproject",
   "version": "0.2.0",
-  "license" : "MIT",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/PackHubTH/polychat-project.git"
@@ -44,7 +44,8 @@
     "@babel/core": "^7.12.9",
     "@babel/preset-env": "^7.1.6",
     "@expo/metro-config": "^0.4.0",
-    "@expo/ngrok": "^4.1.0"
+    "@expo/ngrok": "^4.1.0",
+    "prettier": "^2.7.1"
   },
   "private": true
 }
