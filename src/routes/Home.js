@@ -43,7 +43,7 @@ const HomeTabIcon = ({ focused, icon, text }) => {
         size={4}
       /> */}
       {icon}
-      <Text color={focused ? "#188ffc" : "#1f2937"} fontSize="10px">
+      <Text color={focused ? "#188ffc" : "#1f2937"} fontSize="12px" textAlign="center" w="64px">
         {text}
       </Text>
     </>
@@ -129,7 +129,7 @@ const HomeTabScreen = () => {
               focused,
               icon: (
                 <IconFe
-                  name="users"
+                  name="user"
                   size="16px"
                   color={focused ? "#188ffc" : "#1f2937"}
                 />
