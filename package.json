@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
+    "@react-native-community/datetimepicker": "^6.7.0",
     "@react-native-firebase/app": "15.4.0",
     "@react-native-firebase/database": "15.4.0",
     "@react-navigation/bottom-tabs": "^6.4.0",
