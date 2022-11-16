@@ -17,6 +17,7 @@ import LoginScreen from "../screens/Login";
 import RegisterScreen from "../screens/Registration";
 import FriendsStackScreen from "../screens/Friends/FriendsStackScreen";
 import ChatStackScreen from "../screens/Chat/ChatStackScreen";
+import AssistanceStackScreen from "../screens/Assistance/AssistanceStackScreen";
 
 const Stack = createNativeStackNavigator();
 const HomeStack = createNativeStackNavigator();
@@ -112,7 +113,7 @@ const HomeTabScreen = () => {
       />
       <HomeTab.Screen
         name="2"
-        component={HomeScreen}
+        component={AssistanceStackScreen}
         options={{
           tabBarIcon: ({ focused }) =>
             HomeTabIcon({
