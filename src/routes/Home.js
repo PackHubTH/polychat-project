@@ -53,14 +53,14 @@ const HomeTabIcon = ({ focused, icon, text }) => {
 const HomeTabScreen = () => {
   return (
     <HomeTab.Navigator
-      initialRouteName="5"
+      initialRouteName="ProfileHome"
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
       }}
     >
       <HomeTab.Screen
-        name="1"
+        name="ChatHome"
         component={ChatStackScreen}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -78,7 +78,7 @@ const HomeTabScreen = () => {
         }}
       />
       <HomeTab.Screen
-        name="2"
+        name="AssistanceHome"
         component={AssistanceStackScreen}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -96,14 +96,14 @@ const HomeTabScreen = () => {
         }}
       />
       <HomeTab.Screen
-        name="3"
+        name="SOS"
         component={HomeScreen}
         options={{
           tabBarButton: () => SOSIcon(),
         }}
       />
       <HomeTab.Screen
-        name="4"
+        name="FriendsHome"
         component={FriendsStackScreen}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -121,7 +121,7 @@ const HomeTabScreen = () => {
         }}
       />
       <HomeTab.Screen
-        name="5"
+        name="ProfileHome"
         component={ProfileStackScreen}
         options={{
           tabBarIcon: ({ focused }) =>

@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text } from "native-base";
+import { Button, Text } from "native-base";
+import { useEditProfileStore } from "../store/EditProfileStore";
 
+import IconFe from 'react-native-vector-icons/Feather';
 
 import ChangePasswordScreen from "../screens/Profile/ChangePassword";
 import EditProfileScreen from "../screens/Profile/EditProfile";
@@ -9,7 +11,18 @@ import ProfileScreen from "../screens/Profile";
 
 const ProfileStack = createNativeStackNavigator();
 
-const ProfileStackScreen = () => {
+const ProfileStackScreen = ({ navigation }) => {
+
+  const setShowModal = useEditProfileStore(state => state.setShowModal);
+
+  const saveEditProfile = () => {
+    console.log("saveEditProfile");
+  }
+
+  const backEditProfile = () => {
+    setShowModal(true);
+  };
+
   return (
     <ProfileStack.Navigator
       initialRouteName="Profile"
@@ -41,8 +54,16 @@ const ProfileStackScreen = () => {
           },
           headerShadowVisible: true,
           headerBackTitleVisible: false,
-
-          // headerLeft: () => { return <Text>{"<"}</Text> },
+          headerLeft: () => (
+            <IconFe
+              name="chevron-left"
+              size="28px"
+              onPress={() => setShowModal(true)}
+            />
+          ),
+          headerRight: () => (
+            <Text color="#188ffc" fontSize="18px" onPress={() => saveEditProfile()}>Save</Text>
+          ),
         }}
       />
       <ProfileStack.Screen name="ECContacts" component={ECContactsScreen} />

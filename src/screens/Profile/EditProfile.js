@@ -2,12 +2,20 @@ import { Avatar, Box, Button, Center, FormControl, Heading, HStack, Icon, Input,
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Dimensions, StyleSheet } from "react-native";
 import React from "react";
+import { useEditProfileStore } from '../../store/EditProfileStore';
+import { useAuthContext } from "../../utils/auth/AuthContext";
 
 const EditProfile = ({ navigation, route }) => {
 
-  const [name, setName] = React.useState("");
-  const [status, setStatus] = React.useState("");
-  const [showModal, setShowModal] = React.useState(false);
+  const name = useEditProfileStore(state => state.name);
+  const status = useEditProfileStore(state => state.status);
+  const showModal = useEditProfileStore(state => state.showModal);
+  const setName = useEditProfileStore(state => state.setName);
+  const setStatus = useEditProfileStore(state => state.setStatus);
+  const setShowModal = useEditProfileStore(state => state.setShowModal);
+
+  const { user } = useAuthContext();
+  console.log('user', user);
 
   const handleBack = () => {
     console.log('name: ', name, ', status: ', status);
@@ -48,7 +56,6 @@ const EditProfile = ({ navigation, route }) => {
         </Avatar>
         {FormInput({ label: "Display name", placeholder: "John Doe", value: name, onChangeText: (e) => setName(e) })}
         {FormInput({ label: "Status", placeholder: "Hi, I'm John", value: status, onChangeText: (e) => setStatus(e) })}
-        <Button onPress={() => handleBack()}>Back TEST</Button>
         <Modal isOpen={showModal} onClose={() => setShowModal(false)} _backdrop={{
           _dark: {
             bg: "coolGray.800"
@@ -64,6 +71,7 @@ const EditProfile = ({ navigation, route }) => {
               <Button.Group space={2}>
                 <Button variant="ghost" colorScheme="blueGray" onPress={() => {
                   setShowModal(false);
+                  navigation.goBack();
                 }}>
                   Discard
                 </Button>
