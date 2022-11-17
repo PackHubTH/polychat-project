@@ -1,18 +1,21 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ChatScreen from ".";
+import ChatScreen from "../screens/Chat/";
+import ChatChannel from "../screens/Chat/ChatChannel/ChatChannel";
+import MapScreen from "../screens/Chat/MapScreen";
+
 const NavChatStack = createNativeStackNavigator();
-import ChatChannel from "./ChatChannel/ChatChannel";
 
 const ChatStackScreen = () => {
   return (
     <NavChatStack.Navigator
-      initialRouteName="Friends"
+      initialRouteName="Chat"
       screenOptions={{
         tabBarShowLabel: false,
       }}
     >
       <NavChatStack.Screen name="Chat" component={ChatScreen} />
       <NavChatStack.Screen name="ChatChannel" component={ChatChannel} />
+      <NavChatStack.Screen name="MapScreen" component={MapScreen} />
     </NavChatStack.Navigator>
   );
 };

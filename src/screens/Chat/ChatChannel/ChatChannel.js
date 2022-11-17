@@ -6,14 +6,15 @@ import { onSnapshot, collection } from "firebase/firestore";
 import YouMessage from "./YouMessage";
 import MeMessage from "./MeMessage";
 import InputBox from "./InputBox";
+import MapMessage from "./MapMessage";
 
-export default function ChatChannel({ route }) {
+export default function ChatChannel({ navigation, route }) {
   const { user } = useAuthContext();
   const [channelMessages, setChannelMessages] = useState([]);
 
   const renderMessageDb = (messageObject, i) => {
     // check messageObject that it's a chat messageor not
-    if (messageObject.photo === "" || messageObject.location === "") {
+    if (messageObject.photo === "" && messageObject.location === "") {
       if (messageObject.sender === user.uid) {
         return <MeMessage key={i} message={messageObject.text} />;
       } else {
@@ -23,6 +24,16 @@ export default function ChatChannel({ route }) {
     // if it's not a chat message
     else {
       // return location photo assistance or emergency here
+      if (messageObject.location !== "") {
+        return (
+          <MapMessage
+            key={i}
+            location={messageObject.location}
+            navigation={navigation}
+            isSender={messageObject.sender === user.uid}
+          />
+        );
+      }
     }
   };
   const sortMessage = (messageArray) => {

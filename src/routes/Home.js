@@ -8,7 +8,8 @@ import IconMa from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeScreen from "../screens/Home";
 
 import FriendsStackScreen from "../screens/Friends/FriendsStackScreen";
-import ChatStackScreen from "../screens/Chat/ChatStackScreen";
+import ChatStackScreen from "./Chat";
+// import ChatStackScreen from "../screens/Chat/ChatStackScreen";
 import AssistanceStackScreen from "../screens/Assistance/AssistanceStackScreen";
 import ProfileStackScreen from "./Profile";
 
