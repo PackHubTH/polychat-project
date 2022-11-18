@@ -18,7 +18,7 @@ const ChatStackScreen = ({ navigation, route }) => {
   const userChat = useChatChannelStore((state) => state.userChat);
 
   let routeName = getFocusedRouteNameFromRoute(route);
-  if (routeName === 'ChatChannel' || routeName === 'MapScreen')
+  if (routeName === 'ChatChannel' || routeName === 'Location')
     navigation.setOptions({ tabBarStyle: { display: "none" } });
   else
     navigation.setOptions({ tabBarStyle: { display: "flex" } });
