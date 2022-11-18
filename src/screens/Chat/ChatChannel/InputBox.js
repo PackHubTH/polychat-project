@@ -7,8 +7,10 @@ import GenerateUid from "../../../utils/GenerateUid";
 import {
   collection,
   addDoc,
+  FieldValue,
   serverTimestamp,
   doc,
+  setDoc,
   updateDoc,
   arrayUnion,
   where,
@@ -19,27 +21,17 @@ const InputBox = ({ friendData, setChannelMessages, userChat }) => {
   const [message, setMessage] = useState("");
 
   const updateChatChannelDoc = async (newMessageId) => {
-    console.log("newMessageId");
-    alert(userChat.channelId);
-    console.log(newMessageId);
-    console.log(userChat.channelId);
-    // firestoreDb.collection(
-    //   "ChatChannel".doc(userChat.channelId.toString()).update({
-    //     messageId: arrayUnion(...newMessageId),
-    //   })
-    // );
-
-    const docRef = collection(
-      firestoreDb,
-      "ChatChannel",
-      where("channelId", "==", userChat.channelId)
-    );
-
-    await updateDoc(docRef, {
-      messageId: arrayUnion(newMessageId),
-    }).then(() => {
-      console.log("ChatChannelupdateComplete");
-    });
+    try {
+      await setDoc(doc(firestoreDb, "ChatChannel", userChat.id), {
+        channelId: userChat.channelId,
+        messageId: [...userChat.messageId, newMessageId],
+        readStatus: userChat.readStatus,
+        user1: userChat.user1,
+        user2: userChat.user2,
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const sendChat = async (message) => {
