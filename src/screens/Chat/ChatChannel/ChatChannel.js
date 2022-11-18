@@ -79,7 +79,6 @@ export default function ChatChannel({ navigation, route }) {
           snapShot.docs.forEach((doc) => {
             messages.push(doc.data());
           });
-          console.log([...messages]);
           filterMessage(
             messages,
             user.uid,
