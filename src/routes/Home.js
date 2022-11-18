@@ -1,5 +1,6 @@
 import { Button, Icon, IconButton, Text } from "native-base";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+// import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import IconFe from "react-native-vector-icons/Feather";
 import IconIo from "react-native-vector-icons/Ionicons";
@@ -12,6 +13,7 @@ import ChatStackScreen from "./Chat";
 // import ChatStackScreen from "../screens/Chat/ChatStackScreen";
 import AssistanceStackScreen from "../screens/Assistance/AssistanceStackScreen";
 import ProfileStackScreen from "./Profile";
+import React from "react";
 
 const HomeTab = createBottomTabNavigator();
 
@@ -51,7 +53,14 @@ const HomeTabIcon = ({ focused, icon, text }) => {
   );
 };
 
-const HomeTabScreen = () => {
+const HomeTabScreen = ({ navigation, route }) => {
+
+  // React.useLayoutEffect(() => {
+  //   const routeName = getFocusedRouteNameFromRoute(route);
+  //   console.log(routeName)
+  //   navigation.setOptions({ tabBarStyle: { display: "none" } });
+  // }, [navigation, route]);
+
   return (
     <HomeTab.Navigator
       initialRouteName="ProfileHome"
@@ -76,6 +85,7 @@ const HomeTabScreen = () => {
               ),
               text: "Chat",
             }),
+          // tabBarStyle: { display: "none" },
         }}
       />
       <HomeTab.Screen

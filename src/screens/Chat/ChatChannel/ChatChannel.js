@@ -8,9 +8,19 @@ import MeMessage from "./MeMessage";
 import InputBox from "./InputBox";
 import MapMessage from "./MapMessage";
 
+import { useChatChannelStore } from "../../../store/ChatChannelStore";
+
 export default function ChatChannel({ navigation, route }) {
   const { user } = useAuthContext();
-  const [channelMessages, setChannelMessages] = useState([]);
+  const channelMessages = useChatChannelStore((state) => state.channelMessages);
+  const setChannelMessages = useChatChannelStore((state) => state.setChannelMessages);
+  const setFriendData = useChatChannelStore((state) => state.setFriendData);
+  const setUserChat = useChatChannelStore((state) => state.setUserChat);
+
+  useEffect(() => {
+    setFriendData(route.params.friendData);
+    setUserChat(route.params.userChat);
+  }, []);
 
   const renderMessageDb = (messageObject, i) => {
     // check messageObject that it's a chat messageor not

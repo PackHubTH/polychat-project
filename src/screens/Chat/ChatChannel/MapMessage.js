@@ -11,7 +11,7 @@ const MapMessage = ({ location, isSender, navigation }) => {
   return (
     <View style={[styles.container, isSender ? styles.alignSend : styles.alignReceive]}>
       <Pressable style={[styles.card, isSender ? styles.bgColorSend : styles.bgColorReceive]}
-        onPress={() => { navigation.navigate('MapScreen', { location: location }) }}
+        onPress={() => { navigation.navigate('Location', { location: location }) }}
       >
         <MapView style={styles.map}
           initialRegion={{
@@ -20,6 +20,8 @@ const MapMessage = ({ location, isSender, navigation }) => {
             latitudeDelta: 0.06969,
             longitudeDelta: 0.0069,
           }}
+          zoomEnabled={false}
+          scrollEnabled={false}
         >
           <Marker
             coordinate={{ latitude: location.latitude, longitude: location.longitude }}
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.lightBlue,
   },
   card: {
-    width: '36%',
+    width: '28%',
     height: '100%',
     borderRadius: "8%",
   },
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     minHeight: 32,
     width: "100%",
-    height: "24%",
+    height: "16%",
     flexDirection: "column",
   },
   map: {

@@ -17,7 +17,6 @@ const Routes = () => {
         >
           <Stack.Screen name="Login" component={LoginStackScreen} />
           <Stack.Screen name="Home" component={HomeTabScreen} />
-          {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
