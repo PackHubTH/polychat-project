@@ -9,11 +9,8 @@ import { useAuthContext } from "../../utils/auth/AuthContext";
 const FriendWithChat = ({ userChat, navigation }) => {
   const [friendData, setFriendData] = useState(null);
   const { user } = useAuthContext();
-  console.log(userChat);
 
   useEffect(() => {
-    console.log("user uid form auth", user.uid);
-
     // get friend's information
     if (user.uid === userChat.user1) {
       getUserData(userChat.user2).then((friend) => {
@@ -27,6 +24,7 @@ const FriendWithChat = ({ userChat, navigation }) => {
   }, []);
   if (friendData !== null) {
     return (
+      // when it be pressed navigate to ChatChannel with that chat channel with friend's information
       <View
         onStartShouldSetResponder={() => {
           navigation.navigate("ChatChannel", {
@@ -45,7 +43,7 @@ const FriendWithChat = ({ userChat, navigation }) => {
               source={{
                 uri:
                   friendData.profilePic == ""
-                    ? "https://images.complex.com/complex/images/c_crop,h_1606,w_1820,x_2,y_210/c_fill,dpr_auto,f_auto,q_auto,w_1400/fl_lossy,pg_1/gyaok9o7zpdc5b96pzfi/marcus-rashford-marcus-rashford-marcus-rashford?fimg-ssr-default"
+                    ? "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-512.png"
                     : friendData.profilePic,
               }}
               alt="Friend's photo"
