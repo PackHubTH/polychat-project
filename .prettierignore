@@ -1,0 +1,15 @@
+# Directories
+.expo-shared/
+.vscode/
+assets/
+node_modules/
+simulator/
+
+# Config Files
+.gitignore
+.prettierignore
+.prettierrc
+.env
+package.json
+app.json
+*.config.js
