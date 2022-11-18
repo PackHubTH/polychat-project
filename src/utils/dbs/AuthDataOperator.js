@@ -65,11 +65,12 @@ export const getUserData = async (userId) => {
 
     if (user.exists()) {
       console.log(`GetUserData: ${userId};
-                displayName: ${user.data().displayName},
-                firstname: ${user.data().firstname},
-                lastname: ${user.data().lastname},
-                email: ${user.data().email},
-                phoneNumber: ${user.data().phoneNumber},
+                displayName: ${user.data()?.displayName},
+                firstname: ${user.data()?.firstname},
+                lastname: ${user.data()?.lastname},
+                email: ${user.data()?.email},
+                phoneNumber: ${user.data()?.phoneNumber},
+                status: ${user.data()?.status},
             `);
       return user.data();
     } else {
@@ -108,8 +109,7 @@ export const getAllUserChat = async (userId) => {
     const querySnap1 = await getDocs(query1);
     querySnap1.forEach((doc) => {
       console.log(
-        `GetAllUserChat: Found chat id of ${
-          doc.data().channelId
+        `GetAllUserChat: Found chat id of ${doc.data().channelId
         } from 1st query`
       );
       chats.push(doc.data());
@@ -119,8 +119,7 @@ export const getAllUserChat = async (userId) => {
     const querySnap2 = await getDocs(query2);
     querySnap2.forEach((doc) => {
       console.log(
-        `GetAllUserChat: Found chat id of ${
-          doc.data().channelId
+        `GetAllUserChat: Found chat id of ${doc.data().channelId
         } from 2nd query`
       );
       chats.push(doc.data());

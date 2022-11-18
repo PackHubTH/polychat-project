@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Center, Flex, FormControl, Heading, HStack, Icon, Input, Link, MaterialIcons, Pressable, Text, VStack, Container } from "native-base";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Ellipse } from "react-native-svg";
 
 import IconFe from 'react-native-vector-icons/Feather';
@@ -8,22 +8,43 @@ import { getUserData } from '../../utils/dbs/AuthDataOperator';
 import { returnAuthContext } from '../../utils/auth/AuthContext';
 import { getSamplePic } from '../../utils/dbs/StorageOperator'
 
+import { useProfileStore } from "../../store/ProfileStore";
+
 const Profile = ({ navigation, route }) => {
 
   const { user, logout } = returnAuthContext();
 
-  const [profilePic, setProfilePic] = useState("https://firebasestorage.googleapis.com/v0/b/polychat-6523f.appspot.com/o/profile%2Fsamplepicture%2FEllipse%201.png?alt=media&token=0bb937e1-1235-4ad3-8e44-0aee7bf42fdc");
-  const [userData, setUserData] = useState({});
-  if (user != null) {
-    getUserData(user.uid).then((userData) => {
-      console.log(`TestUserData1: ${userData.email}`);
-      //setUserData(userData);
+  const userData = useProfileStore(state => state.userData);
+  const setUserData = useProfileStore(state => state.setUserData);
+
+  useEffect(() => {
+    getUserData(user.uid).then((data) => {
+      setUserData(data);
+      console.log('data here', data);
     });
+  }, []);
+  // if (user != null) {
+  //   getUserData(user.uid).then((userData) => {
+  //     // console.log(`TestUserData1: ${Object.values(userData)}`);
+  //     Object.entries(userData).forEach(([key, value]) => {
+  //       console.log(key, value)
+  //     })
+  //     // console.log('status', userData.status)
+  //     //setUserData(userData);
+  //   });
+  // }
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      console.log("Logout Successful");
+      navigation.navigate("Login");
+    } catch (error) {
+      console.log(error);
+      console.log("Logout Failed");
+    }
+
   }
-
-  //console.log(`TestUserData2: ${userData.email}`)
-
-  //const avatarUrl = getSamplePic("test-avatar");
 
   const ProfileButton = ({ text, icon, onPress, color = "#1f2937" }) => {
     return (
@@ -55,35 +76,23 @@ const Profile = ({ navigation, route }) => {
     )
   }
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-      console.log("Logout Successful");
-      navigation.navigate("Login");
-    } catch (error) {
-      console.log(error);
-      console.log("Logout Failed");
-    }
-
-  }
-
+  console.log('status here', user?.status)
+  console.log('user here', user)
   return (
     <Box safeArea flex={1} bg="#fff" justifyContent="flex-end" alignItems="center">
       <Avatar bg="amber.500" size="xl"
         source={
-          { uri: profilePic }
+          { uri: userData?.profilePic }
         }
         style={{
           border: "4px solid white",
           top: "5%",
           zIndex: 1
         }}
-      >
-        MR
-      </Avatar>
+      />
       <Center bg="#d9d9d9" w="100%" h="90%" borderTopLeftRadius="20px" borderTopRightRadius="20px" justifyContent="flex-start">
-        <Text fontSize="md" fontWeight="bold" mt="60px">{user && user.email}</Text>
-        <Text fontSize="sm" mt="8px" mb="40px">Hi, I'm John.</Text>
+        <Text fontSize="md" fontWeight="bold" mt="60px">{userData?.displayName ?? "-"}</Text>
+        <Text fontSize="sm" mt="8px" mb="40px">{userData?.status ?? "-"}</Text>
         {ProfileButton({ text: "Edit Profile", icon: "users", onPress: () => navigation.navigate("EditProfile") })}
         {ProfileButton({ text: "Emergency Contacts", icon: "user", onPress: () => navigation.navigate("ECContacts") })}
         {ProfileButton({ text: "Change Password", icon: "user", onPress: () => navigation.navigate("ChangePassword") })}

@@ -1,33 +1,40 @@
 import { Avatar, Box, Button, Center, FormControl, Heading, HStack, Icon, Input, Link, MaterialIcons, Modal, Pressable, Text, VStack } from "native-base";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { Dimensions, StyleSheet } from "react-native";
-import React from "react";
-import { useEditProfileStore } from '../../store/EditProfileStore';
+import React, { useEffect } from "react";
 import { useAuthContext } from "../../utils/auth/AuthContext";
+import { color } from "../../../Style";
+
+import { useEditProfileStore } from "../../store/EditProfileStore";
+import { useProfileStore } from "../../store/ProfileStore";
+
 
 const EditProfile = ({ navigation, route }) => {
 
-  const name = useEditProfileStore(state => state.name);
-  const status = useEditProfileStore(state => state.status);
+  const displayName = useProfileStore(state => state.userData.displayName);
+  const profilePic = useProfileStore(state => state.userData.profilePic);
+  const status = useProfileStore(state => state.userData.status);
+  const tempDisplayName = useProfileStore(state => state.tempDisplayName);
+  const tempStatus = useProfileStore(state => state.tempStatus);
+  const setDisplayName = useProfileStore(state => state.setDisplayName);
+  const setStatus = useProfileStore(state => state.setStatus);
+  const setTempDisplayName = useProfileStore(state => state.setTempDisplayName);
+  const setTempStatus = useProfileStore(state => state.setTempStatus);
+
   const showModal = useEditProfileStore(state => state.showModal);
-  const setName = useEditProfileStore(state => state.setName);
-  const setStatus = useEditProfileStore(state => state.setStatus);
   const setShowModal = useEditProfileStore(state => state.setShowModal);
 
-  const { user } = useAuthContext();
-  console.log('user', user);
+  useEffect(() => {
+    setTempDisplayName(displayName);
+    setTempStatus(status);
+  }, []);
 
-  const handleBack = () => {
-    console.log('name: ', name, ', status: ', status);
-    setShowModal(true);
-  };
-
-  const FormInput = ({ label, placeholder, value, onChangeText }) => {
+  const FormInput = ({ label, value, onChangeText }) => {
     return (
       <FormControl mb="16px" w="286px">
         <FormControl.Label
           _text={{
-            color: "#1f2937",
+            color: color.black,
             fontWeight: "bold"
           }}
           mb="15px"
@@ -35,10 +42,11 @@ const EditProfile = ({ navigation, route }) => {
           {label}
         </FormControl.Label>
         <Input
+          color={color.grey}
           h="42px"
           variant="rounded"
           onChangeText={onChangeText}
-          placeholder={placeholder}
+          // placeholder={placeholder}
           value={value}
         />
       </FormControl>
@@ -47,15 +55,14 @@ const EditProfile = ({ navigation, route }) => {
 
   return (
     <KeyboardAwareScrollView contentContainerStyle={styles.container}>
-      {/* <Text>This is {route.params.name}'s profile</Text> */}
       <Center bg="#fff" flex={1}>
         <Avatar bg="amber.500" size="xl" mb="40px" source={{
-          uri: "https://bit.ly/broken-link"
-        }}>
-          MR
-        </Avatar>
-        {FormInput({ label: "Display name", placeholder: "John Doe", value: name, onChangeText: (e) => setName(e) })}
-        {FormInput({ label: "Status", placeholder: "Hi, I'm John", value: status, onChangeText: (e) => setStatus(e) })}
+          uri: profilePic
+        }}
+        />
+
+        {FormInput({ label: "Display name", value: displayName, onChangeText: (e) => setDisplayName(e) })}
+        {FormInput({ label: "Status", value: status, onChangeText: (e) => setStatus(e) })}
         <Modal isOpen={showModal} onClose={() => setShowModal(false)} _backdrop={{
           _dark: {
             bg: "coolGray.800"
@@ -71,6 +78,8 @@ const EditProfile = ({ navigation, route }) => {
               <Button.Group space={2}>
                 <Button variant="ghost" colorScheme="blueGray" onPress={() => {
                   setShowModal(false);
+                  setDisplayName(tempDisplayName);
+                  setStatus(tempStatus);
                   navigation.goBack();
                 }}>
                   Discard

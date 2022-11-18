@@ -50,7 +50,7 @@ const ProfileStackScreen = ({ navigation }) => {
             />
           ),
           headerRight: () => (
-            <Text color="#188ffc" fontSize="18px" onPress={() => saveEditProfile()}>Save</Text>
+            <Text color="#188ffc" fontSize="18px" onPress={() => navigation.navigate("Profile")}>Save</Text>
           ),
         }}
       />
