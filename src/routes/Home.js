@@ -8,10 +8,10 @@ import IconMa from "react-native-vector-icons/MaterialCommunityIcons";
 
 import HomeScreen from "../screens/Home";
 
-import FriendsStackScreen from "../screens/Friends/FriendsStackScreen";
+import FriendsStackScreen from "./Friends";
 import ChatStackScreen from "./Chat";
 // import ChatStackScreen from "../screens/Chat/ChatStackScreen";
-import AssistanceStackScreen from "../screens/Assistance/AssistanceStackScreen";
+import AssistanceStackScreen from "./Assistance";
 import ProfileStackScreen from "./Profile";
 import React from "react";
 
@@ -83,7 +83,7 @@ const HomeTabScreen = ({ navigation, route }) => {
                   color={focused ? "#188ffc" : "#1f2937"}
                 />
               ),
-              text: "Chat",
+              text: "Chats",
             }),
           // tabBarStyle: { display: "none" },
         }}
@@ -117,6 +117,7 @@ const HomeTabScreen = ({ navigation, route }) => {
         name="FriendsHome"
         component={FriendsStackScreen}
         options={{
+
           tabBarIcon: ({ focused }) =>
             HomeTabIcon({
               focused,

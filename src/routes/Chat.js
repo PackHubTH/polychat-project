@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Text } from "native-base";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import ChatScreen from "../screens/Chat/";
@@ -31,7 +32,9 @@ const ChatStackScreen = ({ navigation, route }) => {
       initialRouteName="Chat"
       screenOptions={{
         tabBarShowLabel: false,
-        headerLeft: () => null,
+        headerLeft: () => { return <Text fontWeight="bold" fontSize="26px" pl={4}>Chats</Text> },
+        headerShadowVisible: false,
+        title: "",
       }}
     >
       <NavChatStack.Screen name="Chat" component={ChatScreen} />

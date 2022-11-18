@@ -27,22 +27,10 @@ const ProfileStackScreen = ({ navigation }) => {
     <ProfileStack.Navigator
       initialRouteName="Profile"
       screenOptions={{
-        headerLeft: () => null,
-        headerShadowVisible: false,
-        headerTitleStyle: {
-          fontWeight: 'bold',
-          fontSize: 26,
-        },
-        style: {
-          backgroundColor: "#fff",
-        },
         tabBarShowLabel: false,
-        // title: 'My home',
-        // headerStyle: {
-        //   border: "none",
-        // },
-        // headerTintColor: '#fff',
-
+        headerLeft: () => { return <Text fontWeight="bold" fontSize="26px" pl={4}>Profile</Text> },
+        headerShadowVisible: false,
+        title: "",
       }}
     >
       <ProfileStack.Screen name="Profile" component={ProfileScreen} />
