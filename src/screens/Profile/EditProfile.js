@@ -63,38 +63,41 @@ const EditProfile = ({ navigation, route }) => {
 
         {FormInput({ label: "Display name", value: displayName, onChangeText: (e) => setDisplayName(e) })}
         {FormInput({ label: "Status", value: status, onChangeText: (e) => setStatus(e) })}
-        <Modal isOpen={showModal} onClose={() => setShowModal(false)} _backdrop={{
-          _dark: {
-            bg: "coolGray.800"
-          },
-          bg: "warmGray.50"
-        }}>
-          <Modal.Content maxWidth="350" maxH="212">
-            <Modal.Header>Discard changes?</Modal.Header>
-            <Modal.Body>
-              You have unsaved changes, are you sure you want to discard them?
-            </Modal.Body>
-            <Modal.Footer>
-              <Button.Group space={2}>
-                <Button variant="ghost" colorScheme="blueGray" onPress={() => {
+      </Center>
+
+      <Modal shadow="9" isOpen={showModal} onClose={() => setShowModal(false)} _backdrop={{
+        _dark: {
+          bg: "coolGray.800"
+        },
+        bg: "#1e1e1e"
+      }}>
+        <Modal.Content bg="#fff" maxWidth="350" maxH="212" borderRadius="20px" p={2}>
+          <Modal.Header bg="#fff" borderBottomWidth="0">Discard changes?</Modal.Header>
+          <Modal.Body bg="#fff" py="0">
+            You have unsaved changes, are you sure you want to discard them?
+          </Modal.Body>
+          <Modal.Footer bg="#fff" borderTopWidth="0" justifyContent="center">
+            <Button.Group space={2}>
+              <Button bg={color.grey} borderRadius="20px" w="100px"
+                onPress={() => {
                   setShowModal(false);
                   setDisplayName(tempDisplayName);
                   setStatus(tempStatus);
                   navigation.goBack();
                 }}>
-                  Discard
-                </Button>
-                <Button onPress={() => {
+                Discard
+              </Button>
+              <Button bg={color.lightBlue} borderRadius="20px"
+                onPress={() => {
                   setShowModal(false);
                 }}>
-                  Keep Editing
-                </Button>
-              </Button.Group>
-            </Modal.Footer>
-          </Modal.Content>
-        </Modal>
-      </Center>
-    </KeyboardAwareScrollView>
+                Keep Editing
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+    </KeyboardAwareScrollView >
   );
 };
 

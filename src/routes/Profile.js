@@ -66,7 +66,7 @@ const ProfileStackScreen = ({ navigation, route }) => {
           headerRight: () => (
             <SaveEditProfile navigation={navigation} />
           ),
-
+          title: "Edit profile",
         }}
       />
       < ProfileStack.Screen name="ECContacts" component={ECContactsScreen} />
