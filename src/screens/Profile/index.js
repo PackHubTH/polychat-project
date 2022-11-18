@@ -76,8 +76,6 @@ const Profile = ({ navigation, route }) => {
     )
   }
 
-  console.log('status here', user?.status)
-  console.log('user here', user)
   return (
     <Box safeArea flex={1} bg="#fff" justifyContent="flex-end" alignItems="center">
       <Avatar bg="amber.500" size="xl"

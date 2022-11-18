@@ -1,5 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button, Text } from "native-base";
+import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import { useEffect } from "react";
+
+import { useProfileStore } from "../store/ProfileStore";
 import { useEditProfileStore } from "../store/EditProfileStore";
 
 import IconFe from 'react-native-vector-icons/Feather';
@@ -8,20 +12,25 @@ import ChangePasswordScreen from "../screens/Profile/ChangePassword";
 import EditProfileScreen from "../screens/Profile/EditProfile";
 import ECContactsScreen from "../screens/Profile/ECContacts";
 import ProfileScreen from "../screens/Profile";
+import SaveEditProfile from "../components/SaveEditProfile";
 
 const ProfileStack = createNativeStackNavigator();
 
-const ProfileStackScreen = ({ navigation }) => {
+const ProfileStackScreen = ({ navigation, route }) => {
 
+  const tempDisplayName = useProfileStore((state) => state.tempDisplayName);
+  const tempStatus = useProfileStore((state) => state.tempStatus);
+  const userData = useProfileStore((state) => state.userData);
   const setShowModal = useEditProfileStore(state => state.setShowModal);
 
-  const saveEditProfile = () => {
-    console.log("saveEditProfile");
-  }
-
-  const backEditProfile = () => {
-    setShowModal(true);
-  };
+  useEffect(() => {
+    let routeName = getFocusedRouteNameFromRoute(route);
+    if (routeName === 'EditProfile')
+      navigation.setOptions({ tabBarStyle: { display: "none" } });
+    else
+      navigation.setOptions({ tabBarStyle: { display: "flex" } });
+    console.log(routeName)
+  }, [route]);
 
   return (
     <ProfileStack.Navigator
@@ -46,20 +55,26 @@ const ProfileStackScreen = ({ navigation }) => {
             <IconFe
               name="chevron-left"
               size="28px"
-              onPress={() => setShowModal(true)}
+              onPress={() => {
+                if (tempDisplayName !== userData.displayName || tempStatus !== userData.status)
+                  setShowModal(true)
+                else
+                  navigation.navigate("Profile")
+              }}
             />
           ),
           headerRight: () => (
-            <Text color="#188ffc" fontSize="18px" onPress={() => navigation.navigate("Profile")}>Save</Text>
+            <SaveEditProfile navigation={navigation} />
           ),
+
         }}
       />
-      <ProfileStack.Screen name="ECContacts" component={ECContactsScreen} />
+      < ProfileStack.Screen name="ECContacts" component={ECContactsScreen} />
       <ProfileStack.Screen
         name="ChangePassword"
         component={ChangePasswordScreen}
       />
-    </ProfileStack.Navigator>
+    </ProfileStack.Navigator >
   );
 };
 
