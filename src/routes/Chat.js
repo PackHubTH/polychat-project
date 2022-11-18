@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import ChatScreen from "../screens/Chat/";
@@ -17,12 +17,14 @@ const ChatStackScreen = ({ navigation, route }) => {
   const friendData = useChatChannelStore((state) => state.friendData);
   const userChat = useChatChannelStore((state) => state.userChat);
 
-  let routeName = getFocusedRouteNameFromRoute(route);
-  if (routeName === 'ChatChannel' || routeName === 'Location')
-    navigation.setOptions({ tabBarStyle: { display: "none" } });
-  else
-    navigation.setOptions({ tabBarStyle: { display: "flex" } });
-  console.log(routeName)
+  useEffect(() => {
+    let routeName = getFocusedRouteNameFromRoute(route);
+    if (routeName === 'ChatChannel' || routeName === 'Location')
+      navigation.setOptions({ tabBarStyle: { display: "none" } });
+    else
+      navigation.setOptions({ tabBarStyle: { display: "flex" } });
+    console.log(routeName)
+  }, [route]);
 
   return (
     <NavChatStack.Navigator
