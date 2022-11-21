@@ -51,6 +51,8 @@ export const createRegisterData = async (
       assistantList: [],
       chatList: [],
       emergencyList: [],
+      friendList: [],
+      friendRequest: [],
     });
     console.log("Register: Updated profile document in Firestore");
   } catch (error) {
