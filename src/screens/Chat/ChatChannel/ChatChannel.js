@@ -12,8 +12,9 @@ import { useChatChannelStore } from "../../../store/ChatChannelStore";
 
 export default function ChatChannel({ navigation, route }) {
   const { user } = useAuthContext();
-  const channelMessages = useChatChannelStore((state) => state.channelMessages);
-  const setChannelMessages = useChatChannelStore((state) => state.setChannelMessages);
+  const [channelMessages, setChannelMessages] = useState([]);
+  // const channelMessages = useChatChannelStore((state) => state.channelMessages);
+  // const setChannelMessages = useChatChannelStore((state) => state.setChannelMessages);
   const setFriendData = useChatChannelStore((state) => state.setFriendData);
   const setUserChat = useChatChannelStore((state) => state.setUserChat);
 
@@ -109,9 +110,11 @@ export default function ChatChannel({ navigation, route }) {
   return (
     <View style={styles.page}>
       <ScrollView style={styles.content}>
-        {channelMessages.map((e, i) => {
-          return renderMessageDb(e, i);
-        })}
+        {
+          channelMessages.map((e, i) => {
+            return renderMessageDb(e, i);
+          })
+        }
       </ScrollView>
       <InputBox
         setChannelMessages={setChannelMessages}
