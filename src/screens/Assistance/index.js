@@ -23,7 +23,7 @@ const data = [
     status: "Pending",
   },
   {
-    id: 2,
+    id: 3,
     title: "Appointment 2",
     name: "Dr. John Doe",
     date: "12/12/2020",
@@ -31,7 +31,7 @@ const data = [
     status: "Pending",
   },
   {
-    id: 2,
+    id: 4,
     title: "Appointment 2",
     name: "Dr. John Doe",
     date: "12/12/2020",
@@ -39,7 +39,7 @@ const data = [
     status: "Pending",
   },
   {
-    id: 2,
+    id: 5,
     title: "Appointment 2",
     name: "Dr. John Doe",
     date: "12/12/2020",
@@ -47,7 +47,7 @@ const data = [
     status: "Pending",
   },
   {
-    id: 2,
+    id: 6,
     title: "Appointment 2",
     name: "Dr. John Doe",
     date: "12/12/2020",
@@ -55,7 +55,7 @@ const data = [
     status: "Pending",
   },
   {
-    id: 2,
+    id: 7,
     title: "Appointment 2",
     name: "Dr. John Doe",
     date: "12/12/2020",
