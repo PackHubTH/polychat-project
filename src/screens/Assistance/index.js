@@ -1,51 +1,88 @@
-import { Button, Center, Text } from "native-base";
-import { View, StyleSheet } from "react-native";
+import { Center, ScrollView, Text } from "native-base";
 import IconFe from 'react-native-vector-icons/Feather';
-import AssistanceForm from "./AssistanceForm";
-import AssistanceLists from "./AssistanceList";
-import { contentLayout, color } from "../../../Style";
+import { color } from "../../../Style";
+import AssistantCard from "../../components/AssistantCard";
 
-const style = StyleSheet.create({
-  page: {
-    alignSelf: "stretch",
-    alignItems: "center"
+
+// const data = []
+const data = [
+  {
+    id: 1,
+    title: "Appointment 1",
+    name: "Dr. John Doe",
+    date: "12/12/2020",
+    time: "12:00",
+    status: "Pending",
   },
-  content: {
-    width: contentLayout.width,
-    overflow: "scroll",
+  {
+    id: 2,
+    title: "Appointment 2",
+    name: "Dr. John Doe",
+    date: "12/12/2020",
+    time: "12:00",
+    status: "Pending",
   },
-  text: {
-    fontSize: "16pt",
-    color: "#8E8E8E"
+  {
+    id: 2,
+    title: "Appointment 2",
+    name: "Dr. John Doe",
+    date: "12/12/2020",
+    time: "12:00",
+    status: "Pending",
   },
-  button: {
-    borderRadius: "20",
-    backgroundColor: "#188FFC",
-    width: "100pt",
-    height: '35pt',
+  {
+    id: 2,
+    title: "Appointment 2",
+    name: "Dr. John Doe",
+    date: "12/12/2020",
+    time: "12:00",
+    status: "Pending",
   },
-  textBtn: {
-    fontSize: "16pt",
-    color: "#FFFFFF"
-  }
-});
+  {
+    id: 2,
+    title: "Appointment 2",
+    name: "Dr. John Doe",
+    date: "12/12/2020",
+    time: "12:00",
+    status: "Pending",
+  },
+  {
+    id: 2,
+    title: "Appointment 2",
+    name: "Dr. John Doe",
+    date: "12/12/2020",
+    time: "12:00",
+    status: "Pending",
+  },
+  {
+    id: 2,
+    title: "Appointment 2",
+    name: "Dr. John Doe",
+    date: "12/12/2020",
+    time: "12:00",
+    status: "Pending",
+  },
+]
 
 const AssistanceScreen = ({ navigation }) => {
 
   return (
-    <View style={style.page}>
-      <Button
-        style={style.button}
-        leftIcon={<IconFe name="plus" size="sm" color={color.white} />}
-        onPress={() => navigation.navigate(AssistanceForm)} >
-        <Text style={style.textBtn}>Create</Text>
-      </Button>
-      <Center style={style.content}>
-        <IconFe name="x-circle" size="50px" color={color.grey} />
-        <Text style={style.text}>You haven't created any appointments.</Text>
+    <ScrollView bg={color.white}>
+      <Center w="100%">
+        {
+          data.length !== 0 ?
+            data.map((item, i) => {
+              return (
+                <AssistantCard key={i} />
+              );
+            }) :
+            <>
+              <IconFe name="x-circle" size="50px" color={color.grey} />
+              <Text color={color.grey} fontSize="16px">You haven't created any appointments.</Text>
+            </>
+        }
       </Center>
-      <AssistanceLists />
-    </View>
+    </ScrollView>
   );
 };
 
