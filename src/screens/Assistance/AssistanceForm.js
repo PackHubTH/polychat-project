@@ -109,8 +109,8 @@ const AssistanceForm = ({ navigation }) => {
 					status: "waiting"
 				})
 			});
-			// resetState("all");
-			// navigation.navigate("Assistance")
+			resetState("all");
+			navigation.navigate("Assistance")
 		}
 	}
 
