@@ -1,4 +1,4 @@
-import { Button, Center, FormControl, HStack, VStack, Input, Text, Pressable, Box } from "native-base";
+import { Button, Center, FormControl, HStack, Modal, VStack, Input, Text, Pressable, Box } from "native-base";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import IconFe from 'react-native-vector-icons/Feather';
 import Assistance from ".";
@@ -9,17 +9,13 @@ import { color } from "../../../Style";
 import { useAssistanceStore } from "../../store/AssistanceStore";
 import { useProfileStore } from "../../store/ProfileStore";
 import shallow from 'zustand/shallow'
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, addDoc, getDoc, setDoc, updateDoc, arrayUnion, collection } from "firebase/firestore";
 import { firestoreDb } from "../../utils/dbs/FireStore";
+import GenerateUid from "../../utils/GenerateUid";
 
 
 const AssistanceForm = ({ navigation }) => {
 
-	// const [dateTime, setDateTime] = useState(new Date());
-	// const [mode, setMode] = useState();
-	// const [show, setShow] = useState(false);
-	// const [dateInput, setDateInput] = useState("DD/MM/YYYY");
-	// const [timeInput, setTimeInput] = useState("HH:MM");
 	const { dateTime, mode, show, dateInput, timeInput, topic, friendId,
 		setDateTime, setMode, setShow, setDateInput, setTimeInput, setTopic, setFriendId
 	} = useAssistanceStore(
@@ -33,6 +29,8 @@ const AssistanceForm = ({ navigation }) => {
 		shallow
 	)
 	const userData = useProfileStore((state) => state.userData);
+	const setUserData = useProfileStore((state) => state.setUserData);
+	const [showModal, setShowModal] = useState(false);
 
 	const resetState = (mode) => {
 		if (mode === "date") {
@@ -55,7 +53,7 @@ const AssistanceForm = ({ navigation }) => {
 		// dateTime sent to db
 		const currentDate = selectedDate || dateTime;
 		setDateTime(currentDate);
-		console.log('currentDate', currentDate);
+		// console.log('currentDate', currentDate);
 
 		// date show on screen
 		let tempDate = new Date(currentDate);
@@ -68,25 +66,13 @@ const AssistanceForm = ({ navigation }) => {
 
 		setDateInput(fDate);
 		setTimeInput(fTime);
-		console.log(fDate + " (" + fTime + ")");
+		// console.log(fDate + " (" + fTime + ")");
 	};
 
 	const showMode = (currentMode) => {
 		setShow(true);
 		setMode(currentMode);
 	};
-
-	// const onPressCancelDate = () => {
-	// 	setShow(false);
-	// 	setDateInput("DD/MM/YYYY");
-	// 	setTimeInput("HH:MM");
-	// 	console.log("Cancel");
-	// }
-
-	// const onPressConfirmDate = () => {
-	// 	setShow(false);
-	// 	console.log("Confirm");
-	// }
 
 	const onPressCancel = () => {
 		resetState("all");
@@ -98,16 +84,21 @@ const AssistanceForm = ({ navigation }) => {
 			alert("Please fill in all fields");
 		}
 		else {
-			console.log("Create", topic, friendId, dateTime);
-			// add to db
-			const docRef = doc(firestoreDb, "User", userData.userId);
-			await updateDoc(docRef, {
-				assistantList: arrayUnion({
-					topic: topic,
-					friendId: friendId,
-					dateTime: dateTime,
-					status: "waiting"
-				})
+			const assistanceRef = await addDoc(collection(firestoreDb, "Assistance"), {
+				dateTime: dateTime,
+				friendId: friendId,
+				status: "waiting",
+				topic: topic,
+				userId: userData.userId
+			});
+			const userRef = doc(firestoreDb, "User", userData.userId);
+			await updateDoc(userRef, {
+				assistantList: arrayUnion(assistanceRef.id)
+			});
+			await getDoc(userRef).then((doc) => {
+				if (doc.exists()) {
+					setUserData(doc.data());
+				}
 			});
 			resetState("all");
 			navigation.navigate("Assistance")
@@ -191,7 +182,13 @@ const AssistanceForm = ({ navigation }) => {
 
 				<HStack justifyContent="space-between" w="100%" mt={4}>
 					<Button borderRadius="20" backgroundColor={color.grey} w="48%"
-						onPress={() => onPressCancel()}>
+						onPress={() => {
+							if (topic === "" && friendId === "" && dateInput === "DD/MM/YYYY" && timeInput === "HH:MM")
+								onPressCancel()
+							else
+								setShowModal(true)
+						}}
+					>
 						<Text color={color.white}>Cancel</Text>
 					</Button>
 					<Button borderRadius="20" backgroundColor={color.lightBlue} w="48%"
@@ -200,6 +197,37 @@ const AssistanceForm = ({ navigation }) => {
 					</Button>
 				</HStack>
 			</VStack >
+
+			<Modal shadow="9" isOpen={showModal} onClose={() => setShowModal(false)} _backdrop={{
+				_dark: {
+					bg: "coolGray.800"
+				},
+				bg: "#1e1e1e"
+			}}>
+				<Modal.Content bg="#fff" maxWidth="350" maxH="212" borderRadius="20px" p={2}>
+					<Modal.Header bg="#fff" borderBottomWidth="0">Discard changes?</Modal.Header>
+					<Modal.Body bg="#fff" py="0">
+						You have unsaved changes, are you sure you want to discard them?
+					</Modal.Body>
+					<Modal.Footer bg="#fff" borderTopWidth="0" justifyContent="center">
+						<Button.Group space={2}>
+							<Button bg={color.grey} borderRadius="20px" w="100px"
+								onPress={() => {
+									setShowModal(false);
+									onPressCancel();
+								}}>
+								Discard
+							</Button>
+							<Button bg={color.lightBlue} borderRadius="20px"
+								onPress={() => {
+									setShowModal(false);
+								}}>
+								Keep Editing
+							</Button>
+						</Button.Group>
+					</Modal.Footer>
+				</Modal.Content>
+			</Modal>
 		</Box >
 	);
 };
