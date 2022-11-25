@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView, TextInput, View } from 'react-native';
 import { Box, Input, Button } from 'native-base';
+import { color } from '../../../../Style';
 import CreateMessage from '../../../utils/CreateMessage';
 import { useAuthContext } from '../../../utils/auth/AuthContext';
 import GenerateUid from '../../../utils/GenerateUid';
@@ -15,7 +16,10 @@ import {
    arrayUnion,
    where,
 } from 'firebase/firestore';
+import IconFe from 'react-native-vector-icons/Feather';
+import IconEn from 'react-native-vector-icons/Entypo';
 import { firestoreDb } from '../../../utils/dbs/FireStore';
+
 const InputBox = ({ friendData, setChannelMessages, userChat }) => {
    const { user } = useAuthContext();
    const [message, setMessage] = useState('');
@@ -40,17 +44,25 @@ const InputBox = ({ friendData, setChannelMessages, userChat }) => {
    return (
       <SafeAreaView style={styles.container}>
          <Box style={styles.content} alignItems="center">
-            <Input
-               mx="3"
-               value={message}
-               placeholder="Input"
-               w="100%"
-               onChangeText={(e) => {
-                  setMessage(e);
+            <IconEn
+               name="emoji-happy"
+               size={25}
+               onPress={() => {
+                  alert('emoji');
                }}
             />
-            <Button
-               size={'xs'}
+            <View style={[styles.inputBox, { paddingRight: 10 }]}>
+               <TextInput
+                  placeholder="Type a message"
+                  style={styles.input}
+                  onChange={(e) => {
+                     setMessage(e.nativeEvent.text);
+                  }}
+               />
+            </View>
+            <IconFe
+               name="send"
+               size={25}
                onPress={() => {
                   const newMessage = CreateMessage(
                      user.uid,
@@ -68,9 +80,7 @@ const InputBox = ({ friendData, setChannelMessages, userChat }) => {
                   });
                   setMessage('');
                }}
-            >
-               send
-            </Button>
+            />
          </Box>
       </SafeAreaView>
    );
@@ -79,19 +89,30 @@ const InputBox = ({ friendData, setChannelMessages, userChat }) => {
 const styles = StyleSheet.create({
    container: {
       width: '100%',
-      height: 50,
+      height: 145,
       position: 'fixed',
       bottom: 0,
-      backgroundColor: '#A5A58D',
+      backgroundColor: color.white,
    },
    content: {
-      width: '80%',
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-   },
-   messageInput: {
-      color: 'white',
       width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
+
+   inputBox: {
+      backgroundColor: color.white,
+      width: '80%',
+      height: '100%',
+   },
+   input: {
+      margin: 12,
+      width: '90%',
+      borderRadius: 20,
+      borderWidth: 1,
+      padding: 10,
+      color: color.grey,
    },
 });
 
