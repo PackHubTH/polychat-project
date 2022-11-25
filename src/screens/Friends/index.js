@@ -143,7 +143,7 @@ const FriendsScreen = ({ navigation }) => {
             <View style={style.content}>
                <FriendRequest friends={friendRequest} />
                <FriendList friends={dbFriends} navigation={navigation} />
-               <Text>Loading...</Text>
+               <Text>...</Text>
             </View>
          </View>
       );
