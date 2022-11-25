@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Text, Center } from 'native-base';
 import Friend from '../../components/Friend';
 import { mock_friendsRequest } from './data';
+import GenerateUid from '../../utils/GenerateUid';
 import Icon from 'react-native-vector-icons/Feather';
 import { color } from '../../../Style';
 import RemoveItemArray from '../../utils/RemoveItemArray';
@@ -39,7 +40,36 @@ const FriendRequest = (props) => {
          setFriendRequests([...array]);
       }
    };
+
+   const createChatChannel = async (user1, user2) => {
+      const newChannel = {
+         channelId: GenerateUid(),
+         user1: user1,
+         user2: user2,
+         readStatus: false,
+         messageId: [],
+      };
+
+      await addDoc(collection(firestoreDb, 'ChatChannel'), newChannel);
+   };
+
    const acceptFriendHandler = async (getin) => {
+      // create chat channel
+
+      try {
+         console.log('createing chat channel');
+         await addDoc(collection(firestoreDb, 'ChatChannel'), {
+            channelId: GenerateUid(),
+            user1: user.uid,
+            user2: getin.userId,
+            readStatus: false,
+            messageId: [],
+         });
+      } catch (error) {
+         console.log('error', error);
+         console.log('create chatchannel error');
+      }
+
       // ui
       // setFriendRequests((previous) => [...previous, getin]);
       const array = RemoveItemArray(friendRequests, getin);
