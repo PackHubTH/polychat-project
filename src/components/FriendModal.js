@@ -43,9 +43,13 @@ const FriendModal = (props) => {
                         }}
                         alt="Friend's photo"
                      />
-                     <Text style={{ marginTop: 25 }}>{props.friend.name}</Text>
+                     <Text style={{ marginTop: 25 }}>
+                        {props.friend.firstname}
+                     </Text>
 
-                     <Text style={{ marginTop: 10 }}>{props.friend.about}</Text>
+                     <Text style={{ marginTop: 10 }}>
+                        {props.friend.userId}
+                     </Text>
                   </View>
                   <View style={styles.bottom}>
                      <View style={styles.iconBox}>
