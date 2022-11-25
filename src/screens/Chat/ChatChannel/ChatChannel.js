@@ -7,12 +7,19 @@ import YouMessage from './YouMessage';
 import MeMessage from './MeMessage';
 import InputBox from './InputBox';
 import MapMessage from './MapMessage';
+import StickersModal from './StickersModal/StickersModal';
+import Send from '../layouts/Send';
+import Receive from '../layouts/Receive';
+import PhotoMessage from './PhotoMessage';
 
 import { useChatChannelStore } from '../../../store/ChatChannelStore';
 
 export default function ChatChannel({ navigation, route }) {
    const { user } = useAuthContext();
    const [channelMessages, setChannelMessages] = useState([]);
+
+   const [showSticker, setShowsticker] = useState(false);
+
    // const channelMessages = useChatChannelStore((state) => state.channelMessages);
    // const setChannelMessages = useChatChannelStore((state) => state.setChannelMessages);
    const setFriendData = useChatChannelStore((state) => state.setFriendData);
@@ -28,9 +35,8 @@ export default function ChatChannel({ navigation, route }) {
       if (messageObject.photo === '' && messageObject.location === '') {
          if (messageObject.sender === user.uid) {
             return <MeMessage key={i} message={messageObject.text} />;
-         } else {
-            return <YouMessage key={i} message={messageObject.text} />;
          }
+         return <YouMessage key={i} message={messageObject.text} />;
       }
       // if it's not a chat message
       else {
@@ -45,6 +51,19 @@ export default function ChatChannel({ navigation, route }) {
                />
             );
          }
+
+         if (messageObject.sender === user.uid) {
+            return (
+               <Send>
+                  <PhotoMessage key={i} photo={messageObject.photo} />
+               </Send>
+            );
+         }
+         return (
+            <Receive>
+               <PhotoMessage key={i} photo={messageObject.photo} />
+            </Receive>
+         );
       }
    };
    const sortMessage = (messageArray) => {
@@ -109,12 +128,20 @@ export default function ChatChannel({ navigation, route }) {
    }, []);
    return (
       <View style={styles.page}>
+         <StickersModal
+            friendData={route.params.friendData}
+            userChat={route.params.userChat}
+            showSticker={showSticker}
+            setShowsticker={setShowsticker}
+         />
          <ScrollView style={styles.content}>
             {channelMessages.map((e, i) => {
                return renderMessageDb(e, i);
             })}
          </ScrollView>
          <InputBox
+            showSticker={showSticker}
+            setShowsticker={setShowsticker}
             setChannelMessages={setChannelMessages}
             friendData={route.params.friendData}
             userChat={route.params.userChat}
