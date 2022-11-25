@@ -20,7 +20,13 @@ import IconFe from 'react-native-vector-icons/Feather';
 import IconEn from 'react-native-vector-icons/Entypo';
 import { firestoreDb } from '../../../utils/dbs/FireStore';
 
-const InputBox = ({ friendData, setChannelMessages, userChat }) => {
+const InputBox = ({
+   showSticker,
+   setShowsticker,
+   friendData,
+   setChannelMessages,
+   userChat,
+}) => {
    const { user } = useAuthContext();
    const [message, setMessage] = useState('');
 
@@ -47,8 +53,11 @@ const InputBox = ({ friendData, setChannelMessages, userChat }) => {
             <IconEn
                name="emoji-happy"
                size={25}
+               color={showSticker ? color.lightBlue : color.black}
                onPress={() => {
-                  alert('emoji');
+                  setShowsticker((prev) => {
+                     return !prev;
+                  });
                }}
             />
             <View style={[styles.inputBox, { paddingRight: 10 }]}>
@@ -64,21 +73,23 @@ const InputBox = ({ friendData, setChannelMessages, userChat }) => {
                name="send"
                size={25}
                onPress={() => {
-                  const newMessage = CreateMessage(
-                     user.uid,
-                     friendData.userId,
-                     message,
-                     '',
-                     serverTimestamp(),
-                     GenerateUid(),
-                     ''
-                  );
-                  sendChat(newMessage);
-                  updateChatChannelDoc(newMessage.messageId);
-                  setChannelMessages((prev) => {
-                     return [...prev, newMessage];
-                  });
-                  setMessage('');
+                  if (message.length > 0) {
+                     const newMessage = CreateMessage(
+                        user.uid,
+                        friendData.userId,
+                        message,
+                        '',
+                        serverTimestamp(),
+                        GenerateUid(),
+                        ''
+                     );
+                     sendChat(newMessage);
+                     updateChatChannelDoc(newMessage.messageId);
+                     setChannelMessages((prev) => {
+                        return [...prev, newMessage];
+                     });
+                     setMessage('');
+                  }
                }}
             />
          </Box>
