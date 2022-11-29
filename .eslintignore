@@ -1,0 +1,30 @@
+# Folder
+.expo/
+.expo-shared/
+.vscode/
+.assets/
+node_modules/
+
+# Config Files
+.env
+.eslintignore
+.eslintrc.js
+.gitignore
+*.config.js
+yarn.lock
+
+# Docs
+LICENSE*
+*.md
+**/*.md
+
+# Base JS
+App.js
+app.json
+Style.js
+
+# Logs
+yarn-error.log*
+npm-error.log*
+yarn-debug.log*
+yarn-error.log*
