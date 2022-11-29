@@ -1,25 +1,25 @@
-import create from 'zustand'
+import create from 'zustand';
 
 // 1. create get/set states.
 const store = (set) => ({
-  dateTime: new Date(),
-  mode: null,
-  show: false,
-  dateInput: "DD/MM/YYYY",
-  timeInput: "HH:MM",
-  topic: "",
-  friendId: "",
-  setDateTime: (dateTime) => set({ dateTime }),
-  setMode: (mode) => set({ mode }),
-  setShow: (show) => set({ show }),
-  setDateInput: (dateInput) => set({ dateInput }),
-  setTimeInput: (timeInput) => set({ timeInput }),
-  setTopic: (topic) => set({ topic }),
-  setFriendId: (friendId) => set({ friendId }),
-})
+    dateTime: new Date(),
+    mode: null,
+    show: false,
+    dateInput: 'DD/MM/YYYY',
+    timeInput: 'HH:MM',
+    topic: '',
+    friendId: '',
+    setDateTime: (dateTime) => set({ dateTime }),
+    setMode: (mode) => set({ mode }),
+    setShow: (show) => set({ show }),
+    setDateInput: (dateInput) => set({ dateInput }),
+    setTimeInput: (timeInput) => set({ timeInput }),
+    setTopic: (topic) => set({ topic }),
+    setFriendId: (friendId) => set({ friendId }),
+});
 
 // 2. create store
-export const useAssistanceStore = create(store)
+export const useAssistanceStore = create(store);
 
 
 
