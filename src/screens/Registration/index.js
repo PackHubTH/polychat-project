@@ -1,21 +1,21 @@
-import { useState } from "react";
-import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, Link, MaterialIcons, Pressable, Text, VStack } from "native-base";
+import { useState } from 'react';
+import { Box, Button, Center, FormControl, Heading, HStack, Icon, Image, Input, Link, MaterialIcons, Pressable, Text, VStack } from 'native-base';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 import Logo from '../../../assets/logo.png';
-import { auth } from '../../utils/auth/FirebaseAuth'
-import { returnAuthContext } from "../../utils/auth/AuthContext";
+import { auth } from '../../utils/auth/FirebaseAuth';
+import { returnAuthContext } from '../../utils/auth/AuthContext';
 
 const Register = ({ navigation, route }) => {
 
     //Form Data
-    const [firstname, setFirstname] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [displayName, setDisplayName] = useState("");
-    const [phoneNum, setPhoneNum] = useState("");
-    const [regEmail, setRegEmail] = useState("");
-    const [regPassword, setRegPassword] = useState("");
-    const [confirmPassword, setConfirmPwd] = useState("");
+    const [firstname, setFirstname] = useState('');
+    const [lastname, setLastname] = useState('');
+    const [displayName, setDisplayName] = useState('');
+    const [phoneNum, setPhoneNum] = useState('');
+    const [regEmail, setRegEmail] = useState('');
+    const [regPassword, setRegPassword] = useState('');
+    const [confirmPassword, setConfirmPwd] = useState('');
 
     //Error
     const [formError, setFormError] = useState({});
@@ -25,81 +25,81 @@ const Register = ({ navigation, route }) => {
 
     const validate = () => {
 
-        if (firstname == "" | lastname == "" | displayName == "") {
+        if (firstname == '' | lastname == '' | displayName == '') {
             setFormError({
-                ...formError, name: "Please fill in all names in a required fields!"
-            })
+                ...formError, name: 'Please fill in all names in a required fields!'
+            });
             return false;
         }
 
-        if (phoneNum == "") {
+        if (phoneNum == '') {
             setFormError({
-                ...formError, name: "Please fill in your phone number!"
-            })
+                ...formError, name: 'Please fill in your phone number!'
+            });
             return false;
         }
 
         if (!/\S+@\S+\.\S+/.test(regEmail)) {
             setFormError({
-                ...formError, name: "Invalid email address"
-            })
+                ...formError, name: 'Invalid email address'
+            });
             return false;
         }
 
-        if (regEmail == "") {
+        if (regEmail == '') {
             setFormError({
-                ...formError, name: "Email is required!"
-            })
+                ...formError, name: 'Email is required!'
+            });
             return false;
         }
 
-        if (regPassword == "") {
+        if (regPassword == '') {
             setFormError({
-                ...formError, name: "Please create your password!"
-            })
-            return false
+                ...formError, name: 'Please create your password!'
+            });
+            return false;
         }
 
         if (regPassword.length < 6) {
             setFormError({
-                ...formError, name: "Password must consist of more than 6 characters!"
-            })
+                ...formError, name: 'Password must consist of more than 6 characters!'
+            });
             return false;
         }
 
-        if (confirmPassword == "") {
+        if (confirmPassword == '') {
             setFormError({
-                ...formError, name: "Please confirm your password!"
-            })
-            return false
+                ...formError, name: 'Please confirm your password!'
+            });
+            return false;
         }
 
         if (regPassword != confirmPassword) {
             setFormError({
-                ...formError, name: "Both password field does not match!"
-            })
+                ...formError, name: 'Both password field does not match!'
+            });
             return false;
         }
 
         return true;
-    }
+    };
 
     const submit = () => {
         try {
             if (validate()) {
                 register(regEmail, regPassword, phoneNum, displayName, firstname, lastname);
-                console.log("Submitted!");
+                console.log('Submitted!');
                 return true;
             }
             else {
-                console.log("Invalid Input");
+                console.log('Invalid Input');
                 return false;
             }
         } catch (error) {
             console.log(error);
             return false;
         }
-    }
+    };
 
     return (
         <Center safeArea flex={1} bg='#fff'>
@@ -147,7 +147,7 @@ const Register = ({ navigation, route }) => {
                     <Button w="286" borderRadius="20" mt="2" colorScheme="indigo"
                         onPress={() => {
                             if (submit()) {
-                                navigation.navigate('Login')
+                                navigation.navigate('Login');
                             }
                         }}>
                         Register
@@ -160,12 +160,12 @@ const Register = ({ navigation, route }) => {
 
                 <HStack>
                     <Text fontSize="sm" color="coolGray.600"
-                        _dark={{ color: "warmGray.200" }} >
-                        Click here to go back to {" "}
+                        _dark={{ color: 'warmGray.200' }} >
+                        Click here to go back to {' '}
                         <Link _text={{
-                            color: "indigo.500",
-                            fontWeight: "medium",
-                            fontSize: "sm"
+                            color: 'indigo.500',
+                            fontWeight: 'medium',
+                            fontSize: 'sm'
                         }} onPress={() => navigation.navigate('LoginPage')}>
                             Login Page
                         </Link>
@@ -175,6 +175,6 @@ const Register = ({ navigation, route }) => {
             </VStack>
         </Center>
     );
-}
+};
 
 export default Register;
