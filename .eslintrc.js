@@ -25,6 +25,8 @@ module.exports = {
         'semi': ['error', 'always'],
         'eqeqeq': 'off',
         'spaced-comment': 'off',
+        'no-unused-vars': 'warn',
+        'no-undef': 'warn',
         'no-await-in-loop': 'off',
         'no-restricted-syntax': 'off',
         'no-plusplus': 'off',
@@ -32,6 +34,10 @@ module.exports = {
             classes: "always"
         }],
 
+        // plugin:react/recommended
+        'react/prop-types': 'off',
+        'react/react-in-jsx-scope': 'off',
+        'react/no-unescaped-entities': 'off'
 
     }
 }
