@@ -52,6 +52,7 @@
     "@expo/metro-config": "^0.4.0",
     "@expo/ngrok": "^4.1.0",
     "@testing-library/jest-native": "^5.3.1",
+    "jest": "^29.3.1",
     "prettier": "^2.7.1"
   },
   "private": true
