@@ -1,4 +1,4 @@
-import { Button, Center, HStack, ScrollView, Text } from 'native-base';
+import { Box, Button, Center, HStack, ScrollView, Text } from 'native-base';
 import IconFe from 'react-native-vector-icons/Feather';
 import { color } from '../../../Style';
 import AssistantCard from '../../components/AssistantCard';
@@ -39,22 +39,24 @@ const AssistanceScreen = ({ navigation, route }) => {
    console.log('assist render');
    if (assistanceData.length !== 0) {
       return (
-         <ScrollView bg={color.white} flex={1}>
-            <Center w="100%" paddingBottom="32px">
-               <HStack space={4}>
-                  <Button
-                     variant={isDefault ? 'solid' : 'outline'}
-                     onPress={() => setIsDefault(true)}
-                  >
-                     My Assistance
-                  </Button>
-                  <Button
-                     variant={!isDefault ? 'solid' : 'outline'}
-                     onPress={() => setIsDefault(false)}
-                  >
-                     Friend's Assistance
-                  </Button>
-               </HStack>
+         //  <ScrollView bg={color.white} flex={1}>
+         <Center bg="white" w="100%" flex={1}>
+            <HStack space={4}>
+               <Button
+                  variant={isDefault ? 'solid' : 'outline'}
+                  onPress={() => setIsDefault(true)}
+               >
+                  My Assistance
+               </Button>
+               <Button
+                  variant={!isDefault ? 'solid' : 'outline'}
+                  onPress={() => setIsDefault(false)}
+               >
+                  Friend's Assistance
+               </Button>
+            </HStack>
+            {/* <Box h="90%" px="32px"> */}
+            <ScrollView>
                {assistanceData
                   .filter((data) => {
                      if (!isDefault) {
@@ -68,9 +70,11 @@ const AssistanceScreen = ({ navigation, route }) => {
                         <AssistantCard key={i} a_data={data[0]} id={data[1]} />
                      );
                   })}
-               {/* {renderCard()} */}
-            </Center>
-         </ScrollView>
+            </ScrollView>
+            {/* </Box> */}
+            {/* {renderCard()} */}
+         </Center>
+         //  </ScrollView>
       );
    } else {
       return (
