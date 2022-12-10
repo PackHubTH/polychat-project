@@ -1,58 +1,51 @@
-import { Button, Icon, IconButton, Text } from 'native-base';
+import React from 'react';
+import { Button, Text } from 'native-base';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { TouchableWithoutFeedback } from 'react-native';
-// import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 import IconFe from 'react-native-vector-icons/Feather';
 import IconIo from 'react-native-vector-icons/Ionicons';
 import IconMa from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import HomeScreen from '../screens/Home';
-
 import FriendsStackScreen from './Friends';
 import ChatStackScreen from './Chat';
-// import ChatStackScreen from "../screens/Chat/ChatStackScreen";
 import AssistanceStackScreen from './Assistance';
 import ProfileStackScreen from './Profile';
-import React from 'react';
+import SOSIcon from '../components/SOSIcon';
 
 const HomeTab = createBottomTabNavigator();
 
-const SOSIcon = () => {
-   return (
-      <TouchableWithoutFeedback>
-         <Button
-            variant="solid"
-            style={{
-               border: '4px solid white',
-               borderRadius: '100%',
-               backgroundColor: '#eb3434',
-               width: 56,
-               height: 56,
-               bottom: 20,
-            }}
-            onLongPress={() =>
-               alert(
-                  'We have notified your friends. Please wait for help from your friends.'
-               )
-            }
-            delayLongPress={2000}
-         >
-            SOS
-         </Button>
-      </TouchableWithoutFeedback>
-   );
-};
+// const SOSIcon = (navigation) => {
+//    return (
+//       <TouchableWithoutFeedback>
+//          <Button
+//             variant="solid"
+//             style={{
+//                border: '4px solid white',
+//                borderRadius: '100%',
+//                backgroundColor: '#eb3434',
+//                width: 56,
+//                height: 56,
+//                bottom: 20,
+//             }}
+//             onLongPress={() =>
+//                // alert(
+//                //    'We have notified your friends. Please wait for help from your friends.'
+//                // )
+//                navigation.navigate('SOS')
+//             }
+//             delayLongPress={2000}
+//          >
+//             SOS
+//          </Button>
+//       </TouchableWithoutFeedback>
+//    );
+// };
 
 const HomeTabIcon = ({ focused, icon, text }) => {
    return (
       <>
-         {/* <Icon
-        as={icon}
-        color={focused ? '#188ffc' : '#1f2937'}
-        name={text}
-        size={4}
-      /> */}
          {icon}
          <Text
             color={focused ? '#188ffc' : '#1f2937'}
@@ -66,13 +59,7 @@ const HomeTabIcon = ({ focused, icon, text }) => {
    );
 };
 
-const HomeTabScreen = ({ navigation, route }) => {
-   // React.useLayoutEffect(() => {
-   //   const routeName = getFocusedRouteNameFromRoute(route);
-   //   console.log(routeName)
-   //   navigation.setOptions({ tabBarStyle: { display: "none" } });
-   // }, [navigation, route]);
-
+const HomeTabScreen = ({ navigation }) => {
    return (
       <HomeTab.Navigator
          initialRouteName="ProfileHome"
@@ -97,7 +84,6 @@ const HomeTabScreen = ({ navigation, route }) => {
                      ),
                      text: 'Chats',
                   }),
-               // tabBarStyle: { display: "none" },
             }}
          />
          <HomeTab.Screen
@@ -122,7 +108,7 @@ const HomeTabScreen = ({ navigation, route }) => {
             name="SOS"
             component={HomeScreen}
             options={{
-               tabBarButton: () => SOSIcon(),
+               tabBarButton: () => SOSIcon(navigation),
             }}
          />
          <HomeTab.Screen

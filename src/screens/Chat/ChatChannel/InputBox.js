@@ -20,6 +20,8 @@ import IconFe from 'react-native-vector-icons/Feather';
 import IconEn from 'react-native-vector-icons/Entypo';
 import { firestoreDb } from '../../../utils/dbs/FireStore';
 
+import getLocation from '../../../utils/getLocation';
+
 const InputBox = ({
    showSticker,
    setShowsticker,
@@ -50,6 +52,12 @@ const InputBox = ({
    return (
       <SafeAreaView style={styles.container}>
          <Box style={styles.content} alignItems="center">
+            <IconFe
+               name="map-pin"
+               size={25}
+               // color={showSticker ? color.lightBlue : color.black}
+               onPress={() => getLocation()}
+            />
             <IconEn
                name="emoji-happy"
                size={25}
