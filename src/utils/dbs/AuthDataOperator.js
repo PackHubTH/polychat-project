@@ -119,17 +119,9 @@ export const getAllUserChat = async (userId) => {
       const querySnap2 = await getDocs(query2);
       querySnap2.forEach((doc) => {
          chats.push(doc.data());
-
-         if (chats.length != 0) {
-            console.log(
-               `GetAllUserChat: Found ${chats.length} chat(s) for ${userId}`
-            );
-            return chats;
-         } else {
-            console.log(`GetAllUserChat: No chat found for ${userId}`);
-            return [];
-         }
       });
+
+      return chats;
    } catch (error) {
       console.log(error.message);
       throw new Error(
