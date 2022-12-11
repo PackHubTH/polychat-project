@@ -106,27 +106,32 @@ export const getUserChat = async (channelId) => {
 };
 
 export const getAllUserChat = async (userId) => {
-   const chats = [];
-   const collectionRef = collection(firestoreDb, 'ChatChannel');
-   try {
-      let query1 = query(collectionRef, where('user1', '==', userId));
-      const querySnap1 = await getDocs(query1);
-      querySnap1.forEach((doc) => {
-         chats.push(doc.data());
-      });
+   const user = await getDoc(doc(firestoreDb, 'User', userId));
+   if (user.exists()) {
+      const chats = [];
+      const collectionRef = collection(firestoreDb, 'ChatChannel');
+      try {
+         let query1 = query(collectionRef, where('user1', '==', userId));
+         const querySnap1 = await getDocs(query1);
+         querySnap1.forEach((doc) => {
+            chats.push(doc.data());
+         });
 
-      let query2 = query(collectionRef, where('user2', '==', userId));
-      const querySnap2 = await getDocs(query2);
-      querySnap2.forEach((doc) => {
-         chats.push(doc.data());
-      });
+         let query2 = query(collectionRef, where('user2', '==', userId));
+         const querySnap2 = await getDocs(query2);
+         querySnap2.forEach((doc) => {
+            chats.push(doc.data());
+         });
 
-      return chats;
-   } catch (error) {
-      console.log(error.message);
-      throw new Error(
-         `GetAllUserChat: Failed to get user's chat for ${userId}`
-      );
+         return chats;
+      } catch (error) {
+         console.log(error.message);
+         throw new Error(
+            `GetAllUserChat: Failed to get user's chat for ${userId}`
+         );
+      }
+   } else {
+      return null;
    }
 };
 
