@@ -20,7 +20,7 @@ module.exports = {
     'rules': {
         // eslint:recommended rules
         'indent': ['warn', 4],
-        'linebreak-style': ['warn', 'unix'],
+        'linebreak-style': 'off',
         'quotes': ['warn', 'single'],
         'semi': ['error', 'always'],
         'eqeqeq': 'off',
