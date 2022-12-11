@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Center } from 'native-base';
 import Friend from '../../components/Friend';
-import { mock_friendsRequest } from './data';
 import GenerateUid from '../../utils/GenerateUid';
 import Icon from 'react-native-vector-icons/Feather';
 import { color } from '../../../Style';
 import RemoveItemArray from '../../utils/RemoveItemArray';
+import searchUserById from '../../utils/User/SearchUser';
 
 import {
    collection,
@@ -14,11 +14,11 @@ import {
    getDoc,
    addDoc,
    setDoc,
+   updateDoc,
+   arrayUnion,
    query,
    where,
    deleteDoc,
-   updateDoc,
-   arrayUnion,
    onSnapshot,
    collectionGroup,
    getDocs,
@@ -29,35 +29,66 @@ import { useAuthContext } from '../../utils/auth/AuthContext';
 
 const FriendRequest = (props) => {
    const { user } = useAuthContext();
-   const [friendRequests, setFriendRequests] = useState(props.friends);
-   console.log('props.friends', props.friends);
-   useEffect(() => {}, [friendRequests]);
-   //if there is no user in the friend request, setState to null
-   const nullCondition = (array) => {
-      if (array.length === 0) {
-         setFriendRequests(null);
-      } else {
-         setFriendRequests([...array]);
+
+   const [requestDoc, setRequestDoc] = useState([]);
+   const [friendRequest, setFriendRequest] = useState([]);
+
+   const searchFriendsRequest = async () => {
+      const request = [];
+      const querySnapshot = await getDocs(
+         collection(firestoreDb, 'FriendRequest')
+      );
+      querySnapshot.forEach((doc) => {
+         if (doc.data().receiver == user.uid) {
+            request.push({ ...doc.data(), id: doc.id });
+
+            setRequestDoc((prev) => {
+               return [...prev, { ...doc.data(), id: doc.id }];
+            });
+         }
+      });
+
+      // what is below code doing?
+      if (request.length > 0) {
+         request.map(async (item) => {
+            const docRef = doc(firestoreDb, 'User', item.sender);
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+               setFriendRequest((prev) => {
+                  return [...prev, docSnap.data()];
+               });
+            } else {
+               console.log('No such document for' + item.sender);
+            }
+         });
       }
    };
 
-   const createChatChannel = async (user1, user2) => {
-      const newChannel = {
-         channelId: GenerateUid(),
-         user1: user1,
-         user2: user2,
-         readStatus: false,
-         messageId: [],
-      };
+   useEffect(() => {
+      searchFriendsRequest();
+      // searchUserById('qIAEeHcmIHbFcT0Ekx43tHpMaVX2').then((user) => {
+      //    console.log('newFriend', user);
+      //    props.setDbFriends((prev) => {
+      //       return [...prev, user];
+      //    });
+      // });
+   }, []);
 
-      await addDoc(collection(firestoreDb, 'ChatChannel'), newChannel);
+   //if there is no user in the friend request, setState to null
+   const nullCondition = (array) => {
+      console.log('checkNullCondition', array.length);
+      if (array.length === 0) {
+         setFriendRequest(null);
+      } else {
+         setFriendRequest([...array]);
+      }
    };
 
    const acceptFriendHandler = async (getin) => {
+      console.log('acceptFriendHandler', getin);
       // create chat channel
-
       try {
-         console.log('createing chat channel');
          await addDoc(collection(firestoreDb, 'ChatChannel'), {
             channelId: GenerateUid(),
             user1: user.uid,
@@ -66,49 +97,66 @@ const FriendRequest = (props) => {
             messageId: [],
          });
       } catch (error) {
-         console.log('error', error);
-         console.log('create chatchannel error');
+         console.log('create chatchannel error', error);
       }
-
-      // ui
-      // setFriendRequests((previous) => [...previous, getin]);
-      const array = RemoveItemArray(friendRequests, getin);
-      props.setRequestDoc(array);
-      nullCondition(array);
 
       // db
       const ref = doc(firestoreDb, 'User', user.uid);
       await updateDoc(ref, {
          friendList: arrayUnion(getin.userId),
+      }).then(() => {
+         console.log(`update friendlist success for ${user.uid}`);
       });
-
       const ref2 = doc(firestoreDb, 'User', getin.userId);
       await updateDoc(ref2, {
          friendList: arrayUnion(user.uid),
+      }).then(() => {
+         console.log(`update friendlist success for ${getin.userId}`);
+      });
+      searchUserById(getin.userId).then((user) => {
+         console.log('newFriend', user);
+         props.setDbFriends((prev) => {
+            return [...prev, user];
+         });
       });
 
-      console.log('props.requestDoc', props.requestDoc);
-      console.log('props.requestDoc2', props.requestDoc[0].id);
-      props.requestDoc.map((e) => {
+      // update ui
+      const array = RemoveItemArray(friendRequest, getin);
+      setFriendRequest([...array]);
+
+      // remove friend request
+      requestDoc.map((e) => {
          if (e.receiver === user.uid && e.sender === getin.userId) {
             const docRef = doc(firestoreDb, 'FriendRequest', e.id);
 
-            console.log('incondition');
             deleteDoc(docRef).then(() => {
                console.log('Document successfully deleted!');
             });
          }
       });
+
+      nullCondition(array);
    };
-   const rejectFriendHandler = (user) => {
-      console.log('rejectFriendHandler');
-      const array = RemoveItemArray(friendRequests, user);
-      setFriendRequests([...array]);
+   const rejectFriendHandler = (getin) => {
+      // update ui
+      const array = RemoveItemArray(friendRequest, getin);
+      setFriendRequest([...array]);
+
+      // remove friend request
+      requestDoc.map((e) => {
+         if (e.receiver === user.uid && e.sender === getin.userId) {
+            const docRef = doc(firestoreDb, 'FriendRequest', e.id);
+
+            deleteDoc(docRef).then(() => {
+               console.log('Document successfully deleted!');
+            });
+         }
+      });
+
       nullCondition(array);
    };
 
-   // show this component when friend request not null
-   if (friendRequests !== null) {
+   if (friendRequest !== null && friendRequest.length > 0) {
       return (
          <View style={style.component}>
             <View style={style.wrap}>
@@ -117,13 +165,13 @@ const FriendRequest = (props) => {
                </Text>
 
                <View style={style.content}>
-                  {props.friends.map((e, i) => {
+                  {friendRequest.map((e, i) => {
                      return (
                         <View key={i} style={style.friendRequest}>
                            <Friend friend={e} gap={0} width={'70%'} />
                            <Center style={style.command}>
                               <Icon
-                                 //accept friend and update
+                                 //accept friend
                                  onPress={() => {
                                     acceptFriendHandler(e);
                                  }}
