@@ -12,10 +12,8 @@
     "start:tunnel": "expo start -c --tunnel",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web",
-    "ios:parallel:test": "chmod ug+x $PWD/simulator/ios-parallel-test & $PWD/simulator/ios-parallel-test",
-    "ios:parallel:prep": "chmod ug+x $PWD/simulator/ios-parallel-prep & $PWD/simulator/ios-parallel-prep",
-    "test": "chmod ug+x $PWD/simulator/test & $PWD/simulator/test"
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix"
   },
   "dependencies": {
     "@expo/webpack-config": "^0.17.0",
@@ -50,10 +48,14 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-env": "^7.1.6",
     "@expo/metro-config": "^0.4.0",
     "@expo/ngrok": "^4.1.0",
     "@testing-library/jest-native": "^5.3.1",
+    "eslint": "^8.29.0",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-native": "^4.0.0",
     "jest": "^29.3.1",
     "prettier": "^2.7.1"
   },
