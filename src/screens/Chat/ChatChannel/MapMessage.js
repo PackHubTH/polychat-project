@@ -16,6 +16,7 @@ const MapMessage = ({ location, isSender, navigation, time }) => {
             ]}
         >
             <HStack alignItems="flex-end" space={2}>
+                {isSender && <TimeChat time={new Date(time)} />}
                 <Pressable
                     style={[
                         styles.card,
@@ -54,7 +55,7 @@ const MapMessage = ({ location, isSender, navigation, time }) => {
                         {location.address}
                     </Text>
                 </Pressable>
-                <TimeChat time={new Date(time)} />
+                {!isSender && <TimeChat time={new Date(time)} />}
             </HStack>
         </View>
     );
