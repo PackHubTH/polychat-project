@@ -5,16 +5,16 @@ import SearchUser from './SearchUser';
 import { color } from '../../../../Style';
 
 const AddFriend = ({ navigation }) => {
-   return (
-      <View style={styles.page}>
-         <AddOption />
-         <SearchUser navigation={navigation} />
-      </View>
-   );
+    return (
+        <View style={styles.page}>
+            <AddOption />
+            <SearchUser navigation={navigation} />
+        </View>
+    );
 };
 
 const styles = StyleSheet.create({
-   page: { height: '100%', backgroundColor: color.white },
+    page: { height: '100%', backgroundColor: color.white },
 });
 
 export default AddFriend;
