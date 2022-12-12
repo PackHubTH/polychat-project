@@ -28,7 +28,9 @@ const Register = ({ navigation }) => {
    const [formError, setFormError] = useState({});
    const { register } = returnAuthContext();
 
+   //Validate Input Field
    const validate = () => {
+      //Blank Name
       if ((firstname == '') | (lastname == '') | (displayName == '')) {
          setFormError({
             ...formError,
@@ -37,6 +39,7 @@ const Register = ({ navigation }) => {
          return false;
       }
 
+      //Blank Phone Number
       if (phoneNum == '') {
          setFormError({
             ...formError,
@@ -45,6 +48,7 @@ const Register = ({ navigation }) => {
          return false;
       }
 
+      //Valid Email Address
       if (!/\S+@\S+\.\S+/.test(regEmail)) {
          setFormError({
             ...formError,
@@ -53,6 +57,7 @@ const Register = ({ navigation }) => {
          return false;
       }
 
+      //Blank Email
       if (regEmail == '') {
          setFormError({
             ...formError,
@@ -61,6 +66,7 @@ const Register = ({ navigation }) => {
          return false;
       }
 
+      //Blank Password
       if (regPassword == '') {
          setFormError({
             ...formError,
@@ -69,6 +75,7 @@ const Register = ({ navigation }) => {
          return false;
       }
 
+      //Password Length
       if (regPassword.length < 6) {
          setFormError({
             ...formError,
@@ -77,6 +84,7 @@ const Register = ({ navigation }) => {
          return false;
       }
 
+      //Blank Confirm Password
       if (confirmPassword == '') {
          setFormError({
             ...formError,
@@ -85,6 +93,7 @@ const Register = ({ navigation }) => {
          return false;
       }
 
+      //Confirm Password doesn't match Password
       if (regPassword != confirmPassword) {
          setFormError({
             ...formError,
@@ -96,6 +105,7 @@ const Register = ({ navigation }) => {
       return true;
    };
 
+   //Submit Form
    const submit = () => {
       try {
          if (validate()) {

@@ -17,16 +17,21 @@ const Login = ({ navigation, route }) => {
     const [formError, setFormError] = useState({});
     const { login } = returnAuthContext();
 
+    //Validate Input Field
     const validate = (errorMessage) => {
+
+        //User not Found
         if (errorMessage.match(/user-not-found/)) {
             setFormError({ ...formError, name: 'Sorry, that email doesn\'t match any account.' });
         }
 
+        //Wrong Password
         if (errorMessage.match(/wrong-password/)) {
             setFormError({ ...formError, name: 'Invalid email or password. Try again.' });
         }
     };
 
+    //Submit Login
     const handleLogin = async () => {
         try {
             await login(loginEmail, loginPassword);
