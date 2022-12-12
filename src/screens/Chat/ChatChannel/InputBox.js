@@ -37,15 +37,12 @@ const InputBox = ({
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
          errorMsg = 'Permission to access location was denied';
-         // setErrorMsg('Permission to access location was denied');
          return;
       }
-      console.log('getLocation2');
 
       let location = await Location.getCurrentPositionAsync({});
 
       let text = '';
-      console.log('PASS');
       if (errorMsg) {
          text = errorMsg;
       } else if (location) {
@@ -102,7 +99,7 @@ const InputBox = ({
                   const newMessage = CreateMessage(
                      user.uid,
                      friendData.userId,
-                     message,
+                     '',
                      location,
                      timestamp,
                      messageId,
