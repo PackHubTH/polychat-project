@@ -6,13 +6,13 @@ import {
     listAll, 
 } from 'firebase/storage';
 
-import { firebaseStorage } from './FirebaseStorage'
+import { firebaseStorage } from './FirebaseStorage';
 
 export const getProfilePic = async (userId) => {
-    const fileDir = `/profile/picture/${userId}`+`.png`;
+    const fileDir = `/profile/picture/${userId}`+'.png';
     console.log(`getProfilePic: Getting picture from ${fileDir}`);
     const reference = ref(firebaseStorage, fileDir);
-    let picUrl = "";
+    let picUrl = '';
     try {
         await getDownloadURL(reference).then( (url) => {
             picUrl = url;
@@ -21,13 +21,13 @@ export const getProfilePic = async (userId) => {
     } catch (error) {
         throw new Error(`getProfilePic: Fail to retrieve picture from ${fileDir}, picture possibly not exist`);
     }
-}
+};
 
 export const getSamplePic = async (name) => {
-    const fileDir = `profile/samplepicture/${name}`+`.png`
+    const fileDir = `profile/samplepicture/${name}`+'.png';
     console.log(`getSamplePic: Getting picture from ${fileDir}`);
     const reference = ref(firebaseStorage, `profile/samplepicture/${name}.png`);
-    let picUrl = "";
+    let picUrl = '';
     try {
         await getDownloadURL(reference).then( (url) => {
             picUrl = url;
@@ -48,10 +48,10 @@ export const getSamplePic = async (name) => {
 * @param type type of sticker, refer to above statement 
 * @param numberId id number of sticker, refer to storage*/
 export const getOneSticker = async (type, numberId) => {
-    const fileDir = `/stickers/${type}`+`/${type} (${numberId})`+`.png`
+    const fileDir = `/stickers/${type}`+`/${type} (${numberId})`+'.png';
     console.log(`getOneSticker: Getting picture from ${fileDir}`);
     const reference = ref(firebaseStorage, fileDir);
-    let picUrl = "";
+    let picUrl = '';
     try {
         await getDownloadURL(reference).then( (url) => {
             picUrl = url;
@@ -64,9 +64,9 @@ export const getOneSticker = async (type, numberId) => {
 };
 
 export const getTypeStickers = async (type) => {
-    const fileDir = `/stickers/${type}`
+    const fileDir = `/stickers/${type}`;
     console.log(`getTypeStickers: Fetching pictures from ${fileDir}`);
-    const listReference = ref(firebaseStorage, fileDir)
+    const listReference = ref(firebaseStorage, fileDir);
     let picList = [];
     try {
         await listAll(fileDir).then( (response) => {
@@ -78,7 +78,7 @@ export const getTypeStickers = async (type) => {
         throw new Error(`getTypeStickers: Fail to fetch stickers from ${fileDir}`);
     }
     console.log(`getTypeStickers: returned result ${picList}`);
-    return picList
+    return picList;
 };
 
 

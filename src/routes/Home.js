@@ -44,111 +44,111 @@ const HomeTab = createBottomTabNavigator();
 // };
 
 const HomeTabIcon = ({ focused, icon, text }) => {
-   return (
-      <>
-         {icon}
-         <Text
-            color={focused ? '#188ffc' : '#1f2937'}
-            fontSize="12px"
-            textAlign="center"
-            w="64px"
-         >
-            {text}
-         </Text>
-      </>
-   );
+    return (
+        <>
+            {icon}
+            <Text
+                color={focused ? '#188ffc' : '#1f2937'}
+                fontSize="12px"
+                textAlign="center"
+                w="64px"
+            >
+                {text}
+            </Text>
+        </>
+    );
 };
 
 const HomeTabScreen = ({ navigation }) => {
-   return (
-      <HomeTab.Navigator
-         initialRouteName="ProfileHome"
-         screenOptions={{
-            tabBarShowLabel: false,
-            headerShown: false,
-         }}
-      >
-         <HomeTab.Screen
-            name="ChatHome"
-            component={ChatStackScreen}
-            options={{
-               tabBarIcon: ({ focused }) =>
-                  HomeTabIcon({
-                     focused,
-                     icon: (
-                        <IconIo
-                           name="chatbubble-outline"
-                           size="16px"
-                           color={focused ? '#188ffc' : '#1f2937'}
-                        />
-                     ),
-                     text: 'Chats',
-                  }),
+    return (
+        <HomeTab.Navigator
+            initialRouteName="ProfileHome"
+            screenOptions={{
+                tabBarShowLabel: false,
+                headerShown: false,
             }}
-         />
-         <HomeTab.Screen
-            name="AssistanceHome"
-            component={AssistanceStackScreen}
-            options={{
-               tabBarIcon: ({ focused }) =>
-                  HomeTabIcon({
-                     focused,
-                     icon: (
-                        <IconMa
-                           name="hand-heart-outline"
-                           size="16px"
-                           color={focused ? '#188ffc' : '#1f2937'}
-                        />
-                     ),
-                     text: 'Assistance',
-                  }),
-            }}
-         />
-         <HomeTab.Screen
-            name="SOS"
-            component={HomeScreen}
-            options={{
-               tabBarButton: () => SOSIcon(navigation),
-            }}
-         />
-         <HomeTab.Screen
-            name="FriendsHome"
-            component={FriendsStackScreen}
-            options={{
-               tabBarIcon: ({ focused }) =>
-                  HomeTabIcon({
-                     focused,
-                     icon: (
-                        <IconFe
-                           name="users"
-                           size="16px"
-                           color={focused ? '#188ffc' : '#1f2937'}
-                        />
-                     ),
-                     text: 'Friends',
-                  }),
-            }}
-         />
-         <HomeTab.Screen
-            name="ProfileHome"
-            component={ProfileStackScreen}
-            options={{
-               tabBarIcon: ({ focused }) =>
-                  HomeTabIcon({
-                     focused,
-                     icon: (
-                        <IconFe
-                           name="user"
-                           size="16px"
-                           color={focused ? '#188ffc' : '#1f2937'}
-                        />
-                     ),
-                     text: 'Profile',
-                  }),
-            }}
-         />
-      </HomeTab.Navigator>
-   );
+        >
+            <HomeTab.Screen
+                name="ChatHome"
+                component={ChatStackScreen}
+                options={{
+                    tabBarIcon: ({ focused }) =>
+                        HomeTabIcon({
+                            focused,
+                            icon: (
+                                <IconIo
+                                    name="chatbubble-outline"
+                                    size="16px"
+                                    color={focused ? '#188ffc' : '#1f2937'}
+                                />
+                            ),
+                            text: 'Chats',
+                        }),
+                }}
+            />
+            <HomeTab.Screen
+                name="AssistanceHome"
+                component={AssistanceStackScreen}
+                options={{
+                    tabBarIcon: ({ focused }) =>
+                        HomeTabIcon({
+                            focused,
+                            icon: (
+                                <IconMa
+                                    name="hand-heart-outline"
+                                    size="16px"
+                                    color={focused ? '#188ffc' : '#1f2937'}
+                                />
+                            ),
+                            text: 'Assistance',
+                        }),
+                }}
+            />
+            <HomeTab.Screen
+                name="SOS"
+                component={HomeScreen}
+                options={{
+                    tabBarButton: () => SOSIcon(navigation),
+                }}
+            />
+            <HomeTab.Screen
+                name="FriendsHome"
+                component={FriendsStackScreen}
+                options={{
+                    tabBarIcon: ({ focused }) =>
+                        HomeTabIcon({
+                            focused,
+                            icon: (
+                                <IconFe
+                                    name="users"
+                                    size="16px"
+                                    color={focused ? '#188ffc' : '#1f2937'}
+                                />
+                            ),
+                            text: 'Friends',
+                        }),
+                }}
+            />
+            <HomeTab.Screen
+                name="ProfileHome"
+                component={ProfileStackScreen}
+                options={{
+                    tabBarIcon: ({ focused }) =>
+                        HomeTabIcon({
+                            focused,
+                            icon: (
+                                <IconFe
+                                    name="user"
+                                    size="16px"
+                                    color={focused ? '#188ffc' : '#1f2937'}
+                                />
+                            ),
+                            text: 'Profile',
+                        }),
+                }}
+            />
+        </HomeTab.Navigator>
+    );
 };
 
 export default HomeTabScreen;
