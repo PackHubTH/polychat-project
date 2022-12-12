@@ -1,19 +1,14 @@
 import {
     Avatar,
     Box,
-    Button,
     Center,
     HStack,
     Radio,
     ScrollView,
     Text,
 } from 'native-base';
-import { View, Modal, Pressable, StyleSheet } from 'react-native';
-import IconFe from 'react-native-vector-icons/Feather';
 import React, { useEffect, useState } from 'react';
 import { color } from '../../../Style';
-// import { returnAuthContext } from "../../utils/auth/AuthContext";
-// import { getUserData } from "../../utils/dbs/AuthDataOperator";
 import { useProfileStore } from '../../store/ProfileStore';
 import { doc, getDoc } from 'firebase/firestore';
 import { firestoreDb } from '../../utils/dbs/FireStore';

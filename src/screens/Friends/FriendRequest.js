@@ -22,7 +22,7 @@ import {
 import { firestoreDb } from '../../utils/dbs/FireStore';
 import { useAuthContext } from '../../utils/auth/AuthContext';
 
-const FriendRequest = (props) => {
+const FriendRequest = (setDbFriends) => {
     const { user } = useAuthContext();
 
     const [requestDoc, setRequestDoc] = useState([]);
@@ -105,7 +105,7 @@ const FriendRequest = (props) => {
         });
         searchUserById(getin.userId).then((user) => {
             console.log('newFriend', user);
-            props.setDbFriends((prev) => {
+            setDbFriends((prev) => {
                 return [...prev, user];
             });
         });

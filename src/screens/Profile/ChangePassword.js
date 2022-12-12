@@ -1,28 +1,7 @@
-import {
-    Avatar,
-    Box,
-    Button,
-    Center,
-    FormControl,
-    Heading,
-    HStack,
-    Icon,
-    Input,
-    Link,
-    MaterialIcons,
-    Pressable,
-    Text,
-    VStack,
-} from 'native-base';
+import { Button, Center, Text } from 'native-base';
 import * as Location from 'expo-location';
-import React, { useState, useEffect } from 'react';
-import {
-    Dimensions,
-    Platform,
-    View,
-    StyleSheet,
-    TouchableOpacity,
-} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import TimeChat from '../../components/TimeChat';
 
@@ -31,28 +10,6 @@ const ChangePassword = ({ navigation, route }) => {
     const [errorMsg, setErrorMsg] = useState(null);
     const [text1, setText] = useState(null);
     const [text2, setText2] = useState(null);
-
-    // useEffect(() => {
-    //   (async () => {
-
-    //     let { status } = await Location.requestForegroundPermissionsAsync();
-    //     if (status !== 'granted') {
-    //       setErrorMsg('Permission to access location was denied');
-    //       return;
-    //     }
-
-    //     let location = await Location.getCurrentPositionAsync({});
-    //     setLocation(location);
-    //   })();
-    // }, []);
-
-    // let text = 'Waiting..';
-    // console.log('PASS')
-    // if (errorMsg) {
-    //   text = errorMsg;
-    // } else if (location) {
-    //   text = JSON.stringify(location);
-    // }
 
     const getLocation = async () => {
         setText('Waiting1..');
@@ -79,7 +36,6 @@ const ChangePassword = ({ navigation, route }) => {
         setText2(address);
         console.log('address', address);
     };
-    // console.log(text2[0].name + ", " + text2[0].city + ", " + text2[0].region + ", " + text2[0].country + ", " + text2[0].postalCode)
 
     return (
         <Center safeArea flex={1}>

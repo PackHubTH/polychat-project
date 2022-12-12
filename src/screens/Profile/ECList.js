@@ -5,24 +5,19 @@ import {
     Center,
     Checkbox,
     HStack,
-    Radio,
     ScrollView,
     Text,
 } from 'native-base';
-import { View, Modal, Pressable, StyleSheet } from 'react-native';
-import IconFe from 'react-native-vector-icons/Feather';
 import React, { useEffect, useState } from 'react';
 import { color } from '../../../Style';
-// import { returnAuthContext } from "../../utils/auth/AuthContext";
-// import { getUserData } from "../../utils/dbs/AuthDataOperator";
 import { useProfileStore } from '../../store/ProfileStore';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { firestoreDb } from '../../utils/dbs/FireStore';
-import { useAssistanceStore } from '../../store/AssistanceStore';
 
 const ECList = ({ navigation }) => {
     const userData = useProfileStore((state) => state.userData);
     const setUserData = useProfileStore((state) => state.setUserData);
+
     const [selectedFriend, setSelectedFriend] = useState(userData.emergencyList);
     const [friendList, setFriendList] = useState([]);
 
@@ -42,6 +37,7 @@ const ECList = ({ navigation }) => {
         }
     }, []);
 
+    // Update user's emergency list
     const onPressDone = async () => {
         try {
             const userRef = doc(firestoreDb, 'User', userData.userId);
@@ -53,7 +49,6 @@ const ECList = ({ navigation }) => {
                     setUserData(doc.data());
                 }
             });
-            // resetState("all");
             navigation.navigate('ECContacts');
         } catch (error) {
             console.log('Error updating document: ', error);

@@ -6,14 +6,14 @@ const style = StyleSheet.create({
     container: { width: '100%', marginTop: 20 },
 });
 
-const FriendList = (props) => {
+const FriendList = ({ friends }) => {
     return (
         <View style={style.container}>
             <Text fontSize="lg" fontWeight={600}>
-        Friend list
+            Friend list
             </Text>
 
-            {props.friends.map((e, i) => {
+            {friends.map((e, i) => {
                 return <Friend key={i} friend={e} gap={20} />;
             })}
         </View>

@@ -1,4 +1,4 @@
-import { Box, Button, Center, HStack, ScrollView, Text } from 'native-base';
+import { Button, Center, HStack, ScrollView, Text } from 'native-base';
 import IconFe from 'react-native-vector-icons/Feather';
 import { color } from '../../../Style';
 import AssistantCard from '../../components/AssistantCard';
@@ -70,10 +70,7 @@ const AssistanceScreen = ({ navigation, route }) => {
                             );
                         })}
                 </ScrollView>
-                {/* </Box> */}
-                {/* {renderCard()} */}
             </Center>
-        //  </ScrollView>
         );
     } else {
         return (

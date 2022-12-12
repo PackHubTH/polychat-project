@@ -4,16 +4,8 @@ import {
     Button,
     Center,
     Divider,
-    FormControl,
-    Heading,
     HStack,
-    Icon,
-    Input,
-    Link,
-    MaterialIcons,
-    Pressable,
     Text,
-    VStack,
 } from 'native-base';
 import { useProfileStore } from '../../store/ProfileStore';
 import IconFe from 'react-native-vector-icons/Feather';

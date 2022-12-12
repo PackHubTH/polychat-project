@@ -3,29 +3,18 @@ import {
     Box,
     Button,
     Center,
-    Flex,
-    FormControl,
-    Heading,
     HStack,
-    Icon,
-    Input,
-    Link,
-    MaterialIcons,
     Pressable,
     Text,
-    VStack,
-    Container,
     useClipboard,
 } from 'native-base';
 import { useEffect, useState } from 'react';
 import { color } from '../../../Style';
-import { Ellipse } from 'react-native-svg';
 
 import IconFe from 'react-native-vector-icons/Feather';
 
 import { getUserData } from '../../utils/dbs/AuthDataOperator';
 import { returnAuthContext } from '../../utils/auth/AuthContext';
-import { getSamplePic } from '../../utils/dbs/StorageOperator';
 
 import { useProfileStore } from '../../store/ProfileStore';
 
@@ -160,27 +149,12 @@ const Profile = ({ navigation, route }) => {
                     icon: 'user',
                     onPress: () => navigation.navigate('ECContacts'),
                 })}
-                {/* {ProfileButton({ text: "Change Password", icon: "user", onPress: () => navigation.navigate("ChangePassword") })} */}
                 {ProfileButton({
                     text: 'Sign out',
                     icon: 'log-out',
                     onPress: () => handleLogout(),
                     color: '#eb3434',
                 })}
-                {/* <Text fontSize="sm" color="coolGray.600" _dark={{
-          color: "warmGray.200"
-        }}>
-          For dev: Go to {" "}
-        </Text>
-        <Link _text={{
-          color: "indigo.500",
-          fontWeight: "medium",
-          fontSize: "sm"
-        }} onPress={() => {
-          navigation.navigate('Login')
-        }}>
-          Main page
-        </Link> */}
             </Center>
         </Box>
     );

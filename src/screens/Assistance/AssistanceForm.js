@@ -1,6 +1,5 @@
 import {
     Button,
-    Center,
     FormControl,
     HStack,
     Modal,
@@ -10,9 +9,7 @@ import {
     Pressable,
     Box,
 } from 'native-base';
-import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import IconFe from 'react-native-vector-icons/Feather';
-import Assistance from '.';
+import { TouchableOpacity, StyleSheet } from 'react-native';
 import AssistanceList from './AssistanceList';
 import React, { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -24,13 +21,11 @@ import {
     doc,
     addDoc,
     getDoc,
-    setDoc,
     updateDoc,
     arrayUnion,
     collection,
 } from 'firebase/firestore';
 import { firestoreDb } from '../../utils/dbs/FireStore';
-import GenerateUid from '../../utils/generate/GenerateUid';
 
 const AssistanceForm = ({ navigation }) => {
     const {
