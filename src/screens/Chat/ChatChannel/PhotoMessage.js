@@ -3,7 +3,14 @@ import { View, StyleSheet } from 'react-native';
 import { Image } from 'native-base';
 
 const PhotoMessage = ({ photo }) => {
-   return <Image source={{ uri: photo }} style={styles.container} size="lg" />;
+   return (
+      <Image
+         source={{ uri: photo }}
+         alt={'Image'}
+         style={styles.container}
+         size="lg"
+      />
+   );
 };
 
 const styles = StyleSheet.create({
