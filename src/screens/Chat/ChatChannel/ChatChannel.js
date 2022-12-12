@@ -39,13 +39,27 @@ export default function ChatChannel({ navigation, route }) {
       else {
          // return location photo assistance or emergency here
          if (messageObject.location !== '') {
+            if (messageObject.sender === user.uid) {
+               return (
+                  <Send>
+                     <MapMessage
+                        key={i}
+                        location={messageObject.location}
+                        navigation={navigation}
+                        isSender={messageObject.sender === user.uid}
+                     />
+                  </Send>
+               );
+            }
             return (
-               <MapMessage
-                  key={i}
-                  location={messageObject.location}
-                  navigation={navigation}
-                  isSender={messageObject.sender === user.uid}
-               />
+               <Receive>
+                  <MapMessage
+                     key={i}
+                     location={messageObject.location}
+                     navigation={navigation}
+                     isSender={messageObject.sender === user.uid}
+                  />
+               </Receive>
             );
          }
 
