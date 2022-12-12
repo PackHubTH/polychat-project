@@ -35,9 +35,7 @@ const style = StyleSheet.create({
 });
 
 const FriendsScreen = ({ navigation }) => {
-   const [friendRequest, setFriendRequest] = useState([]);
    const [dbFriends, setDbFriends] = useState([]);
-   const [requestDoc, setRequestDoc] = useState([]);
 
    const { user } = useAuthContext();
    const [yourUser, setYourUser] = useState(null);
@@ -71,68 +69,17 @@ const FriendsScreen = ({ navigation }) => {
       }
    };
 
-   // const searchFriendsReq = async (arrayId) => {
-   //    console.log('searchFriendsReq555', arrayId);
-   //    if (arrayId.length > 0) {
-   //       arrayId.map(async (id) => {
-   //          const docRef = doc(firestoreDb, 'FriendRequest', id);
-   //          const docSnap = await getDoc(docRef);
-
-   //          if (docSnap.exists()) {
-   //             setDbFriendRequest((prev) => {
-   //                return [...prev, docSnap.data()];
-   //             });
-   //          } else {
-   //             console.log('No such document for' + id);
-   //          }
-   //       });
-   //    }
-   // };
-
-   const searchFriendsReq2 = async () => {
-      const request = [];
-      const querySnapshot = await getDocs(
-         collection(firestoreDb, 'FriendRequest')
-      );
-      querySnapshot.forEach((doc) => {
-         if (doc.data().receiver == user.uid) {
-            request.push({ ...doc.data(), id: doc.id });
-         }
-      });
-
-      setRequestDoc(request);
-
-      if (request.length > 0) {
-         request.map(async (item) => {
-            const docRef = doc(firestoreDb, 'User', item.sender);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-               setFriendRequest((prev) => {
-                  return [...prev, docSnap.data()];
-               });
-            } else {
-               console.log('No such document for' + item.sender);
-            }
-         });
-      }
-   };
-
    useEffect(() => {
       searchUser().then((e) => {
-         searchFriendsReq2();
          searchFriends(e.friendList);
       });
    }, []);
+
    if (dbFriends.length !== 0) {
       return (
          <View style={style.page}>
             <View style={style.content}>
-               <FriendRequest
-                  requestDoc={requestDoc}
-                  setRequestDoc={setRequestDoc}
-                  friends={friendRequest}
-               />
+               <FriendRequest setDbFriends={setDbFriends} />
                <FriendList friends={dbFriends} navigation={navigation} />
             </View>
          </View>
@@ -141,9 +88,9 @@ const FriendsScreen = ({ navigation }) => {
       return (
          <View style={style.page}>
             <View style={style.content}>
-               <FriendRequest friends={friendRequest} />
+               <FriendRequest setDbFriends={setDbFriends} />
                <FriendList friends={dbFriends} navigation={navigation} />
-               <Text>...</Text>
+               <Text>No friend now...</Text>
             </View>
          </View>
       );

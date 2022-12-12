@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Center, Image, Text } from 'native-base';
-import { MaximumString } from '../../utils/MaximumString';
+import { MaximumString } from '../../utils/text/MaximumString';
 import { color, contentLayout } from '../../../Style';
 import { getUserData } from '../../utils/dbs/AuthDataOperator';
 import { useAuthContext } from '../../utils/auth/AuthContext';

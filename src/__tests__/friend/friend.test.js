@@ -1,7 +1,7 @@
 import RemoveItemArray from '../../utils/RemoveItemArray';
 
 import { users, realUser, fakeUser } from '../../mocks/user';
-import searchUserById from '../../utils/User/SearchUser';
+import searchUserById from '../../utils/user/SearchUser';
 
 // remove friend from the list
 test('remove friend from the list', () => {

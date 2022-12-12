@@ -17,11 +17,8 @@ import { useChatChannelStore } from '../../../store/ChatChannelStore';
 export default function ChatChannel({ navigation, route }) {
    const { user } = useAuthContext();
    const [channelMessages, setChannelMessages] = useState([]);
-
    const [showSticker, setShowsticker] = useState(false);
 
-   // const channelMessages = useChatChannelStore((state) => state.channelMessages);
-   // const setChannelMessages = useChatChannelStore((state) => state.setChannelMessages);
    const setFriendData = useChatChannelStore((state) => state.setFriendData);
    const setUserChat = useChatChannelStore((state) => state.setUserChat);
 
@@ -69,9 +66,7 @@ export default function ChatChannel({ navigation, route }) {
    const sortMessage = (messageArray) => {
       let sortedArray = [];
       if (messageArray.length != undefined || messageArray.length != 0) {
-         sortedArray = messageArray.sort(
-            (a, b) => a.timestamp.seconds - b.timestamp.seconds
-         );
+         sortedArray = messageArray.sort((a, b) => a.timestamp - b.timestamp);
       }
       return sortedArray;
    };

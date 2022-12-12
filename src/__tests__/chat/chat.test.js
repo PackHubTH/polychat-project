@@ -3,8 +3,8 @@ import { getAllUserChat } from '../../utils/dbs/AuthDataOperator';
 import { messages } from '../../mocks/chat';
 import { realUser, fakeUser } from '../../mocks/user';
 
-import sortMessage from '../../utils/Message/SortMessage';
-import filterMessage from '../../utils/Message/FilterMessage';
+import sortMessage from '../../utils/message/SortMessage';
+import filterMessage from '../../utils/message/FilterMessage';
 
 // get a user chat(s)
 test('get user chat. Found', async () => {
