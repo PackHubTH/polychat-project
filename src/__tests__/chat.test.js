@@ -1,13 +1,13 @@
-import { getAllUserChat } from '../../utils/dbs/AuthDataOperator';
+import { getAllUserChat } from '../utils/dbs/AuthDataOperator';
 
-import { messages, stickerUrl } from '../../mocks/chat';
-import { realUser, fakeUser } from '../../mocks/user';
+import { messages, stickerUrl } from '../mocks/chat';
+import { realUser, fakeUser } from '../mocks/user';
 
-import sortMessage from '../../utils/message/SortMessage';
-import filterMessage from '../../utils/message/FilterMessage';
-import CreateMessage from '../../utils/create/CreateMessage';
+import sortMessage from '../utils/message/SortMessage';
+import filterMessage from '../utils/message/FilterMessage';
+import CreateMessage from '../utils/create/CreateMessage';
 import { serverTimestamp } from 'firebase/firestore';
-import GenerateUid from '../../utils/generate/GenerateUid';
+import GenerateUid from '../utils/generate/GenerateUid';
 
 // get a user chat(s)
 test('get user chat. Found', async () => {
