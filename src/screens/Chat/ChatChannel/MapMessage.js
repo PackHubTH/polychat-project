@@ -42,10 +42,11 @@ const MapMessage = ({ location, isSender, navigation }) => {
                />
             </MapView>
             <Text
-               m="2"
+               m="0"
                px="2"
                color={isSender ? 'black' : 'white'}
                noOfLines={2}
+               fontSize="12px"
                isTruncated
             >
                {location.address}
