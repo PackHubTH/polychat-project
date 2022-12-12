@@ -26,8 +26,8 @@ const AssistanceScreen = ({ navigation, route }) => {
             // doc.data() is never undefined for query doc snapshots
                 setAssistanceData((prev) => [...prev, [doc.data(), doc.id]]);
             });
-        } catch (e) {
-            console.log(e);
+        } catch (error) {
+            console.log('Error getting documents: ', error);
         }
     };
 
@@ -38,7 +38,6 @@ const AssistanceScreen = ({ navigation, route }) => {
 
     if (assistanceData.length !== 0) {
         return (
-        //  <ScrollView bg={color.white} flex={1}>
             <Center bg="white" w="100%" flex={1}>
                 <HStack space={4}>
                     <Button
@@ -54,7 +53,6 @@ const AssistanceScreen = ({ navigation, route }) => {
                   Friend's Assistance
                     </Button>
                 </HStack>
-                {/* <Box h="90%" px="32px"> */}
                 <ScrollView>
                     {assistanceData
                         .filter((data) => {

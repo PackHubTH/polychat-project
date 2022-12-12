@@ -66,8 +66,6 @@ const SOSIcon = (navigation) => {
                     bottom: 20,
                 }}
                 onLongPress={async () => {
-                    console.log('SOSEMER', userData);
-
                     if (userData.emergencyList.length === 0) {
                         alert('No emergency contact');
                     } else {

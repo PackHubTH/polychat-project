@@ -27,19 +27,18 @@ const SearchedFriend = ({ route }) => {
     const [sendYet, setSendYet] = useState(false);
     const [friendAlready, setFriendAlready] = useState(false);
 
+    // search user by id
     const searchUserById = async (search) => {
-        console.log('route.params.searchUser', route.params.searchUser);
         const docRef = doc(firestoreDb, 'User', search);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
             setYourUser(docSnap.data());
-            console.log('uidBro:', docSnap.data().userId);
         } else {
             console.log('No such document!');
         }
     };
-
+    // update the friend request id in the user collection
     const updateUserFriendReq = async (newRequest, user) => {
         const ref = doc(firestoreDb, 'User', user.userId);
 
@@ -47,10 +46,8 @@ const SearchedFriend = ({ route }) => {
             friendRequestId: arrayUnion(newRequest.requestId),
         });
     };
-
+    // send friend request
     const sendFriendRequest = (newRequest) => {
-        console.log('sendFriendRequest', newRequest);
-
         addDoc(collection(firestoreDb, 'FriendRequest'), { ...newRequest }).then(
             () => {
                 setSendYet(true);
@@ -59,7 +56,6 @@ const SearchedFriend = ({ route }) => {
     };
 
     const checkSendRequest = async () => {
-        console.log('checkSendRequest');
         try {
             const requestsRef = collection(firestoreDb, 'FriendRequest');
 
@@ -69,12 +65,10 @@ const SearchedFriend = ({ route }) => {
             querySnapshot.forEach((doc) => {
                 if (doc.data().receiver === route.params.searchUser.userId) {
                     setSendYet(true);
-                    console.log('found');
                 }
-                console.log('requestttthere', ' => ', doc.data());
             });
-        } catch (err) {
-            console.log('brother, you don\'t have any request');
+        } catch (error) {
+            console.log('Error', error);
         }
     };
 

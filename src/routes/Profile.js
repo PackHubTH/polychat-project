@@ -28,7 +28,6 @@ const ProfileStackScreen = ({ navigation, route }) => {
         if (routeName === 'EditProfile')
             navigation.setOptions({ tabBarStyle: { display: 'none' } });
         else navigation.setOptions({ tabBarStyle: { display: 'flex' } });
-        console.log(routeName);
     }, [route]);
 
     return (

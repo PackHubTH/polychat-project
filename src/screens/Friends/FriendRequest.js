@@ -67,7 +67,6 @@ const FriendRequest = (setDbFriends) => {
 
     //if there is no user in the friend request, setState to null
     const nullCondition = (array) => {
-        console.log('checkNullCondition', array.length);
         if (array.length === 0) {
             setFriendRequest(null);
         } else {
@@ -76,7 +75,6 @@ const FriendRequest = (setDbFriends) => {
     };
     // accept friend request
     const acceptFriendHandler = async (getin) => {
-        console.log('acceptFriendHandler', getin);
         // create chat channel
         try {
             await addDoc(collection(firestoreDb, 'ChatChannel'), {
@@ -104,7 +102,6 @@ const FriendRequest = (setDbFriends) => {
             console.log(`update friendlist success for ${getin.userId}`);
         });
         searchUserById(getin.userId).then((user) => {
-            console.log('newFriend', user);
             setDbFriends((prev) => {
                 return [...prev, user];
             });

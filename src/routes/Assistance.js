@@ -10,20 +10,17 @@ import { useEffect } from 'react';
 
 import IconFe from 'react-native-vector-icons/Feather';
 
-
 const AssistanceStack = createNativeStackNavigator();
 
 const AssistanceStackScreen = ({ navigation, route }) => {
-
-    const friendId = useAssistanceStore(state => state.friendId);
-    const setFriendId = useAssistanceStore(state => state.setFriendId);
+    const friendId = useAssistanceStore((state) => state.friendId);
+    const setFriendId = useAssistanceStore((state) => state.setFriendId);
 
     useEffect(() => {
         let routeName = getFocusedRouteNameFromRoute(route);
         if (routeName === 'AssistanceForm' || routeName === 'AssistanceList')
             navigation.setOptions({ tabBarStyle: { display: 'none' } });
         else navigation.setOptions({ tabBarStyle: { display: 'flex' } });
-        console.log(routeName);
     }, [route]);
 
     return (
@@ -34,7 +31,7 @@ const AssistanceStackScreen = ({ navigation, route }) => {
                 headerLeft: () => {
                     return (
                         <Text fontWeight="bold" fontSize="26px" pl={4}>
-              My Assistance
+                     My Assistance
                         </Text>
                     );
                 },
@@ -42,7 +39,9 @@ const AssistanceStackScreen = ({ navigation, route }) => {
                 title: '',
             }}
         >
-            <AssistanceStack.Screen name="Assistance" component={AssistanceScreen}
+            <AssistanceStack.Screen
+                name="Assistance"
+                component={AssistanceScreen}
                 options={{
                     headerRight: () => {
                         return (
@@ -51,16 +50,24 @@ const AssistanceStackScreen = ({ navigation, route }) => {
                                 backgroundColor={color.lightBlue}
                                 width="100px"
                                 // height="35px"
-                                leftIcon={<IconFe name="plus" size="sm" color={color.white} />}
-                                onPress={() => navigation.navigate(AssistanceForm)} >
+                                leftIcon={
+                                    <IconFe name="plus" size="sm" color={color.white} />
+                                }
+                                onPress={() => navigation.navigate(AssistanceForm)}
+                            >
                                 <Text color={color.white}>Create</Text>
                             </Button>
                         );
                     },
                 }}
             />
-            <AssistanceStack.Screen name="AssistanceForm" component={AssistanceForm} />
-            <AssistanceStack.Screen name="AssistanceList" component={AssistanceList}
+            <AssistanceStack.Screen
+                name="AssistanceForm"
+                component={AssistanceForm}
+            />
+            <AssistanceStack.Screen
+                name="AssistanceList"
+                component={AssistanceList}
                 options={{
                     headerLeft: () => (
                         <>
@@ -73,16 +80,23 @@ const AssistanceStackScreen = ({ navigation, route }) => {
                                 }}
                             />
                             <Text fontWeight="bold" fontSize="26px" pl={4}>
-                My Assistance
+                        My Assistance
                             </Text>
                         </>
                     ),
                     headerRight: () => {
                         if (friendId !== '')
-                            return <Text color="#188ffc" fontSize="18px" onPress={() => navigation.navigate('AssistanceForm')} >Done</Text>;
+                            return (
+                                <Text
+                                    color="#188ffc"
+                                    fontSize="18px"
+                                    onPress={() => navigation.navigate('AssistanceForm')}
+                                >
+                           Done
+                                </Text>
+                            );
                     },
-                }
-                }
+                }}
             />
         </AssistanceStack.Navigator>
     );

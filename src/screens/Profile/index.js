@@ -28,7 +28,6 @@ const Profile = ({ navigation, route }) => {
     useEffect(() => {
         getUserData(user.uid).then((data) => {
             setUserData(data);
-            console.log('data here', data);
         });
     }, []);
 

@@ -124,7 +124,7 @@ const Register = ({ navigation }) => {
                 return false;
             }
         } catch (error) {
-            console.log(error);
+            console.log('Error', error);
             return false;
         }
     };
