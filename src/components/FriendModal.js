@@ -1,10 +1,10 @@
 import React from 'react';
 import { Alert, Modal, StyleSheet, View } from 'react-native';
 import { Text } from 'native-base';
-import Icon from 'react-native-vector-icons/AntDesign';
-import Icon2 from 'react-native-vector-icons/Ionicons';
-import Icon3 from 'react-native-vector-icons/SimpleLineIcons';
-import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconAnt from 'react-native-vector-icons/AntDesign';
+import IconIo from 'react-native-vector-icons/Ionicons';
+import IconSl from 'react-native-vector-icons/SimpleLineIcons';
+import IconMc from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Image } from 'native-base';
 import { color } from '../../Style';
 
@@ -28,7 +28,7 @@ const FriendModal = ({ modalVisible, setModalVisible, friend }) => {
                                     setModalVisible(false);
                                 }}
                             >
-                                <Icon name="close" size={25} color={color.black} />
+                                <IconAnt name="close" size={25} color={color.black} />
                             </View>
                         </View>
                         <View style={styles.middle}>
@@ -49,7 +49,7 @@ const FriendModal = ({ modalVisible, setModalVisible, friend }) => {
                         </View>
                         <View style={styles.bottom}>
                             <View style={styles.iconBox}>
-                                <Icon2
+                                <IconIo
                                     name="chatbubble-outline"
                                     size={28}
                                     color={color.black}
@@ -57,7 +57,7 @@ const FriendModal = ({ modalVisible, setModalVisible, friend }) => {
                                 <Text style={{ marginTop: 1 }}>chat</Text>
                             </View>
                             <View style={[styles.iconBox, { marginLeft: 50 }]}>
-                                <Icon4
+                                <IconMc
                                     name="account-heart-outline"
                                     size={28}
                                     color={color.black}
@@ -65,7 +65,7 @@ const FriendModal = ({ modalVisible, setModalVisible, friend }) => {
                                 <Text style={{ marginTop: 1 }}>assistant</Text>
                             </View>
                             <View style={[styles.iconBox, { marginLeft: 50 }]}>
-                                <Icon3 name="notebook" size={28} color={color.black} />
+                                <IconSl name="notebook" size={28} color={color.black} />
                                 <Text style={{ marginTop: 1 }}>emerg</Text>
                             </View>
                         </View>
