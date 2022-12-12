@@ -6,7 +6,7 @@ import GenerateUid from '../../utils/generate/GenerateUid';
 import Icon from 'react-native-vector-icons/Feather';
 import { color } from '../../../Style';
 import RemoveItemArray from '../../utils/RemoveItemArray';
-import searchUserById from '../../utils/user/SearchUser';
+import searchUserById from '../../utils/User/SearchUser';
 
 import {
     collection,

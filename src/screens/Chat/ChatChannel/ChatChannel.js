@@ -30,6 +30,8 @@ export default function ChatChannel({ navigation, route }) {
     }, []);
 
     const renderMessageDb = (messageObject, i) => {
+        if (messageObject.timestamp === null)
+            messageObject.timestamp = { seconds: new Date().getTime() * 1000 };
         // check messageObject that it's a chat messageor not
         if (messageObject.photo === '' && messageObject.location === '') {
             if (messageObject.sender === user.uid) {
