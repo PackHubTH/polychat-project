@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "PolychatProject",
-    "slug": "PolychatProject",
+    "slug": "polychat",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -12,13 +12,15 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/fa2f2132-ba12-48f8-9e1c-9a45e4ad1438"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sittinon.polychat"
     },
     "android": {
       "adaptiveIcon": {
@@ -28,6 +30,15 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "fa2f2132-ba12-48f8-9e1c-9a45e4ad1438"
+      }
+    },
+    "owner": "sittinon",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
