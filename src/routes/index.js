@@ -9,20 +9,20 @@ import LoginStackScreen from './Login';
 const Stack = createNativeStackNavigator();
 
 const Routes = () => {
-   return (
-      <SafeAreaProvider>
-         <NavigationContainer>
-            <Stack.Navigator
-               initialRouteName="Login"
-               screenOptions={{ headerShown: false }}
-            >
-               <Stack.Screen name="Login" component={LoginStackScreen} />
-               <Stack.Screen name="Home" component={HomeTabScreen} />
-               {/* <Stack.Screen name="SOS" component={SOSScreen} /> */}
-            </Stack.Navigator>
-         </NavigationContainer>
-      </SafeAreaProvider>
-   );
+    return (
+        <SafeAreaProvider>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName="Login"
+                    screenOptions={{ headerShown: false }}
+                >
+                    <Stack.Screen name="Login" component={LoginStackScreen} />
+                    <Stack.Screen name="Home" component={HomeTabScreen} />
+                    {/* <Stack.Screen name="SOS" component={SOSScreen} /> */}
+                </Stack.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
+    );
 };
 
 export default Routes;
