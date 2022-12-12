@@ -23,8 +23,10 @@ const Register = ({ navigation, route }) => {
 
     const { register } = returnAuthContext();
 
+    //Validate Input Field
     const validate = () => {
 
+        //Blank Name
         if (firstname == '' | lastname == '' | displayName == '') {
             setFormError({
                 ...formError, name: 'Please fill in all names in a required fields!'
@@ -32,6 +34,7 @@ const Register = ({ navigation, route }) => {
             return false;
         }
 
+        //Blank Phone Number
         if (phoneNum == '') {
             setFormError({
                 ...formError, name: 'Please fill in your phone number!'
@@ -39,6 +42,7 @@ const Register = ({ navigation, route }) => {
             return false;
         }
 
+        //Valid Email Address
         if (!/\S+@\S+\.\S+/.test(regEmail)) {
             setFormError({
                 ...formError, name: 'Invalid email address'
@@ -46,6 +50,7 @@ const Register = ({ navigation, route }) => {
             return false;
         }
 
+        //Blank Email
         if (regEmail == '') {
             setFormError({
                 ...formError, name: 'Email is required!'
@@ -53,6 +58,7 @@ const Register = ({ navigation, route }) => {
             return false;
         }
 
+        //Blank Password
         if (regPassword == '') {
             setFormError({
                 ...formError, name: 'Please create your password!'
@@ -60,6 +66,7 @@ const Register = ({ navigation, route }) => {
             return false;
         }
 
+        //Password Length
         if (regPassword.length < 6) {
             setFormError({
                 ...formError, name: 'Password must consist of more than 6 characters!'
@@ -67,6 +74,7 @@ const Register = ({ navigation, route }) => {
             return false;
         }
 
+        //Blank Confirm Password
         if (confirmPassword == '') {
             setFormError({
                 ...formError, name: 'Please confirm your password!'
@@ -74,6 +82,7 @@ const Register = ({ navigation, route }) => {
             return false;
         }
 
+        //Confirm Password doesn't match Password
         if (regPassword != confirmPassword) {
             setFormError({
                 ...formError, name: 'Both password field does not match!'
@@ -84,6 +93,7 @@ const Register = ({ navigation, route }) => {
         return true;
     };
 
+    //Submit Form
     const submit = () => {
         try {
             if (validate()) {

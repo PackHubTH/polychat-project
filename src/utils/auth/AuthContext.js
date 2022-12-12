@@ -16,6 +16,7 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
     
+    //Account Registration with Firebase Auth
     const register = ( email, password, phoneNum, displayName, firstname, lastname) => {
         const user = createUserWithEmailAndPassword(auth, email, password)
             .then( () =>  { 
@@ -27,14 +28,17 @@ export const AuthContextProvider = ({children}) => {
         return user;
     };
 
+    //Account Login with Firebase Auth
     const login = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password);
     };
 
+    //Account Logout with Firebase Auth
     const logout = () => {
         return signOut(auth);
     };
 
+    //Update User Login Session
     const [user, setUser] = useState({});
     useEffect( () => {
         const authState = onAuthStateChanged(auth, (currentUser) => {
@@ -56,8 +60,10 @@ export const AuthContextProvider = ({children}) => {
     );
 }; 
 
+//Use Context
 export const useAuthContext = () => useContext(UserContext);
 
+//Return Context
 export const returnAuthContext = () => {
     return useContext(UserContext);
 };
