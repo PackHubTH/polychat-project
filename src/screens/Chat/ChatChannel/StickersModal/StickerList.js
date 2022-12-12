@@ -46,18 +46,19 @@ const StickerList = (props) => {
                return (
                   <TouchableOpacity
                      onPress={() => {
-                        const newMessage = {
-                           sender: user.uid,
-                           receiver: props.friendData.userId,
-                           text: '',
-                           location: '',
-                           photo: url.toString(),
-                           timestamp: serverTimestamp(),
-                           messageId: GenerateUid(),
-                        };
-                        console.log(newMessage);
+                        const timestamp = serverTimestamp();
+                        const messageId = GenerateUid();
+                        const newMessage = CreateMessage(
+                           user.uid,
+                           props.friendData.userId,
+                           '',
+                           '',
+                           timestamp,
+                           messageId,
+                           url.toString()
+                        );
                         sendSticker(newMessage);
-                        updateChatChannelDoc(newMessage.id);
+                        updateChatChannelDoc(newMessage.messageId);
                      }}
                      style={styles.item}
                      key={i}
@@ -66,6 +67,7 @@ const StickerList = (props) => {
                         source={{
                            uri: url,
                         }}
+                        alt="Sticker"
                         size="md"
                      />
                   </TouchableOpacity>
