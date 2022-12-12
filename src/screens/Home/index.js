@@ -1,27 +1,16 @@
-import { Box, Button, Center, HStack, Pressable } from 'native-base';
-import React from 'react';
+import { Center, Text } from 'native-base';
+import IconFe from 'react-native-vector-icons/Feather';
 
-const Home = ({ navigation }) => {
-
-  const [selected, setSelected] = React.useState(1);
-
-  return (
-    // <Center safeArea flex={1}>
-    <Box flex={1} bg="white" safeAreaTop width="100%" maxW="300px" alignSelf="center">
-      <Button w="286" colorScheme="indigo"
-        onPress={() => navigation.navigate('Profile', { name: 'Jane' })}
-      >
-        Jane's Profile
-      </Button>
-      <Button w="286" onPress={() => navigation.navigate('Login')}>
-        Sign Out
-      </Button>
-      <HStack bg="indigo.600" alignItems="center" safeAreaBottom shadow={6}>
-        <Pressable cursor="pointer" opacity={selected === 0 ? 1 : 0.5} py="3" flex={1} onPress={() => setSelected(0)} />
-      </HStack>
-    </Box>
-    // </Center >
-  );
+const SOS = () => {
+   return (
+      <Center flex={1} bg="#fff">
+         <IconFe name="check-circle" size="50px" />
+         <Text fontSize="16px" mt="16px">
+            We have notified your friends.
+         </Text>
+         <Text fontSize="16px">Please wait for help from your friends.</Text>
+      </Center>
+   );
 };
 
-export default Home;
+export default SOS;

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+echo  Preparing iOS Parallel Emulator
+echo  Installing Expo
+declare -a simulators=()
+
+for i in "${simulators[@]}"
+do
+    xcrun instruments -w $in
+    #xcrun simctl install $i ~./expo/ios-simulator-app-cache/Exponent-2.14.0.app
+    xcrun simctl openurl $i exp://127.0.0.1:19000
+done

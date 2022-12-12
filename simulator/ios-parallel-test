@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo Running iOS Parallel Emulator
+declare -a simulators=()
+
+for i in "${simulators[@]}"
+do
+    xcrun instruments -w $in
+    xcrun simctl openurl $i exp://127.0.0.1:19000
+done

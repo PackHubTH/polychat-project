@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo Hello Test! If you see this, the script is working!
