@@ -1,7 +1,7 @@
-import RemoveItemArray from '../../utils/RemoveItemArray';
+import RemoveItemArray from '../utils/RemoveItemArray';
 
-import { users, realUser, fakeUser } from '../../mocks/user';
-import searchUserById from '../../utils/user/SearchUser';
+import { users, realUser, fakeUser } from '../mocks/user';
+import searchUserById from '../utils/user/SearchUser';
 
 // remove friend from the list
 test('remove friend from the list', () => {
@@ -11,7 +11,7 @@ test('remove friend from the list', () => {
    expect(result[1].userId).toBe('3');
 });
 
-// search friend
+// search friend by id
 test('search friend. Found', async () => {
    const result = await searchUserById(realUser.uid);
    expect(result.userId).toBe(realUser.uid);

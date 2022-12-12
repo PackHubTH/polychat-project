@@ -29,6 +29,10 @@ export const messages = [
    },
 ];
 
+const stickerUrl =
+   'https://firebasestorage.googleapis.com/v0/b/polychat-6523f.appspot.com/o/stickers%2Fm-nong%2Fm-nong-sign%20(9).png?alt=media&token=4a59cd46-0b76-447e-a2a9-f81df62a1bef';
+
 module.exports = {
    messages,
+   stickerUrl,
 };

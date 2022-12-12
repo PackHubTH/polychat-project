@@ -1,5 +1,5 @@
 export const realUser = {
-   uid: 'OxMqlmqrhzWzmoMscd3FeauPIw72',
+   uid: 'L5FNWRBMdMZBeRyJwb3ztGyqBIJ2',
 };
 
 export const fakeUser = {
