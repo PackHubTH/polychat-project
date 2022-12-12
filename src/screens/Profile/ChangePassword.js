@@ -24,6 +24,7 @@ import {
    TouchableOpacity,
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import TimeChat from '../../components/TimeChat';
 
 const ChangePassword = ({ navigation, route }) => {
    const [location, setLocation] = useState(null);
@@ -118,6 +119,7 @@ const ChangePassword = ({ navigation, route }) => {
          >
             <Text>TEST</Text>
          </TouchableOpacity>
+         <TimeChat time={new Date('11/12/2022')} />
       </Center>
    );
 };

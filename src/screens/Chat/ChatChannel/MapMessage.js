@@ -1,10 +1,11 @@
-import { Pressable, Text } from 'native-base';
+import { HStack, Pressable, Text } from 'native-base';
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { color } from '../../../../Style';
+import TimeChat from '../../../components/TimeChat';
 
-const MapMessage = ({ location, isSender, navigation }) => {
+const MapMessage = ({ location, isSender, navigation, time }) => {
    console.log('location', location);
 
    return (
@@ -14,44 +15,47 @@ const MapMessage = ({ location, isSender, navigation }) => {
             isSender ? styles.alignSend : styles.alignReceive,
          ]}
       >
-         <Pressable
-            style={[
-               styles.card,
-               isSender ? styles.bgColorSend : styles.bgColorReceive,
-            ]}
-            onPress={() => {
-               navigation.navigate('Location', { location: location });
-            }}
-         >
-            <MapView
-               style={styles.map}
-               initialRegion={{
-                  latitude: location.latitude,
-                  longitude: location.longitude,
-                  latitudeDelta: 0.06969,
-                  longitudeDelta: 0.0069,
+         <HStack alignItems="flex-end" space={2}>
+            <Pressable
+               style={[
+                  styles.card,
+                  isSender ? styles.bgColorSend : styles.bgColorReceive,
+               ]}
+               onPress={() => {
+                  navigation.navigate('Location', { location: location });
                }}
-               zoomEnabled={false}
-               scrollEnabled={false}
             >
-               <Marker
-                  coordinate={{
+               <MapView
+                  style={styles.map}
+                  initialRegion={{
                      latitude: location.latitude,
                      longitude: location.longitude,
+                     latitudeDelta: 0.06969,
+                     longitudeDelta: 0.0069,
                   }}
-               />
-            </MapView>
-            <Text
-               m="0"
-               px="2"
-               color={isSender ? 'black' : 'white'}
-               noOfLines={2}
-               fontSize="12px"
-               isTruncated
-            >
-               {location.address}
-            </Text>
-         </Pressable>
+                  zoomEnabled={false}
+                  scrollEnabled={false}
+               >
+                  <Marker
+                     coordinate={{
+                        latitude: location.latitude,
+                        longitude: location.longitude,
+                     }}
+                  />
+               </MapView>
+               <Text
+                  m="0"
+                  px="2"
+                  color={isSender ? 'black' : 'white'}
+                  noOfLines={2}
+                  fontSize="12px"
+                  isTruncated
+               >
+                  {location.address}
+               </Text>
+            </Pressable>
+            <TimeChat time={new Date(time)} />
+         </HStack>
       </View>
    );
 };

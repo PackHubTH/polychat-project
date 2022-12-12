@@ -11,8 +11,10 @@ import StickersModal from './StickersModal/StickersModal';
 import Send from '../layouts/Send';
 import Receive from '../layouts/Receive';
 import PhotoMessage from './PhotoMessage';
+import { HStack } from 'native-base';
 
 import { useChatChannelStore } from '../../../store/ChatChannelStore';
+import TimeChat from '../../../components/TimeChat';
 
 export default function ChatChannel({ navigation, route }) {
    const { user } = useAuthContext();
@@ -31,9 +33,21 @@ export default function ChatChannel({ navigation, route }) {
       // check messageObject that it's a chat messageor not
       if (messageObject.photo === '' && messageObject.location === '') {
          if (messageObject.sender === user.uid) {
-            return <MeMessage key={i} message={messageObject.text} />;
+            return (
+               <MeMessage
+                  key={i}
+                  message={messageObject.text}
+                  time={messageObject.timestamp.seconds * 1000}
+               />
+            );
          }
-         return <YouMessage key={i} message={messageObject.text} />;
+         return (
+            <YouMessage
+               key={i}
+               message={messageObject.text}
+               time={messageObject.timestamp.seconds * 1000}
+            />
+         );
       }
       // if it's not a chat message
       else {
@@ -47,6 +61,7 @@ export default function ChatChannel({ navigation, route }) {
                         location={messageObject.location}
                         navigation={navigation}
                         isSender={messageObject.sender === user.uid}
+                        time={messageObject.timestamp.seconds * 1000}
                      />
                   </Send>
                );
@@ -58,6 +73,7 @@ export default function ChatChannel({ navigation, route }) {
                      location={messageObject.location}
                      navigation={navigation}
                      isSender={messageObject.sender === user.uid}
+                     time={messageObject.timestamp.seconds * 1000}
                   />
                </Receive>
             );
@@ -66,13 +82,23 @@ export default function ChatChannel({ navigation, route }) {
          if (messageObject.sender === user.uid) {
             return (
                <Send>
-                  <PhotoMessage key={i} photo={messageObject.photo} />
+                  <HStack alignItems="flex-end" space={2}>
+                     <TimeChat
+                        time={new Date(messageObject.timestamp.seconds * 1000)}
+                     />
+                     <PhotoMessage key={i} photo={messageObject.photo} />
+                  </HStack>
                </Send>
             );
          }
          return (
             <Receive>
-               <PhotoMessage key={i} photo={messageObject.photo} />
+               <HStack alignItems="flex-end" space={2}>
+                  <PhotoMessage key={i} photo={messageObject.photo} />
+                  <TimeChat
+                     time={new Date(messageObject.timestamp.seconds * 1000)}
+                  />
+               </HStack>
             </Receive>
          );
       }
