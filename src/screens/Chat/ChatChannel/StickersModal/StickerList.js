@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Image } from 'native-base';
-import CreateMessage from '../../../../utils/CreateMessage';
-import GenerateUid from '../../../../utils/GenerateUid';
+import CreateMessage from '../../../../utils/create/CreateMessage';
+import GenerateUid from '../../../../utils/generate/GenerateUid';
 
 import {
    collection,

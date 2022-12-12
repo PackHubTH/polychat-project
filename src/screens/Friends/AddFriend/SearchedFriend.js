@@ -4,8 +4,8 @@ import { Center, Image, Text } from 'native-base';
 import { color } from '../../../../Style';
 import IconFe from 'react-native-vector-icons/Feather';
 import { useAuthContext } from '../../../utils/auth/AuthContext';
-import GenerateUid from '../../../utils/GenerateUid';
-
+import GenerateUid from '../../..//utils/generate/GenerateUid';
+import CreateFriendRequest from '../../../utils/create/CreateFriendRequest';
 import {
    collection,
    doc,
@@ -21,10 +21,7 @@ import {
    arrayUnion,
    onSnapshot,
 } from 'firebase/firestore';
-
 import { firestoreDb } from '../../../utils/dbs/FireStore';
-
-import CreateFriendRequest from '../../../utils/CreateFriendRequest';
 
 const SearchedFriend = ({ navagation, route }) => {
    const { user } = useAuthContext();

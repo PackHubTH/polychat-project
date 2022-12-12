@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text, Center } from 'native-base';
 import Friend from '../../components/Friend';
-import GenerateUid from '../../utils/GenerateUid';
+import GenerateUid from '../../utils/generate/GenerateUid';
 import Icon from 'react-native-vector-icons/Feather';
 import { color } from '../../../Style';
 import RemoveItemArray from '../../utils/RemoveItemArray';
-import searchUserById from '../../utils/User/SearchUser';
+import searchUserById from '../../utils/user/SearchUser';
 
 import {
    collection,

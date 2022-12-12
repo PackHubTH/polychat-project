@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { StyleSheet, SafeAreaView, TextInput, View } from 'react-native';
 import { Box, Input, Button } from 'native-base';
 import { color } from '../../../../Style';
-import CreateMessage from '../../../utils/CreateMessage';
+import CreateMessage from '../../../utils/create/CreateMessage';
 import { useAuthContext } from '../../../utils/auth/AuthContext';
-import GenerateUid from '../../../utils/GenerateUid';
+import GenerateUid from '../../../utils/generate/GenerateUid';
 import {
    collection,
    addDoc,

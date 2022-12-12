@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { color } from '../../../../../Style';
 import { Box, Text } from 'native-base';
 import StickerList from './StickerList';
-import CreateMessage from '../../../../utils/CreateMessage';
+import CreateMessage from '../../../../utils/create/CreateMessage';
 
 const stickerSet = [
    {
