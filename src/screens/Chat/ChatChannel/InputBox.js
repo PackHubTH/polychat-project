@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import * as Location from 'expo-location';
 import { StyleSheet, SafeAreaView, TextInput, View } from 'react-native';
 import { Box, Input, Button } from 'native-base';
 import { color } from '../../../../Style';
@@ -20,8 +21,6 @@ import IconFe from 'react-native-vector-icons/Feather';
 import IconEn from 'react-native-vector-icons/Entypo';
 import { firestoreDb } from '../../../utils/dbs/FireStore';
 
-import getLocation from '../../../utils/getLocation';
-
 const InputBox = ({
    showSticker,
    setShowsticker,
@@ -31,6 +30,46 @@ const InputBox = ({
 }) => {
    const { user } = useAuthContext();
    const [message, setMessage] = useState('');
+
+   const getLocation = async () => {
+      let errorMsg = null;
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+         errorMsg = 'Permission to access location was denied';
+         // setErrorMsg('Permission to access location was denied');
+         return;
+      }
+      console.log('getLocation2');
+
+      let location = await Location.getCurrentPositionAsync({});
+
+      let text = '';
+      console.log('PASS');
+      if (errorMsg) {
+         text = errorMsg;
+      } else if (location) {
+         text = JSON.stringify(location);
+      }
+
+      let address = await Location.reverseGeocodeAsync(location.coords);
+
+      let ans = {
+         address:
+            address[0].name +
+            ', ' +
+            address[0].city +
+            ', ' +
+            address[0].region +
+            ', ' +
+            address[0].country +
+            ', ' +
+            address[0].postalCode,
+         latitude: location.coords.latitude,
+         longitude: location.coords.longitude,
+      };
+      return ans;
+   };
 
    const updateChatChannelDoc = async (newMessageId) => {
       try {
@@ -55,8 +94,26 @@ const InputBox = ({
             <IconFe
                name="map-pin"
                size={25}
-               // color={showSticker ? color.lightBlue : color.black}
-               onPress={() => getLocation()}
+               onPress={async () => {
+                  const timestamp = serverTimestamp();
+                  const messageId = GenerateUid();
+                  const location = await getLocation();
+
+                  const newMessage = CreateMessage(
+                     user.uid,
+                     friendData.userId,
+                     message,
+                     location,
+                     timestamp,
+                     messageId,
+                     ''
+                  );
+                  sendChat(newMessage);
+                  updateChatChannelDoc(newMessage.messageId);
+                  setChannelMessages((prev) => {
+                     return [...prev, newMessage];
+                  });
+               }}
             />
             <IconEn
                name="emoji-happy"
