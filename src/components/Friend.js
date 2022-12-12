@@ -15,7 +15,6 @@ const style = StyleSheet.create({
 });
 
 const Friend = ({ friend, gap, width }) => {
-    console.log('friendinfriend', friend);
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
