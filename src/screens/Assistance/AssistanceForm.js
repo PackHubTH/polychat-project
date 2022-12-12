@@ -14,7 +14,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import IconFe from 'react-native-vector-icons/Feather';
 import Assistance from '.';
 import AssistanceList from './AssistanceList';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { color } from '../../../Style';
 import { useAssistanceStore } from '../../store/AssistanceStore';
@@ -41,6 +41,7 @@ const AssistanceForm = ({ navigation }) => {
       timeInput,
       topic,
       friendId,
+      friendName,
       setDateTime,
       setMode,
       setShow,
@@ -48,6 +49,7 @@ const AssistanceForm = ({ navigation }) => {
       setTimeInput,
       setTopic,
       setFriendId,
+      setFriendName,
    } = useAssistanceStore(
       (state) => ({
          dateTime: state.dateTime,
@@ -57,6 +59,7 @@ const AssistanceForm = ({ navigation }) => {
          timeInput: state.timeInput,
          topic: state.topic,
          friendId: state.friendId,
+         friendName: state.friendName,
          setDateTime: state.setDateTime,
          setMode: state.setMode,
          setShow: state.setShow,
@@ -64,12 +67,29 @@ const AssistanceForm = ({ navigation }) => {
          setTimeInput: state.setTimeInput,
          setTopic: state.setTopic,
          setFriendId: state.setFriendId,
+         setFriendName: state.setFriendName,
       }),
       shallow
    );
    const userData = useProfileStore((state) => state.userData);
    const setUserData = useProfileStore((state) => state.setUserData);
    const [showModal, setShowModal] = useState(false);
+
+   const getFriendName = async (id) => {
+      const docRef = doc(firestoreDb, 'User', id);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+         setFriendName(docSnap.data().displayName);
+      } else {
+         console.log('No such document!');
+      }
+   };
+
+   useEffect(() => {
+      if (friendId !== '') {
+         getFriendName(friendId);
+      }
+   }, [friendId]);
 
    const resetState = (mode) => {
       if (mode === 'date') {
@@ -84,6 +104,7 @@ const AssistanceForm = ({ navigation }) => {
          setTimeInput('HH:MM');
          setTopic('');
          setFriendId('');
+         setFriendName('');
       }
    };
 
@@ -91,7 +112,6 @@ const AssistanceForm = ({ navigation }) => {
       // dateTime sent to db
       const currentDate = selectedDate || dateTime;
       setDateTime(currentDate);
-      // console.log('currentDate', currentDate);
 
       // date show on screen
       let tempDate = new Date(currentDate);
@@ -113,7 +133,6 @@ const AssistanceForm = ({ navigation }) => {
 
       setDateInput(fDate);
       setTimeInput(fTime);
-      // console.log(fDate + " (" + fTime + ")");
    };
 
    const showMode = (currentMode) => {
@@ -193,7 +212,7 @@ const AssistanceForm = ({ navigation }) => {
                   >
                      {friendId === ''
                         ? 'Choose your friend for help'
-                        : friendId}
+                        : friendName}
                   </Text>
                </Pressable>
             </FormControl>

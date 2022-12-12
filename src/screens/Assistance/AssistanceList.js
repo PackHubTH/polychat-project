@@ -25,8 +25,6 @@ const AssistanceList = () => {
    const setFriendId = useAssistanceStore((state) => state.setFriendId);
    const [friendList, setFriendList] = useState([]);
 
-   console.log('friend data', userData.friendList);
-
    useEffect(() => {
       setFriendList([]);
       if (userData.friendList.length !== 0) {
@@ -42,7 +40,6 @@ const AssistanceList = () => {
          });
       }
    }, []);
-   console.log('friendList', friendList);
 
    return (
       <ScrollView bg={color.white}>

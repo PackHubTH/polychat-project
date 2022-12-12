@@ -36,7 +36,6 @@ const AssistanceScreen = ({ navigation, route }) => {
       renderCard();
    }, [userData]);
 
-   console.log('assist render');
    if (assistanceData.length !== 0) {
       return (
          //  <ScrollView bg={color.white} flex={1}>
