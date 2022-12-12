@@ -49,60 +49,60 @@ const InputBox = ({
         });
     };
 
-   return (
-      <SafeAreaView style={styles.container}>
-         <Box style={styles.content} alignItems="center">
-            <IconFe
-               name="map-pin"
-               size={25}
-               // color={showSticker ? color.lightBlue : color.black}
-               onPress={() => getLocation()}
-            />
-            <IconEn
-               name="emoji-happy"
-               size={25}
-               color={showSticker ? color.lightBlue : color.black}
-               onPress={() => {
-                  setShowsticker((prev) => {
-                     return !prev;
-                  });
-               }}
-            />
-            <View style={[styles.inputBox, { paddingRight: 10 }]}>
-               <TextInput
-                  placeholder="Type a message"
-                  style={styles.input}
-                  onChange={(e) => {
-                     setMessage(e.nativeEvent.text);
-                  }}
-               />
-            </View>
-            <IconFe
-               name="send"
-               size={25}
-               onPress={() => {
-                  if (message.length > 0) {
-                     const newMessage = CreateMessage(
-                        user.uid,
-                        friendData.userId,
-                        message,
-                        '',
-                        serverTimestamp(),
-                        GenerateUid(),
-                        ''
-                     );
-                     sendChat(newMessage);
-                     updateChatChannelDoc(newMessage.messageId);
-                     setChannelMessages((prev) => {
-                        return [...prev, newMessage];
-                     });
-                     setMessage('');
-                  }
-               }}
-            />
-         </Box>
-      </SafeAreaView>
-   );
+    return (
+        <SafeAreaView style={styles.container}>
+            <Box style={styles.content} alignItems="center">
+                <IconFe
+                    name="map-pin"
+                    size={25}
+                    // color={showSticker ? color.lightBlue : color.black}
+                    onPress={() => getLocation()}
+                />
+                <IconEn
+                    name="emoji-happy"
+                    size={25}
+                    color={showSticker ? color.lightBlue : color.black}
+                    onPress={() => {
+                        setShowsticker((prev) => {
+                            return !prev;
+                        });
+                    }}
+                />
+                <View style={[styles.inputBox, { paddingRight: 10 }]}>
+                    <TextInput
+                        placeholder="Type a message"
+                        style={styles.input}
+                        onChange={(e) => {
+                            setMessage(e.nativeEvent.text);
+                        }}
+                    />
+                </View>
+                <IconFe
+                    name="send"
+                    size={25}
+                    onPress={() => {
+                        if (message.length > 0) {
+                            const newMessage = CreateMessage(
+                                user.uid,
+                                friendData.userId,
+                                message,
+                                '',
+                                serverTimestamp(),
+                                GenerateUid(),
+                                ''
+                            );
+                            sendChat(newMessage);
+                            updateChatChannelDoc(newMessage.messageId);
+                            setChannelMessages((prev) => {
+                                return [...prev, newMessage];
+                            });
+                            setMessage('');
+                        }
+                    }}
+                />
+            </Box>
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
