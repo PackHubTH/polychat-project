@@ -60,9 +60,9 @@ const Login = ({ navigation }) => {
 
                 <VStack space={3} mt="5" alignItems="center">
                     <FormControl isRequired isInvalid={'name' in formError}>
-                        <FormControl.Label>Email ID</FormControl.Label>
+                        <FormControl.Label>Email address</FormControl.Label>
                         <Input
-                            placeholder="Email"
+                            placeholder="Email address"
                             variant="rounded"
                             w="286"
                             onChangeText={(event) => setLoginEmail(event)}

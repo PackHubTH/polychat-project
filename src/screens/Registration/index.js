@@ -140,7 +140,7 @@ const Register = ({ navigation }) => {
 
                     <FormControl.Label isRequired>First Name</FormControl.Label>
                     <Input
-                        placeholder="Email"
+                        placeholder="First Name"
                         variant="rounded"
                         w="286"
                         onChangeText={(event) => setFirstname(event)}
@@ -148,7 +148,7 @@ const Register = ({ navigation }) => {
 
                     <FormControl.Label isRequired>Last Name</FormControl.Label>
                     <Input
-                        placeholder="Email"
+                        placeholder="Last Name"
                         variant="rounded"
                         w="286"
                         onChangeText={(event) => setLastname(event)}
@@ -156,7 +156,7 @@ const Register = ({ navigation }) => {
 
                     <FormControl.Label isRequired>Display Name</FormControl.Label>
                     <Input
-                        placeholder="Email"
+                        placeholder="Display Name"
                         variant="rounded"
                         w="286"
                         onChangeText={(event) => setDisplayName(event)}
@@ -167,7 +167,7 @@ const Register = ({ navigation }) => {
 
                     <FormControl.Label isRequired>Phone Number</FormControl.Label>
                     <Input
-                        placeholder="Email"
+                        placeholder="Phone Number"
                         variant="rounded"
                         w="286"
                         onChangeText={(event) => setPhoneNum(event)}
