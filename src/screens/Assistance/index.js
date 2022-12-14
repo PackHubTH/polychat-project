@@ -26,15 +26,25 @@ const AssistanceScreen = ({ navigation, route }) => {
             // doc.data() is never undefined for query doc snapshots
                 setAssistanceData((prev) => [...prev, [doc.data(), doc.id]]);
             });
-        } catch (error) {
-            console.log('Error getting documents: ', error);
+            const q2 = query(
+                docRef,
+                where('friendId', '==', userData.userId),
+                orderBy('dateTime')
+            );
+            const querySnapshot2 = await getDocs(q2);
+            querySnapshot2.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+                setAssistanceData((prev) => [...prev, [doc.data(), doc.id]]);
+            });
+        } catch (e) {
+            console.log(e);
         }
     };
 
     useEffect(() => {
         setAssistanceData([]);
         renderCard();
-    }, [userData]);
+    }, [userData, isDefault]);
 
     if (assistanceData.length !== 0) {
         return (
@@ -56,10 +66,10 @@ const AssistanceScreen = ({ navigation, route }) => {
                 <ScrollView>
                     {assistanceData
                         .filter((data) => {
-                            if (!isDefault) {
-                                return userData.userId === data[0].friendId;
+                            if (isDefault) {
+                                return data[0].userId === userData.userId;
                             } else {
-                                return !(userData.userId === data[0].friendId);
+                                return data[0].friendId === userData.userId;
                             }
                         })
                         .map((data, i) => {
