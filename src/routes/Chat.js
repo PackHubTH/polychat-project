@@ -10,72 +10,72 @@ import IconFe from 'react-native-vector-icons/Feather';
 const NavChatStack = createNativeStackNavigator();
 
 const ChatStackScreen = ({ navigation, route }) => {
-    const friendData = useChatChannelStore((state) => state.friendData);
-    const userChat = useChatChannelStore((state) => state.userChat);
+   const friendData = useChatChannelStore((state) => state.friendData);
+   const userChat = useChatChannelStore((state) => state.userChat);
 
-    useEffect(() => {
-        let routeName = getFocusedRouteNameFromRoute(route);
-        if (routeName === 'ChatChannel' || routeName === 'Location')
-            navigation.setOptions({ tabBarStyle: { display: 'none' } });
-        else navigation.setOptions({ tabBarStyle: { display: 'flex' } });
-        console.log(routeName);
-    }, [route]);
+   useEffect(() => {
+      let routeName = getFocusedRouteNameFromRoute(route);
+      if (routeName === 'ChatChannel' || routeName === 'Location')
+         navigation.setOptions({ tabBarStyle: { display: 'none' } });
+      else navigation.setOptions({ tabBarStyle: { display: 'flex' } });
+      console.log(routeName);
+   }, [route]);
 
-    return (
-        <NavChatStack.Navigator
-            initialRouteName="Chat"
-            screenOptions={{
-                tabBarShowLabel: false,
-                headerLeft: () => {
-                    return (
-                        <Text fontWeight="bold" fontSize="26px" pl={4}>
+   return (
+      <NavChatStack.Navigator
+         initialRouteName="Chat"
+         screenOptions={{
+            tabBarShowLabel: false,
+            headerLeft: () => {
+               return (
+                  <Text fontWeight="bold" fontSize="26px" pl={4}>
                      Chats
-                        </Text>
-                    );
-                },
-                headerShadowVisible: false,
-                title: '',
+                  </Text>
+               );
+            },
+            headerShadowVisible: false,
+            title: '',
+         }}
+      >
+         <NavChatStack.Screen name="Chat" component={ChatScreen} />
+         <NavChatStack.Screen
+            name="ChatChannel"
+            component={ChatChannel}
+            options={{
+               headerTitleStyle: {
+                  fontWeight: 'bold',
+                  fontSize: 18,
+               },
+               title: friendData !== null ? friendData.displayName : '',
+               headerLeft: () => (
+                  <IconFe
+                     name="chevron-left"
+                     size="28px"
+                     onPress={() => navigation.navigate('Chat')}
+                  />
+               ),
             }}
-        >
-            <NavChatStack.Screen name="Chat" component={ChatScreen} />
-            <NavChatStack.Screen
-                name="ChatChannel"
-                component={ChatChannel}
-                options={{
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        fontSize: 18,
-                    },
-                    title: friendData.displayName,
-                    headerLeft: () => (
-                        <IconFe
-                            name="chevron-left"
-                            size="28px"
-                            onPress={() => navigation.navigate('Chat')}
-                        />
-                    ),
-                }}
-            />
-            <NavChatStack.Screen
-                name="Location"
-                component={MapScreen}
-                options={{
-                    headerLeft: () => (
-                        <IconFe
-                            name="chevron-left"
-                            size="28px"
-                            onPress={() =>
-                                navigation.navigate('ChatChannel', {
-                                    friendData: friendData,
-                                    userChat: userChat,
-                                })
-                            }
-                        />
-                    ),
-                }}
-            />
-        </NavChatStack.Navigator>
-    );
+         />
+         <NavChatStack.Screen
+            name="Location"
+            component={MapScreen}
+            options={{
+               headerLeft: () => (
+                  <IconFe
+                     name="chevron-left"
+                     size="28px"
+                     onPress={() =>
+                        navigation.navigate('ChatChannel', {
+                           friendData: friendData,
+                           userChat: userChat,
+                        })
+                     }
+                  />
+               ),
+            }}
+         />
+      </NavChatStack.Navigator>
+   );
 };
 
 export default ChatStackScreen;
