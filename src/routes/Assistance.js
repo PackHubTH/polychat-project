@@ -7,9 +7,7 @@ import { color } from '../../Style';
 import { useAssistanceStore } from '../store/AssistanceStore';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
-
 import IconFe from 'react-native-vector-icons/Feather';
-
 const AssistanceStack = createNativeStackNavigator();
 
 const AssistanceStackScreen = ({ navigation, route }) => {

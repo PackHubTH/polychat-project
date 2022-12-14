@@ -5,11 +5,8 @@ import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import ChatScreen from '../screens/Chat/';
 import ChatChannel from '../screens/Chat/ChatChannel/ChatChannel';
 import MapScreen from '../screens/Chat/MapScreen';
-
 import { useChatChannelStore } from '../store/ChatChannelStore';
-
 import IconFe from 'react-native-vector-icons/Feather';
-
 const NavChatStack = createNativeStackNavigator();
 
 const ChatStackScreen = ({ navigation, route }) => {
@@ -76,7 +73,6 @@ const ChatStackScreen = ({ navigation, route }) => {
                         />
                     ),
                 }}
-            // TODO: move param data to zustand
             />
         </NavChatStack.Navigator>
     );

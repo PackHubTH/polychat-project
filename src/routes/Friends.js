@@ -2,12 +2,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Text } from 'native-base';
 import FriendsScreen from '../screens/Friends';
 import AddFriend from '../screens/Friends/AddFriend/AddFriend';
-
 const NavFriendStack = createNativeStackNavigator();
 import IconFe from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Octicons';
 import SearchedFriend from '../screens/Friends/AddFriend/SearchedFriend';
-import { color } from '../../Style';
 
 const FriendsStackScreen = ({ navigation }) => {
     return (

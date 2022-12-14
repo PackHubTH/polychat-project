@@ -1,20 +1,16 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button, Text } from 'native-base';
+import { Text } from 'native-base';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import { useEffect } from 'react';
-
 import { useProfileStore } from '../store/ProfileStore';
 import { useEditProfileStore } from '../store/EditProfileStore';
-
 import IconFe from 'react-native-vector-icons/Feather';
-
 import ChangePasswordScreen from '../screens/Profile/ChangePassword';
 import EditProfileScreen from '../screens/Profile/EditProfile';
 import ECContactsScreen from '../screens/Profile/ECContacts';
 import ECListScreen from '../screens/Profile/ECList';
 import ProfileScreen from '../screens/Profile';
 import SaveEditProfile from '../components/SaveEditProfile';
-
 const ProfileStack = createNativeStackNavigator();
 
 const ProfileStackScreen = ({ navigation, route }) => {
@@ -92,14 +88,6 @@ const ProfileStackScreen = ({ navigation, route }) => {
                             onPress={() => {
                                 navigation.navigate('Profile');
                             }}
-                            //  onPress={() => {
-                            //     if (
-                            //        tempDisplayName !== userData.displayName ||
-                            //        tempStatus !== userData.status
-                            //     )
-                            //        setShowModal(true);
-                            //     else navigation.navigate('Profile');
-                            //  }}
                         />
                     ),
                     title: 'Emergency Contacts',
