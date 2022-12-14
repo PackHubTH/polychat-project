@@ -3,7 +3,11 @@
 # PolyChat Project
 PolyChat is chat application that can chat like any other chat application, but it have unique accessibility features targeted at disable person.
 
-Currently being developed by Sittinon, and the gangs. -_-
+Developed by Sittinon, and the gangs.
+- [Grapeka](https://www.github.com/Grapeka) (Sittinon)
+- [jate-koh](https://www.github.com/jate-koh) (Jatetanan)
+- [PackHubTH](https://www.github.com/PackHubTH) (Aussadawut)
+- [pointies](https://www.github.com/pointies) (Parinda)
 
 This project is part of CPE327 Software Engineering subject.
 
